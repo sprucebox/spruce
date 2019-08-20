@@ -1,0 +1,4 @@
+@import "fullcalendar/dist/fullcalendar.css";
+@import "../node_modules/dhtmlx-gantt/codebase/dhtmlxgantt.css";
+@import '~ngx-toastr/toastr.css';
+@import "~ng-pick-datetime/assets/style/picker.min.css";
