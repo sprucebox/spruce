@@ -1,0 +1,637 @@
+<section class="">
+  <div class="pageheader">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12">
+                  <h4><i class="fa fa-user"></i> My Profile</h4>
+                  <div class="button-list pull-right mt-7">
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="container">
+      <div class="row mt-2">
+          <div class="col-md-12">
+              <div class="card-box w-100">
+                  <ul class="nav nav-tabs customTab" role="tablist">
+                      <li role="presentation" class="active"><a href="#company-detail" aria-controls="home" role="tab" data-toggle="tab">Company Detail</a></li>
+                      <li role="presentation"><a href="#contact-detail" aria-controls="home" role="tab" data-toggle="tab">Contact Detail</a></li>
+                      <li role="presentation"><a href="#reset-pass" aria-controls="document" role="tab" data-toggle="tab">Change Password</a></li>
+                  </ul>
+                  <div class="tab-content">
+                      <div role="tabpanel" class="tab-pane active" id="company-detail">
+                          <div class="col-md-3 p0">
+                              <div class="w-100 pull-left mb-15 mt-2">
+                                  <div class="col-md-12">
+                                      <!-- Upload  -->
+                                      <div id="file-upload-form" class="uploader">
+                                          
+                                          <input   style="display: none"  id="file-upload" type="file"   (change)="onSelectFile2($event)"  name="uploaded_file" ng2FileSelect [uploader]="uploader2" accept="image/*"  #fileInput />
+                                          <label for="file-upload" id="file-drag">
+                                              <img id="file-image" [src]="logourl" alt="Preview"  width="150px">
+                                              <div id="start">
+                                                 
+                                                  <div>Upload Company Logo</div>
+                                                  <div id="notimage" class="hidden">Please select an File</div>
+                                                  <span id="file-upload-btn" class="btn btn-default">Upload</span>
+                                              </div>
+                                              
+                                          </label>
+                                          <div class="progress" style="display: block;" *ngIf="pr_show2" >
+                                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader2.progress + '%' }"></div>
+                                        </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <h6 style="color:red;">{{message}}</h6>
+                          </div>
+                          <div class="col-md-9 p0">
+                            <form  #profileprofessionalForm="ngForm">
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Company Name</label>
+                                      <div class="col-sm-8">
+                                          <input type="text"
+                                          class="form-control"
+                                          [class.is-invalid]="company_name.invalid && company_name.touched" 
+                                          [(ngModel)]="professionalData.company_name" 
+                                          #company_name="ngModel" 
+                                          name="company_name" 
+                                          placeholder="Company Name" trim="blur" required>
+                                          <small class="text-danger" [class.d-none]="company_name.valid || company_name.untouched">Company Name is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Website</label>
+                                      <div class="col-sm-8">
+                                          <input type="text"
+                                          class="form-control"
+                                          [class.is-invalid]="company_website.invalid && company_website.touched" 
+                                          [(ngModel)]="professionalData.company_website" 
+                                          #company_website="ngModel" 
+                                          name="company_website" 
+                                          placeholder="Website" trim="blur" required>
+                                          <small class="text-danger" [class.d-none]="company_website.valid || company_website.untouched">Website is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Year Established</label>
+                                      <div class="col-sm-8">
+                                          <select 
+                                          [class.is-invalid]="est_year.invalid && est_year.touched" 
+                                          [(ngModel)]="professionalData.est_year" 
+                                          #est_year="ngModel"
+                                           name="est_year" required>
+                                           <option value="">--Year--</option>
+                                           <option value="{{year_list.year}}" *ngFor="let year_list of company_year_list">{{year_list.year}}</option>
+                                          </select>
+                                          <small class="text-danger" [class.d-none]="est_year.valid || est_year.untouched">Year Establised is required</small>
+                                          
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Company Size</label>
+                                      <div class="col-sm-8">
+                                        <select 
+                                        [class.is-invalid]="company_size.invalid && company_size.touched" 
+                                        [(ngModel)]="professionalData.company_size" 
+                                        #company_size="ngModel"
+                                          name="company_size" required>
+                                          <option value="">--Size--</option>
+                                          <option value="{{size_list.size}}" *ngFor="let size_list of company_size_list">{{size_list.size}}</option>
+                                          
+                                        </select>
+                                        <small class="text-danger" [class.d-none]="company_size.valid || company_size.untouched">Company Size is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Street</label>
+                                      <div class="col-sm-8">
+                                          <input type="text"
+                                          class="form-control"
+                                          [class.is-invalid]="company_address_street.invalid && company_address_street.touched" 
+                                          [(ngModel)]="professionalData.company_address_street" 
+                                          #company_address_street="ngModel"  maxlength="100"
+                                          name="company_address_street" 
+                                          placeholder="Street" trim="blur" required>
+                                          <small class="text-danger" [class.d-none]="company_address_street.valid || company_address_street.untouched">Street is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Suite</label>
+                                      <div class="col-sm-8">
+                                          <input type="text"
+                                          class="form-control"
+                                          [class.is-invalid]="company_address_suite.invalid && company_address_suite.touched" 
+                                          [(ngModel)]="professionalData.company_address_suite" 
+                                          #company_address_suite="ngModel" maxlength="100" 
+                                          name="company_address_suite" 
+                                          placeholder="Suite" trim="blur" required>
+                                          <small class="text-danger" [class.d-none]="company_address_suite.valid || company_address_suite.untouched">Suite is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Country</label>
+                                    <div class="col-sm-8">
+                                      <select class="custom-select"
+                                      [class.is-invalid]="company_address_country.invalid && company_address_country.touched" 
+                                      [(ngModel)]="professionalData.company_address_country" 
+                                      #company_address_country="ngModel"
+                                        name="company_address_country" (change)="get_all_comapny_states($event.target.value)">
+                                        <option value="">--Country--</option>
+                                        <option value="{{country.id}}" *ngFor="let country of countries" >{{country.name}}</option>
+                                       
+                                      </select>
+                                      <small class="text-danger" [class.d-none]="company_address_country.valid || company_address_country.untouched">Country is required</small>
+                                    </div>
+                                </div>
+                            </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">State</label>
+                                      <div class="col-sm-8">
+                                          <select class="custom-select"
+                                          [class.is-invalid]="company_address_state.invalid && company_address_state.touched" 
+                                          [(ngModel)]="professionalData.company_address_state" 
+                                          #company_address_state="ngModel"
+                                            name="company_address_state" required>
+                                            <option value="">--State--</option>
+                                            <option value="{{state.id}}" *ngFor="let state of company_states">{{state.name}}</option>
+                                          </select>
+                                          <small class="text-danger" [class.d-none]="company_address_state.valid || company_address_state.untouched">State is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">City</label>
+                                      <div class="col-sm-8">
+                                          <input type="text"
+                                          class="form-control" maxlength="60"
+                                          [class.is-invalid]="company_address_city.invalid && company_address_city.touched" 
+                                          [(ngModel)]="professionalData.company_address_city" 
+                                          #company_address_city="ngModel" 
+                                          name="company_address_city" 
+                                          placeholder="Suite" required>
+                                          <small class="text-danger" [class.d-none]="company_address_city.valid || company_address_city.untouched">City is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Zip</label>
+                                      <div class="col-sm-8">
+                                          <input type="number"
+                                          class="form-control"
+                                          [class.is-invalid]="company_address_zip.invalid && company_address_zip.touched" 
+                                          [(ngModel)]="professionalData.company_address_zip" 
+                                          #company_address_zip="ngModel"  maxlength="10"
+                                          name="company_address_zip" trim="blur"
+                                          placeholder="Zip" trim="blur" required>
+                                          <small class="text-danger" [class.d-none]="company_address_zip.valid || company_address_zip.untouched">Zip is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Corporate Name</label>
+                                      <div class="col-sm-8">
+                                          <input type="text"
+                                          class="form-control"
+                                          [class.is-invalid]="company_corporate_name.invalid && company_corporate_name.touched" 
+                                          [(ngModel)]="professionalData.company_corporate_name" 
+                                          #company_corporate_name="ngModel" 
+                                          name="company_corporate_name" 
+                                          placeholder="Corporate Name" trim="blur" required>
+                                          <small class="text-danger" [class.d-none]="company_corporate_name.valid || company_corporate_name.untouched">Corporate Name is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Tax ID</label>
+                                      <div class="col-sm-8">
+                                          <input type="text"
+                                          class="form-control"
+                                          [class.is-invalid]="company_tax_id.invalid && company_tax_id.touched" 
+                                          [(ngModel)]="professionalData.company_tax_id" 
+                                          #company_tax_id="ngModel" 
+                                          name="company_tax_id" 
+                                          placeholder="Tax ID" required>
+                                          <small class="text-danger" [class.d-none]="company_tax_id.valid || company_tax_id.untouched">Tax ID is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-12">
+                                  <h4 class="header-text-color">What are your Speciality ?</h4>
+                                  <hr>
+                                  <div class="row mt-2">
+                                      <div class="col-md-3" *ngFor="let speciality of specialities">
+                         
+                                          <div class="card" >
+                                            <div class="card-body selection"  (click)="addData(speciality.id)" >
+                                            <div class="circle-image check-img"  [ngClass]="{'selection-overlay': checked_specialities.indexOf(speciality.id) !== -1}" id="select_id{{speciality.id}}">
+                                            <img src="assets/front-assets/images/my-icons-collection/landscap.png" class="img-responsive" alt="">
+                                            </div>
+                                            <p>{{speciality.specialities_name}} </p>
+                                            <input name="speciality[]" [(ngModel)]="professionalProfileData.speciality" 
+                                            #speciality[]="ngModel" type="checkbox"  class="form-check hidden"  value="{{speciality.id}}">
+                                            </div>
+                                          </div>
+                                        </div>
+                                  </div>
+                                  <div class="card">
+                                      <div class="card-header">
+                                          <h4 class="header-text-color">More Trade </h4>
+                                      </div>
+                                      
+                                      <div class="card-body slideBoxshow" style="display: block;">
+                                          <div class="col-md-12">
+                                            <div class="row">
+                                              <ul class="trade-list">
+                                                <li>
+                                                  <div class="form-check">
+                                                    <label>
+                                                        <input name="trade[]" class="checkBoxClass" [checked]="trades.indexOf(1) !== -1" type="checkbox" value="1" (change)="onChange(1, $event.target.checked)">
+                                                        <span class="label-text"></span> </label>
+                                                        Appliance Install  
+                                                  </div>
+                                                  </li>
+                                                <li>
+                                                  <div class="form-check">
+                                                    <label>
+                                                      <input name="trade[]" class="checkBoxClass" [checked]="trades.indexOf(2) !== -1" type="checkbox" value="2" (change)="onChange(2, $event.target.checked)">
+                                                        <span class="label-text"></span> </label>
+                                                        Appliance Repair 
+                                                  </div>
+                                                  </li>
+                                                <li>
+                                                  <div class="form-check">
+                                                    <label>
+                                                      <input name="trade[]" class="checkBoxClass" [checked]="trades.indexOf(3) !== -1" type="checkbox" value="3" (change)="onChange(3, $event.target.checked)">
+                                                        <span class="label-text"></span> </label>
+                                                        Architect  
+                                                  </div>
+                                                </li>
+                                                <li>
+                                                  <div class="form-check">
+                                                    <label>
+                                                      <input name="trade[]" class="checkBoxClass" [checked]="trades.indexOf(4) !== -1" type="checkbox" value="4" (change)="onChange(4, $event.target.checked)">
+                                                        <span class="label-text"></span> </label>
+                                                        Asbestos Removal 
+                                                  </div>
+                                                </li>
+                                                <li>
+                                                  <div class="form-check">
+                                                    <label>
+                                                      <input name="trade[]" class="checkBoxClass" [checked]="trades.indexOf(5) !== -1" type="checkbox" value="5" (change)="onChange(5, $event.target.checked)">
+                                                        <span class="label-text"></span> </label>
+                                                        Asphalt + Paving 
+                                                  </div>
+                                                  </li>
+                                                <li>
+                                                  <div class="form-check">
+                                                    <label>
+                                                      <input name="trade[]" class="checkBoxClass"  [checked]="trades.indexOf(6) !== -1" type="checkbox" value="6" (change)="onChange(6, $event.target.checked)">
+                                                        <span class="label-text"></span> </label>
+                                                        Swing Contractor 
+                                                  </div>
+                                                </li>
+                                              </ul>
+                                            </div>
+                                          </div>
+                                        </div>
+                                  </div>
+                                  <div class="card">
+                                      <div class="card-body">
+                                        <div class="col-md-12">
+                                          <form [formGroup]="referencesForm" >
+                                            <div formArrayName="references" > 
+                                              <div *ngFor="let item of references.controls; let pointIndex=index" [formGroupName]="pointIndex">
+                                                <h4 class="header-text-color">Work Experience</h4>
+                                                <hr>
+                                                <div class="row" >
+                                                  <div class="col-md-4">
+                                                    <label>Year of Experience ?</label>
+                                                    <select class="custom-select" formControlName="experience_id">
+                                                      <option value="">Please select Experience</option>
+                                                      <option value="1">0 - 6 months</option>
+                                                      <option value="2">6 months - 1 year</option>
+                                                      <option value="3">1 year - 3 years</option>
+                                                      <option value="4">3 years - 5 years</option>
+                                                      <option value="5">5+ years</option>
+                                                    </select>
+                                                  </div>
+                                                  <div class="clearfix"></div>
+                                                  <a href="javascript:void(0);" *ngIf="pointIndex < 1" (click)="addReferences()" class="mt-0 btn btn-xs btn-success pull-right"> Work Reference <i class="fa fa-plus"></i> </a>
+                                                  <a href="javascript:void(0);" *ngIf="pointIndex > 0"  (click)="deleteReferences(pointIndex)" class="mt-0 btn btn-xs btn-success pull-right"> remove </a>
+                                                  
+                                                  <div class="col-md-10 p0" >
+                                                    <div class="form-inline" >
+                                                  
+                                                      <div class="form-group w-100">
+                                                        <label class="d-block col-md-12">References</label>
+                                                        <div class="col-md-4">
+                                                          <label class="d-block hidden">Name</label>
+                                                          <input placeholder="Name" type="text" formControlName="name">
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                          <label class="d-block hidden">Phone Number</label>
+                                                          <input placeholder="Phone Number" type="number" formControlName="number">
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                          <label class="d-block hidden">Email</label>
+                                                          <input placeholder="Email" type="text" formControlName="email">
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                          <label class="d-block hidden">Notes</label>
+                                                          <textarea rows="2" placeholder="Note" formControlName="note"></textarea>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  </div>
+                                              </div>
+                                            </div>
+                                            
+                                          </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                              </div>
+                              <div class="col-md-12 mt-2 text-right">
+                                  <button class="btn btn-success btn-md" type="button" (click)="updateprofile()" [disabled]="profileprofessionalForm.form.invalid" >Save </button>
+                                  <button class="btn btn-default btn-md" type="button">Cancel </button>
+                              </div>
+                            </form>
+                          </div>
+                      </div>
+                      <div role="tabpanel" class="tab-pane" id="contact-detail">
+                          <div class="col-md-3">
+                              <div class="card-box text-center">
+                                  <div class="browsePhoto">
+                                      <input   style="display: none"  id="file-upload" type="file" type="file"   (change)="onSelectFile($event)"  name="uploaded_file" ng2FileSelect [uploader]="uploader" accept="image/*"  #fileInput />
+                                            <a (click)="fileInput.click()" class="text-dafault" title="Edit"><i class="fa fa-pencil"></i>
+                                            </a>
+                                      <img  class="profile-user-img img-fluid rounded-circle" [src]="url" alt="User profile picture" width="150px" style="border: 5px solid rgba(255, 255, 255, 0.5);">
+                                  </div>
+                                  <div class="progress" style="display: block;" *ngIf="pr_show">
+                                    <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                                </div>
+                                <h6 style="color:red;">{{message}}</h6>
+                                  <div class="pt-2">
+                                      <h4 class="profile-username">{{professionalData.user_first_name}} {{professionalData.user_last_name}}</h4>
+                                  </div>
+                              </div>
+                              
+                          </div>
+                          <form #personalprofessionalForm="ngForm" >
+                          <div class="col-md-9">
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">First Name *</label>
+                                      <div class="col-sm-8">
+                                          <input type="text"
+                                          class="form-control"
+                                          [class.is-invalid]="user_first_name.invalid && user_first_name.touched" 
+                                          [(ngModel)]="professionalData.user_first_name" 
+                                          #user_first_name="ngModel" maxlength="70"
+                                          name="user_first_name" 
+                                          placeholder="First Name" trim="blur" required>
+                                          <small class="text-danger" [class.d-none]="user_first_name.valid || user_first_name.untouched">First Name is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Last Name *</label>
+                                      <div class="col-sm-8">
+                                          <input type="text"
+                                          class="form-control"
+                                          [class.is-invalid]="user_last_name.invalid && user_last_name.touched" 
+                                          [(ngModel)]="professionalData.user_last_name" 
+                                          #user_last_name="ngModel" maxlength="70"
+                                          name="user_last_name" 
+                                          placeholder="Last Name" trim="blur" required>
+                                          <small class="text-danger" [class.d-none]="user_last_name.valid || user_last_name.untouched">Last Name is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Email *</label>
+                                      <div class="col-sm-8">
+                                          <input type="text"
+                                          class="form-control"
+                                          [class.is-invalid]="user_email.invalid && user_email.touched" 
+                                          [(ngModel)]="professionalData.user_email" 
+                                          #user_email="ngModel" maxlength="255"
+                                          name="user_email" 
+                                          placeholder="Email" trim="blur" required readonly>
+                                          <small class="text-danger" [class.d-none]="user_email.valid || user_email.untouched">Email is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Contact No.</label>
+                                      <div class="col-sm-8">
+                                          <input type="number"
+                                          class="form-control"
+                                         
+                                          [(ngModel)]="professionalData.user_contact_mobile" 
+                                          #user_contact_mobile="ngModel" maxlength="10"
+                                          name="user_contact_mobile" 
+                                          placeholder="Phone Number"trim="blur"  >
+                                         
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Street</label>
+                                      <div class="col-sm-8">
+                                          <input type="text"
+                                          class="form-control"
+                                           
+                                          [(ngModel)]="professionalData.user_address_street" 
+                                          #user_address_street="ngModel"  maxlength="100"
+                                          name="user_address_street" 
+                                          placeholder="Street" trim="blur">
+                                          
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Suite</label>
+                                      <div class="col-sm-8">
+                                          <input type="text"
+                                          class="form-control"
+                                          
+                                          [(ngModel)]="professionalData.user_address_suite" 
+                                          #user_address_suite="ngModel" maxlength="100"
+                                          name="user_address_suite" 
+                                          placeholder="Suite"trim="blur" >
+                                         
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">Country</label>
+                                    <div class="col-sm-8">
+                                      <select class="custom-select"
+                                       
+                                      [(ngModel)]="professionalData.user_address_country" 
+                                      #user_address_country="ngModel"
+                                        name="user_address_country" (change)="get_all_states($event.target.value)">
+                                        <option value="">--Country--</option>
+                                        <option value="{{country.id}}" *ngFor="let country of countries" >{{country.name}}</option>
+                                       
+                                      </select>
+                                     
+                                    </div>
+                                </div>
+                            </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">State</label>
+                                      <div class="col-sm-8">
+                                        <select class="custom-select"
+                                       
+                                        [(ngModel)]="professionalData.user_address_state" 
+                                        #user_address_state="ngModel"
+                                          name="user_address_state" >
+                                          <option value="">--State--</option>
+                                          <option value="{{state.id}}" *ngFor="let state of states">{{state.name}}</option>
+                                          
+                                        </select>
+
+                                      </div>
+                                  </div>
+                              </div>
+                              
+                             
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-4 col-form-label">City</label>
+                                    <div class="col-sm-8">
+                                        <input type="text"
+                                        class="form-control"
+                                        
+                                        [(ngModel)]="professionalData.user_address_city" 
+                                        #user_address_city="ngModel" maxlength="60"
+                                        name="user_address_city" 
+                                        placeholder="Suite" trim="blur">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Zip</label>
+                                      <div class="col-sm-8">
+                                          <input type="number"
+                                          class="form-control"
+                                         
+                                          [(ngModel)]="professionalData.user_address_zip" 
+                                          #user_address_zip="ngModel"  maxlength="10"
+                                          name="user_address_zip" 
+                                          placeholder="Zip" >
+                                         
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-12 mt-2 text-right">
+                              <button class="btn btn-success btn-md" type="button" (click)="updateprofile()" [disabled]="personalprofessionalForm.form.invalid">Save </button>
+                              <button class="btn btn-default btn-md" type="button">Cancel </button>
+                          </div>
+                          </form>
+                      </div>
+
+                      <div role="tabpanel" class="tab-pane" id="reset-pass">
+                            <div class="alert alert-danger mt-3" role="alert" *ngIf="err_message!=null">
+                                    {{ err_message }}
+                            </div>
+                            <div class="alert alert-success mt-3" role="alert" *ngIf="success_message!=null">
+                                    {{ success_message }}
+                            </div>
+                                      <br>
+                        <form #passwordprofessionalForm="ngForm" >
+                          <div class="col-md-7">
+                              <div class="form-group row">
+                                  <label class="col-sm-4 col-form-label">Current Password</label>
+                                  <div class="col-sm-8">
+                                      <input type="text"
+                                          class="form-control"
+                                          [class.is-invalid]="old_password.invalid && old_password.touched" 
+                                          [(ngModel)]="changepasswordForm.old_password" 
+                                          #old_password="ngModel" 
+                                          name="old_password" maxlength='15' minlength='4'
+                                          placeholder="Current Password" trim required>
+                                          <small class="text-danger" [class.d-none]="old_password.valid || old_password.untouched">Current Password is required</small>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="col-md-7">
+                              <div class="form-group row">
+                                  <label class="col-sm-4 col-form-label">New Password</label>
+                                  <div class="col-sm-8">
+                                      <input type="password"
+                                          class="form-control"
+                                          [class.is-invalid]="new_password.invalid && new_password.touched" 
+                                          [(ngModel)]="changepasswordForm.new_password" maxlength='15' minlength='4'
+                                          #new_password="ngModel" 
+                                          name="new_password" 
+                                          placeholder="New Password" trim required>
+                                          <small class="text-danger" [class.d-none]="new_password.valid || new_password.untouched">New Password is required</small>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="col-md-7">
+                              <div class="form-group row">
+                                  <label class="col-sm-4 col-form-label">Confirm Password</label>
+                                  <div class="col-sm-8">
+                                    <input type="password"
+                                    class="form-control"
+                                    [class.is-invalid]="con_password.invalid && con_password.touched" 
+                                    [(ngModel)]="changepasswordForm.con_password" (change)="check_confirm();"
+                                    #con_password="ngModel" 
+                                    validateEqual="changepasswordForm.new_password"
+                                    name="con_password" 
+                                    placeholder="New Password" trim required>
+                                    <small class="text-danger" [class.d-none]="con_password.valid || con_password.untouched">Confirm Password is required</small>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-12 mt-2 text-right">
+                              <button class="btn btn-success btn-md" type="button" (click)="changepassword()" [disabled]="passwordprofessionalForm.form.invalid">Save </button>
+                              <button class="btn btn-default btn-md" type="button">Cancel </button>
+                          </div>
+                        </form>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

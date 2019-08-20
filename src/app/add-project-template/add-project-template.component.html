@@ -1,0 +1,127 @@
+<section class="">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <nav>
+            <ul class="nav navbar-nav">
+              <li *ngIf="select_permissions.indexOf(8) !== -1"><a routerLink="../user-setting">User</a></li>
+              <li *ngIf="select_permissions.indexOf(11) !== -1"><a routerLink="../role-setting">Roles & Permission</a>
+              </li>
+              <li *ngIf="select_permissions.indexOf(14) !== -1"><a routerLink="../notification-setting">Notification</a>
+              </li>
+              <li *ngIf="select_permissions.indexOf(16) !== -1"><a routerLink="../date-time-setting">Date Time
+                  Setting</a></li>
+              <li *ngIf="select_permissions.indexOf(37) !== -1"><a routerLink="../color-setting">Project Setting</a>
+              </li>
+              <li *ngIf="select_permissions.indexOf(40) !== -1"><a routerLink="../template-setting"
+                  class="active">Template Setting</a></li>
+              <li *ngIf="select_permissions.indexOf(41) !== -1"><a routerLink="../backup">Backup</a></li>
+
+            </ul>
+
+
+          </nav>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 mb-15">
+          <h4>Create Project
+            <a href="javascript:void(0)" routerLink="../template-setting" class="btn btn-default pull-right"> <i
+                class="fa fa-arrow-left"></i> Go Back</a>
+        </h4>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="wow fadeIn">
+            <div class="card-box">
+              <div class="panel-group mb-0" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-primary border0">
+                  <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3"
+                        aria-expanded="true" aria-controls="collapse3" class="text-white">
+                        <i class="more-less fa fa-plus"></i>
+                        Project Information
+                      </a>
+                    </h4>
+                  </div>
+                  <form #projecttemplateForm="ngForm">
+                    <div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                      <div class="panel-body">
+                        <div class="col-md-12">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Project Name</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control"
+                                [class.is-invalid]="project_name.invalid && project_name.touched"
+                                [(ngModel)]="projecttemplateData.project_name" #project_name="ngModel"
+                                name="project_name" maxlength ="70" placeholder="Project Name" required  trim="blur">
+                              <small class="text-danger"
+                                [class.d-none]="project_name.valid || project_name.untouched">Project Name is
+                                required</small>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-12">
+                                <div class="form-group row">
+                          <div class="col-md-3">
+                            <div id="file-upload-form" class="uploader">
+
+                              <input class="form-control" id="file-upload" type="file" type="file"
+                                (change)="onSelectFile($event)" name="uploaded_file" ng2FileSelect [uploader]="uploader"
+                                accept="image/*" #fileInput />
+
+                              <label for="file-upload" id="file-drag">
+                                <span *ngIf="projecttemplateData.project_image_url?.length == 0; else othercontent">
+                                  <img src="{{noImage}}" width="150px">
+                                </span>
+                                <ng-template #othercontent>
+                                  <img id="file-image" [src]="projecttemplateData.project_image_url" alt="Preview"
+                                    width="150px">
+                                </ng-template>
+
+                                <div id="start">
+
+                                  <div>Project Image</div>
+                                  <span id="file-upload-btn" class="btn btn-default">Change</span>
+                                </div>
+
+                              </label>
+                              <div class="progress" style="display: block;" *ngIf="pr_show">
+                                <div class="progress-bar" role="progressbar"
+                                  [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-9">
+                            <div class="form-group row">
+                              <div class="col-sm-12">
+                                <label>Description</label>
+                                <textarea rows="2" placeholder="description"
+                                  [class.is-invalid]="project_description.invalid && project_description.touched" maxlength ="500"
+                                  [(ngModel)]="projecttemplateData.project_description" #project_description="ngModel"
+                                  name="project_description" class="form-control"  trim="blur"></textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        <div class="col-md-12 mt-2 text-right">
+                          <button class="btn btn-success btn-md" (click)="save_project_template_details()"
+                            [disabled]="projecttemplateForm.form.invalid" type="button">Save </button>
+                          <a href="javascript:void(0)" routerLink="../template-setting" class="btn btn-default btn-md"> Cancel</a>
+                       
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

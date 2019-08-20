@@ -1,0 +1,627 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Application Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register all of the routes for an application.
+| It is a breeze. Simply tell Lumen the URIs it should respond to
+| and give it the Closure to call when that URI is requested.
+|
+*/
+
+$api = $app->make(Dingo\Api\Routing\Router::class);
+
+$api->version('v1', function ($api) {
+   
+    $api->post('/auth/login', [
+        'as' => 'api.auth.login',
+        'uses' => 'App\Http\Controllers\Auth\AuthController@postLogin',
+    ]);
+
+    $api->post('/auth/register', [
+        'as' => 'api.auth.register',
+        'uses' => 'App\Http\Controllers\Auth\AuthController@postRegister',
+    ]);
+	
+	$api->post('/create_account/home_owner', [
+        'as' => 'api.auth.register',
+        'uses' => 'App\Http\Controllers\HomeOwnerController@create',
+    ]);
+	
+	
+	$api->post('/request_forget_password', [
+        
+        'uses' => 'App\Http\Controllers\ForgetController@postForget',
+    ]);
+	$api->post('/remove_user_from_projectuser', [
+      'uses' => 'App\Http\Controllers\ProjectController@remove_user_from_projectuser',
+    ]);
+	
+	$api->get('/get_datetime_detail', [
+			'uses' => 'App\Http\Controllers\ProjectController@get_datetime_detail',
+		]);
+		$api->post('/check_unique_folder_name', [
+        'uses' => 'App\Http\Controllers\ProjectController@check_unique_folder_name',
+              ]);
+	 $api->post('/social_register_user', [
+        'uses' => 'App\Http\Controllers\Auth\AuthController@social_register_user',
+    ]);
+	$api->post('/social_login_user', [
+        'uses' => 'App\Http\Controllers\Auth\AuthController@social_login_user',
+    ]);
+	
+	$api->get('/get_user_type', [
+        'uses' => 'App\Http\Controllers\Auth\AuthController@get_user_type',
+    ]);
+	$api->post('/get_user_by_secret', [
+        'uses' => 'App\Http\Controllers\Auth\AuthController@get_user_by_secret',
+    ]);
+	$api->post('/update_invite_user', [
+        'uses' => 'App\Http\Controllers\Auth\AuthController@update_invite_user',
+    ]);
+	
+	$api->get('/get_user_role', [
+        
+        'uses' => 'App\Http\Controllers\Auth\AuthController@get_user_role',
+    ]);
+    $api->get('/get_user_role_and_permissions', [
+        
+        'uses' => 'App\Http\Controllers\Auth\AuthController@get_user_role_and_permissions',
+    ]);
+    
+    $api->post('/get_selected_roles_permissions', [
+        
+        'uses' => 'App\Http\Controllers\Auth\AuthController@get_selected_roles_permissions',
+    ]);
+	$api->post('/update_new_password', [
+        
+        'uses' => 'App\Http\Controllers\ForgetController@insertForget',
+    ]);
+	
+	$api->post('/create_account/professional', [
+        
+        'uses' => 'App\Http\Controllers\ProfessionalController@create',
+    ]);
+	$api->post('/create_account/professional_companyprofile', [
+        
+        'uses' => 'App\Http\Controllers\ProfessionalController@professional_companyprofile',
+    ]);
+	
+	$api->post('/create_account/save_company_license', [
+        
+        'uses' => 'App\Http\Controllers\ProfessionalController@save_company_license',
+    ]);
+	
+	$api->post('/create_project', [
+        
+        'uses' => 'App\Http\Controllers\ProjectController@create_project',
+    ]);
+	$api->post('/get_project_by_id', [
+        
+        'uses' => 'App\Http\Controllers\ProjectController@get_project_by_id',
+    ]);
+	$api->get('/get_all_project', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_all_project',
+    ]);
+	$api->get('/get_all_project_for_calender', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_all_project_for_calender',
+    ]);
+	
+	$api->post('/upload_new_task_image', [
+        'uses' => 'App\Http\Controllers\ProjectController@upload_new_task_image',
+    ]);
+	$api->post('/upload_project_image', [
+        'uses' => 'App\Http\Controllers\ProjectController@upload_project_image',
+    ]);
+	$api->post('/add_new_task', [
+        'uses' => 'App\Http\Controllers\ProjectController@add_new_task',
+    ]);
+	$api->post('/add_project_discussion', [
+        'uses' => 'App\Http\Controllers\ProjectController@add_project_discussion',
+    ]);
+	$api->post('/get_project_discussion_detail', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_project_discussion_detail',
+    ]);
+	
+	$api->post('/save_project_event', [
+        'uses' => 'App\Http\Controllers\ProjectController@save_project_event',
+    ]);
+	
+	$api->post('/update_project_event', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_project_event',
+    ]);
+	
+	$api->post('/get_project_event', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_project_event',
+    ]);
+    $api->post('/get_project_eventdata', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_project_eventdata',
+    ]);
+	$api->get('/get_user_event', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_user_event',
+    ]);
+	$api->post('/get_user_eventdata', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_user_eventdata',
+    ]);
+	$api->post('/get_private_task', ['uses' => 'App\Http\Controllers\ProjectController@get_private_task']);
+	$api->post('/get_private_archive_task', ['uses' => 'App\Http\Controllers\ProjectController@get_private_archive_task']);
+	$api->post('/get_public_task', ['uses' => 'App\Http\Controllers\ProjectController@get_public_task']);
+	
+	$api->post('/get_private_task_overview', ['uses' => 'App\Http\Controllers\ProjectController@get_private_task_overview']);
+	$api->post('/get_private_task_overview_new', ['uses' => 'App\Http\Controllers\ProjectController@get_private_task_overview_new']);
+	
+	$api->post('/get_public_task_overview', ['uses' => 'App\Http\Controllers\ProjectController@get_public_task_overview']);
+
+	$api->post('/add_project_discussion_comment', ['uses' => 'App\Http\Controllers\ProjectController@add_project_discussion_comment']);
+	
+	$api->post('/get_project_discussion_comment', ['uses' => 'App\Http\Controllers\ProjectController@get_project_discussion_comment']);
+	
+	$api->get('/download_project_file/{filename}', ['uses' => 'App\Http\Controllers\ProjectController@download_project_file']);
+	
+	$api->post('/reply_project_discussion_comment', ['uses' => 'App\Http\Controllers\ProjectController@reply_project_discussion_comment']);
+		
+	$api->get('/get_all_speciality', [
+			'uses' => 'App\Http\Controllers\SpecialityController@get_all_speciality',
+		]);
+	
+	$api->get('/get_professional_company_profile', [
+			'uses' => 'App\Http\Controllers\ProfessionalController@get_professional_company_profile',
+		]);    
+	
+	$api->post('/update_professional_company_profile', [
+        'uses' => 'App\Http\Controllers\ProfessionalController@update_professional_company_profile',
+    ]);
+	
+	$api->post('/updatepassword', [
+        'uses' => 'App\Http\Controllers\ProfessionalController@updatepassword',
+    ]);
+
+	$api->post('/logoUpload', [
+        'uses' => 'App\Http\Controllers\ProfessionalController@logoUpload',
+    ]);
+	$api->post('/logoUpload2', [
+        'uses' => 'App\Http\Controllers\ProfessionalController@logoUpload2',
+    ]);
+	$api->post('/profileUpload', [
+        'uses' => 'App\Http\Controllers\ProfessionalController@profileUpload',
+    ]);
+	
+	$api->post('/profileUploadForMobile', [
+        'uses' => 'App\Http\Controllers\ProfessionalController@profileUploadForMobile',
+    ]);
+	
+	$api->post('/projectfileupload', [
+        'uses' => 'App\Http\Controllers\ProfessionalController@projectfileupload',
+    ]);
+    $api->post('/project_file_upload_for_web', [
+        'uses' => 'App\Http\Controllers\ProfessionalController@project_file_upload_for_web',
+    ]);
+
+    $api->post('/project_task_file_upload', [
+        'uses' => 'App\Http\Controllers\ProfessionalController@project_task_file_upload',
+    ]);
+	
+	$api->post('/task_file_upload', [
+        'uses' => 'App\Http\Controllers\ProjectController@task_file_upload',
+    ]);
+	$api->post('/get_project_files_overview', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_project_files_overview',
+    ]);
+	 $api->post('/get_project_filesdata', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_project_filesdata',
+    ]);
+	$api->post('/get_project_files', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_project_files',
+    ]);
+    $api->post('/get_project_files_for_mobile', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_project_files_for_mobile',
+    ]);
+	$api->post('/get_project_task_files', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_project_task_files',
+    ]);
+	
+	$api->post('/delete_project_files', [
+        'uses' => 'App\Http\Controllers\ProjectController@delete_project_files',
+    ]);
+	$api->post('/delete_task_files', [
+        'uses' => 'App\Http\Controllers\ProjectController@delete_task_files',
+    ]);
+	 $api->post('/move_project_files', [
+        'uses' => 'App\Http\Controllers\ProjectController@move_project_files',
+    ]);
+    $api->post('/delete_project_filesdata', [
+        'uses' => 'App\Http\Controllers\ProjectController@delete_project_filesdata',
+    ]);
+    $api->post('/delete_project_folder', [
+        'uses' => 'App\Http\Controllers\ProjectController@delete_project_folder',
+    ]);
+	$api->post('/update_new_folder', [
+		'uses' => 'App\Http\Controllers\ProjectController@update_new_folder',
+	]);
+	$api->post('/get_project_discussion', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_project_discussion',
+    ]);
+	$api->post('/get_project_discussion_archive', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_project_discussion_archive',
+    ]);
+	$api->post('/get_project_activity', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_project_activity',
+    ]);
+	$api->post('/get_all_project_activity', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_all_project_activity',
+    ]);
+	
+	
+	$api->post('/project_discussion_file_upload', [
+        'uses' => 'App\Http\Controllers\ProfessionalController@project_discussion_file_upload',
+    ]);
+    $api->post('/project_discussion_file_upload_for_mobile', [
+        'uses' => 'App\Http\Controllers\ProfessionalController@project_discussion_file_upload_for_mobile',
+    ]);
+	
+	$api->post('/add_new_meeting', [
+        'uses' => 'App\Http\Controllers\ProjectController@add_new_meeting',
+    ]);
+	$api->post('/get_event_by_id', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_event_by_id',
+    ]);
+	
+	$api->post('/get_meeting_by_id', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_meeting_by_id',
+    ]);
+	$api->post('/get_meeting_by_id1', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_meeting_by_id1',
+    ]);
+	$api->post('/update_meeting', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_meeting',
+    ]);
+	$api->post('/get_task_by_id', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_task_by_id',
+    ]);
+	$api->post('/get_project_task_details', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_project_task_details',
+    ]);
+	$api->post('/update_task_status', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_task_status',
+    ]);
+	$api->post('/update_task_statusdata', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_task_statusdata',
+    ]);
+	$api->post('/update_task_prority', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_task_prority',
+    ]);
+	$api->post('/update_task', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_task',
+    ]);
+	$api->post('/get_project_user_for_task', [
+      'uses' => 'App\Http\Controllers\ProjectController@get_project_user_for_task',
+    ]);
+	$api->post('/update_task_detail', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_task_detail',
+    ]);
+	$api->post('/update_event_start_by_id', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_event_start_by_id',
+    ]);
+	$api->post('/update_task_start_by_id', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_task_start_by_id',
+    ]);
+	$api->post('/update_meeting_start_by_id', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_meeting_start_by_id',
+    ]);
+	
+	$api->post('/add_task_comment', [
+        'uses' => 'App\Http\Controllers\ProjectController@add_task_comment',
+    ]);
+	$api->post('/get_all_comments_by_task_id', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_all_comments_by_task_id',
+    ]);
+	$api->get('/get_task_for_chart_by_project_id', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_task_for_chart_by_project_id',
+    ]);
+	
+	$api->post('/add_user_in_project', [
+        'uses' => 'App\Http\Controllers\ProjectController@add_user_in_project',
+    ]);
+	
+	$api->get('/get_all_company_user', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_all_company_user',
+    ]);
+	$api->get('/get_all_company_user_archive', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_all_company_user_archive',
+    ]);
+	$api->get('/get_all_company_user_by_project_id', [
+      'uses' => 'App\Http\Controllers\ProjectController@get_all_company_user_by_project_id',
+    ]);
+	
+	$api->post('/get_all_users_with_project_id', [
+      'uses' => 'App\Http\Controllers\ProjectController@get_all_users_with_project_id',
+    ]);
+	$api->post('/add_user_by_project_id', [
+      'uses' => 'App\Http\Controllers\ProjectController@add_user_by_project_id',
+    ]);
+	$api->post('/get_all_project_users', [
+      'uses' => 'App\Http\Controllers\ProjectController@get_all_project_users',
+    ]);
+	
+	$api->post('/remove_user_from_project', [
+      'uses' => 'App\Http\Controllers\ProjectController@remove_user_from_project',
+    ]);
+	
+	$api->post('/get_project_user_for_meeting', [
+      'uses' => 'App\Http\Controllers\ProjectController@get_project_user_for_meeting',
+    ]);
+	$api->get('/get_project_user_for_meeting1', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_project_user_for_meeting1',
+      ]);
+	$api->post('/get_all_task_by_status', [
+      'uses' => 'App\Http\Controllers\ProjectController@get_all_task_by_status',
+    ]);
+    $api->post('/update_task_statuss', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_task_statuss',
+      ]);
+	   $api->post('/update_discussion_data', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_discussion_data',
+      ]);
+	   $api->post('/update_discussion_archive_data', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_discussion_archive_data',
+      ]);
+	  $api->post('/update_task_data', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_task_data',
+      ]);
+	  $api->post('/update_users_data', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_users_data',
+      ]);
+	  $api->post('/update_users_archive_data', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_users_archive_data',
+      ]);
+	  $api->post('/update_task_archive_data', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_task_archive_data',
+      ]);
+	$api->get('/get_all_tasks', [
+      'uses' => 'App\Http\Controllers\ProjectController@get_all_tasks',
+    ]);
+    $api->get('/get_all_tasksnew', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_all_tasksnew',
+      ]);
+	$api->post('/get_all_task_status_by_project_id', [
+      'uses' => 'App\Http\Controllers\ProjectController@get_all_task_status_by_project_id',
+    ]);
+	$api->post('/get_all_task_priority_by_project_id', [
+      'uses' => 'App\Http\Controllers\ProjectController@get_all_task_priority_by_project_id',
+    ]);
+	$api->post('/get_home_discussion', [
+      'uses' => 'App\Http\Controllers\ProjectController@get_home_discussion',
+    ]);
+	$api->post('/get_project_data', [
+      'uses' => 'App\Http\Controllers\ProjectController@get_project_data',
+    ]);
+	$api->post('/get_home_files_overview', [
+      'uses' => 'App\Http\Controllers\ProjectController@get_home_files_overview',
+    ]);
+	$api->post('/get_due_task', [
+      'uses' => 'App\Http\Controllers\ProjectController@get_due_task',
+    ]);
+    $api->get('/get_all_timezone', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_all_timezone',
+    ]);
+    $api->post('/update_datetime_detail', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_datetime_detail',
+    ]);
+	$api->post('/get_source_list', [
+      'uses' => 'App\Http\Controllers\ProjectController@get_source_list',
+    ]);
+	$api->get('/get_all_users', [
+      'uses' => 'App\Http\Controllers\ProjectController@get_all_users',
+    ]);
+	
+	$api->get('/get_all_countries', [
+			'uses' => 'App\Http\Controllers\ProjectController@get_all_countries',
+		]);
+	$api->post('/get_all_state_by_country_id', [
+			'uses' => 'App\Http\Controllers\ProjectController@get_all_state_by_country_id',
+		]);
+	$api->get('/get_user_profile_details', [
+			'uses' => 'App\Http\Controllers\Auth\AuthController@get_user_profile_details',
+		]);
+	$api->get('/get_company_details', [
+			'uses' => 'App\Http\Controllers\Auth\AuthController@get_company_details',
+		]);
+	$api->post('/update_user_profile', [
+			'uses' => 'App\Http\Controllers\Auth\AuthController@update_user_profile',
+		]);
+	$api->post('/update_company_details_for_mobile', [
+			'uses' => 'App\Http\Controllers\Auth\AuthController@update_company_details_for_mobile',
+		]);
+	$api->get('/get_company_size_select_list', [
+			'uses' => 'App\Http\Controllers\ProfessionalController@get_company_size_select_list',
+		]);
+	$api->post('/check_email_exist', [
+		'uses' => 'App\Http\Controllers\ProjectController@check_email_exist',
+	]);
+	$api->post('/add_new_task_type', [
+		'uses' => 'App\Http\Controllers\ProjectController@add_new_task_type',
+	]);
+	$api->post('/gat_task_type', [
+		'uses' => 'App\Http\Controllers\ProjectController@gat_task_type',
+	]);
+	$api->get('/get_the_projects_name', [
+		'uses' => 'App\Http\Controllers\ProjectController@get_the_projects_name',
+	]);
+	$api->post('/update_project_details', [
+		'uses' => 'App\Http\Controllers\ProjectController@update_project_details',
+	]);
+	$api->post('/resend_invitaion', [
+		'uses' => 'App\Http\Controllers\ProjectController@resend_invitaion',
+	]);
+	$api->post('/get_user_for_edit', [
+		'uses' => 'App\Http\Controllers\ProjectController@get_user_for_edit',
+	]);
+	$api->post('/update_user_details', [
+		'uses' => 'App\Http\Controllers\ProjectController@update_user_details',
+	]);
+	$api->post('/get_task_title_list', [
+		'uses' => 'App\Http\Controllers\ProjectController@get_task_title_list',
+	]);
+	$api->post('/update_task_title', [
+		'uses' => 'App\Http\Controllers\ProjectController@update_task_title',
+	]);
+	$api->post('/get_task_list_for_mobile', [
+		'uses' => 'App\Http\Controllers\ProjectController@get_task_list_for_mobile',
+    ]);
+    $api->post('/get_my_task_list_for_mobile', [
+		'uses' => 'App\Http\Controllers\ProjectController@get_my_task_list_for_mobile',
+	]);
+	$api->post('/create_new_folder', [
+		'uses' => 'App\Http\Controllers\ProjectController@create_new_folder',
+	]);
+	$api->post('/delete_task_title', [
+		'uses' => 'App\Http\Controllers\ProjectController@delete_task_title',
+	]);
+	$api->post('/check_delete_task_title', [
+		'uses' => 'App\Http\Controllers\ProjectController@check_delete_task_title',
+	]);
+	$api->post('/get_file_comments', [
+		'uses' => 'App\Http\Controllers\ProjectController@get_file_comments',
+	]);
+	$api->post('/add_file_comments', [
+		'uses' => 'App\Http\Controllers\ProjectController@add_file_comments',
+	]);
+	$api->post('/update_professional_account', [
+       'uses' => 'App\Http\Controllers\ProfessionalController@update_professional_account',
+    ]);
+	$api->get('/get_professional_account_profile', [
+   		'uses' => 'App\Http\Controllers\ProfessionalController@get_professional_account_profile',
+  ]); 
+  	$api->post('/create_account/home_owneraddress', [
+        'uses' => 'App\Http\Controllers\HomeOwnerController@createAddress',
+    ]);
+  	$api->post('/update_file_status', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_file_status',
+    ]);
+	$api->post('/update_professional_accountdetail', [
+        'uses' => 'App\Http\Controllers\ProfessionalController@update_professional_accountdetail',
+    ]);
+    $api->get('/image_test', [
+		'uses' => 'App\Http\Controllers\ProjectController@test',
+	]);
+	$api->post('/test2', [
+		'uses' => 'App\Http\Controllers\ProjectController@test2',
+    ]);
+    $api->post('/get_unselected_project_users', [
+		'uses' => 'App\Http\Controllers\ProjectController@get_unselected_project_users',
+    ]);
+    $api->post('/add_new_selected_project_users', [
+		'uses' => 'App\Http\Controllers\ProjectController@add_new_selected_project_users',
+    ]);
+    $api->post('/remove_selected_project_users', [
+		'uses' => 'App\Http\Controllers\ProjectController@remove_selected_project_users',
+    ]);
+    $api->post('/get_task_details_and_files_by_task_id', [
+		'uses' => 'App\Http\Controllers\ProjectController@get_task_details_and_files_by_task_id',
+    ]);
+    $api->post('/add_new_role', [
+		'uses' => 'App\Http\Controllers\ProjectController@add_new_role',
+    ]);
+    $api->post('/update_permissions', [
+		'uses' => 'App\Http\Controllers\Auth\AuthController@update_permissions',
+    ]);
+    $api->post('/update_role_name', [
+		'uses' => 'App\Http\Controllers\ProjectController@update_role_name',
+    ]);
+    $api->post('/get_files_by_task_id', [
+		'uses' => 'App\Http\Controllers\ProjectController@get_files_by_task_id',
+    ]);
+
+    $api->post('/update_task_status_priority_duedate', [
+		'uses' => 'App\Http\Controllers\ProjectController@update_task_status_priority_duedate',
+    ]);
+    
+    $api->get('/get_color_data', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_color_data',
+    ]);
+    $api->post('/get_project_details_by_project_id', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_project_details_by_project_id',
+    ]);
+    $api->get('/get_all_project_archive', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_all_project_archive',
+    ]);
+	$api->group([
+        'middleware' => 'api.auth',
+    ], function ($api) {
+        $api->get('/', [
+            'uses' => 'App\Http\Controllers\APIController@getIndex',
+            'as' => 'api.index'
+        ]);
+        $api->get('/auth/user', [
+            'uses' => 'App\Http\Controllers\Auth\AuthController@getUser',
+            'as' => 'api.auth.user'
+        ]);
+        $api->patch('/auth/refresh', [
+            'uses' => 'App\Http\Controllers\Auth\AuthController@patchRefresh',
+            'as' => 'api.auth.refresh'
+        ]);
+        $api->delete('/auth/invalidate', [
+            'uses' => 'App\Http\Controllers\Auth\AuthController@deleteInvalidate',
+            'as' => 'api.auth.invalidate'
+        ]);
+
+        $api->get('/events', [
+            'as' => 'events',
+            'uses' => 'App\Http\Controllers\EventController@index',
+        ]);
+
+        $api->post('/update_color_detail',[
+            'uses' => 'App\Http\Controllers\ProjectController@update_color_detail',
+        ]);
+
+        $api->post('/update_new_statusname', [
+        
+            'uses' => 'App\Http\Controllers\ProjectController@update_new_statusname',
+        ]);
+        $api->post('/create_new_status', [
+        'uses' => 'App\Http\Controllers\ProjectController@create_new_status',
+         ]);
+	       $api->post('/check_unique_task_status', [
+        'uses' => 'App\Http\Controllers\ProjectController@check_unique_task_status',
+              ]);
+         $api->get('/get_status_data', [
+            'uses' => 'App\Http\Controllers\ProjectController@get_status_data',
+        ]);
+         $api->post('/get_statusname_data', [
+            'uses' => 'App\Http\Controllers\ProjectController@get_statusname_data',
+        ]);
+		$api->post('/delete_status_data', [
+        'uses' => 'App\Http\Controllers\ProjectController@delete_status_data',
+       ]);
+	     $api->post('/check_unique_updatetask_status', [
+        'uses' => 'App\Http\Controllers\ProjectController@check_unique_updatetask_status',
+    ]);
+        $api->post('/get_project_notes', [
+        'uses' => 'App\Http\Controllers\ProjectController@get_project_notes',
+    ]);
+	$api->post('/add_notes_detail', [
+        'uses' => 'App\Http\Controllers\ProjectController@add_notes_detail',
+    ]);
+	$api->get('/get_user_role_company_id', [
+        
+        'uses' => 'App\Http\Controllers\Auth\AuthController@get_user_role_company_id',
+    ]);
+	$api->post('/edit_project_notes', [
+        'uses' => 'App\Http\Controllers\ProjectController@edit_project_notes',
+    ]);
+	$api->post('/update_notes_detail', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_notes_detail',
+    ]);
+	 $api->post('/update_projectedit_archive_data', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_projectedit_archive_data',
+      ]);
+	  $api->post('/update_projectedit_data', [
+        'uses' => 'App\Http\Controllers\ProjectController@update_projectedit_data',
+      ]);
+	$api->post('/delete_notes_data', [
+        'uses' => 'App\Http\Controllers\ProjectController@delete_notes_data',
+    ]);
+    });
+});

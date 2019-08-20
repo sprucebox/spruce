@@ -1,0 +1,132 @@
+<header id="header">
+  <div class="header-middle">
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-4">
+                  <div class="logo pull-left">
+                      <a href="javascript:void(0)"><img src="../assets/front-assets/images/home/logo.png" class="img-responsive" alt="sprucebox" /></a>
+                  </div>
+              </div>
+              <div class="col-sm-8">
+                  <div class="shop-menu pull-right">
+                      <ul class="nav navbar-nav c-nav">
+                          <li *ngIf="select_permissions.indexOf(4) !== -1"><a routerLink="task"><i class="fa fa-list"></i> Tasks</a></li>
+                           <li><a routerLink="full-message"><i class="fa fa-envelope"></i> Message</a></li>
+                          <li *ngIf="select_permissions.indexOf(5) !== -1"><a routerLink="calendar"><i class="fa fa-calendar"></i> Calendar</a></li>
+                          <li ><a routerLink="user-setting" ><i class="fa fa-cog"></i> Setting</a></li>
+                          <li class="dropdown">
+                              <a href="javascript:void();" class="nav-link nav-user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <img src="{{profile_image}}" alt="user" class="rounded-circle p-pic"> <span class="ml-1">{{username}} <i class="fa fa-chevron-down"></i> </span>
+                              </a>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" routerLink="myprofile"><i class="fa fa-user"></i> My Profile</a>
+                                <a class="dropdown-item" routerLink="../logout" ><i class="fa fa-sign-out"></i> Logout</a>
+                            </div>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="header-bottom">
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-12">
+                  <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                      </button>
+                  </div>
+                  <div class="mainmenu pull-left">
+                      <ul class="nav navbar-nav collapse navbar-collapse">
+                          <li><a  routerLink="home" >Home</a></li>
+                          <li><a  routerLink="projects">Projects</a></li>
+						  <li><a  routerLink="../CRM/crmoverview">CRM</a></li>
+                         
+                      </ul>
+                  </div>
+              </div>
+              <div class="col-sm-3">
+                  <div class="mainmenu pull-right">
+                      <ul class="nav navbar-nav collapse navbar-collapse">
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</header>
+<router-outlet></router-outlet>
+<footer id="footer">
+  <!--Footer-->
+  <div class="footer-widget">
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-1 pull-left">
+                  <div class="single-widget">
+                      <ul class="nav nav-pills nav-stacked">
+                          <li><a href="javascript:void(0)">FAQ</a></li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="col-sm-3">
+                  <div class="single-widget">
+                      <ul class="nav nav-pills nav-stacked">
+                          <li><a href="javascript:void(0)">Watch Tutorial Video</a></li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="col-sm-3">
+                  <div class="single-widget">
+                      <ul class="nav nav-pills nav-stacked">
+                          <li><a href="javascript:void(0)">Contact Customer Support</a></li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="col-sm-3">
+                  <div class="single-widget">
+                      <ul class="nav nav-pills nav-stacked">
+                          <li><a href="javascript:void(0)">Submit Software Request</a></li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="col-sm-2">
+                  <div class="single-widget">
+                      <ul class="nav nav-pills nav-stacked">
+                          <li><a href="javascript:void(0)">How this Work</a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="header_top">
+      <!--header_top-->
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-6">
+                  <div class="contactinfo">
+                      <ul class="nav nav-pills">
+                          <li><a href="#"><i class="fa fa-phone"></i> 503.530.8205</a></li>
+                          <li><a href="mailto:info@domain.com"><i class="fa fa-envelope"></i> info@sprucebox.com</a></li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="col-sm-6">
+                  <div class="social-icons pull-right">
+                      <ul class="nav navbar-nav">
+                          <li><a href="javascript:void();"><i class="fa fa-facebook"></i></a></li>
+                          <li><a href="javascript:void();"><i class="fa fa-twitter"></i></a></li>
+                          <li><a href="javascript:void();"><i class="fa fa-google-plus"></i></a></li>
+                          <li><a href="javascript:void();"><i class="fa fa-instagram"></i></a></li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</footer>

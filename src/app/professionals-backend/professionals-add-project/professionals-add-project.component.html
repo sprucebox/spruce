@@ -1,0 +1,751 @@
+<section class="">
+  <div class="pageheader">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12">
+                  <h4><i class="fa fa-user"></i> Create Project</h4>
+                  <div class="button-list pull-right mt-7">
+                      <ul class="float-btn float-btn-left">
+                          <li>
+                              <a href="javascript:void(0)" routerLink="../projects" class="btn btn-default"> <i class="fa fa-arrow-left"></i> Go Back</a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="container">
+      <div class="row">
+          <div class="col-sm-12">
+              <div class="wow fadeIn">
+                  
+                      <div class="card">
+                          <div class="cardbox">
+                              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                  <div class="panel panel-primary border0">
+                                  <div class="panel-heading" role="tab" id="headingOne">
+                                      <h4 class="panel-title">
+                                      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
+                                        <i class="more-less fa fa-plus"></i>
+                                        Project Information
+                                      </a>
+                                      </h4>
+                                  </div>
+                                  <form  #profilePrimaryForm="ngForm">
+                                  <div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                      <div class="panel-body">
+									  	<div class="col-md-12">
+										<div class="form-group row">
+                                    <label for="col-sm-4 col-form-label">Select Template Project Name</label>
+                                    <select   class="custom-select"  placeholder="Select Template Project Name"
+                                        [(ngModel)]="projectPrimaryData.template_project_id" (change)="on_project_select($event.target.value)" #task_list_id="ngModel" name="template_project_id">
+                                     
+                                         <option value="">Select</option>
+                                          <option *ngFor="let projectname of projectnames"  value="{{projectname.id}}"  >{{projectname.project_name}}</option>
+    
+                                    </select>
+                                   
+    
+                                </div>
+                                                        </div>
+                                          <div class="col-md-6">
+                                              <div class="form-group row">
+                                                  <label class="col-sm-4 col-form-label">Project Name</label>
+                                                  <div class="col-sm-8">    
+                                                          <input type="text"
+                                                            class="form-control"
+                                                            [class.is-invalid]="project_name.invalid && project_name.touched" 
+                                                            [(ngModel)]="projectPrimaryData.project_name" 
+                                                            #project_name="ngModel" 
+                                                            name="project_name"  maxlength="70"
+                                                            placeholder="Project Name"  required trim="blur">
+                                                            <small class="text-danger" [class.d-none]="project_name.valid || project_name.untouched">Project Name is required</small>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Select Project Owner </label>
+                                                <div class="col-sm-8">
+                                                        <select class="custom-select"
+                                                        [class.is-invalid]="project_owner.invalid && project_owner.touched" 
+                                                        [(ngModel)]="projectPrimaryData.project_owner" 
+                                                        #project_owner="ngModel"
+                                                          name="project_owner" required>
+                                                        <option value="">Select Project Owner</option>
+                                                        <option value="{{puser.user_id}}" *ngFor="let puser of dropdownList">{{puser.user_name}}</option>
+                                                       
+                                                    </select>
+                                                    <small class="text-danger" [class.d-none]="project_owner.valid || project_owner.untouched">Project Owner is required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                          <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Start date</label>
+                                                <div class="col-sm-8">
+                                                        
+														  <input placeholder="Start Date" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="projectPrimaryData.project_start_date" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" name="project_start_date"  #project_start_date="ngModel">
+                                    <owl-date-time #dt3></owl-date-time>
+                                                   
+                                                </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">End date</label>
+                                                <div class="col-sm-8">
+                                                      <input placeholder="End Date" class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="projectPrimaryData.project_end_date" [min]="projectPrimaryData.project_start_date" [owlDateTimeTrigger]="dt" [owlDateTime]="dt" name="project_end_date" #project_end_date="ngModel">
+													  <owl-date-time #dt></owl-date-time>	
+														 
+                                                    
+                                                </div>
+                                            </div>
+                                          </div>
+										    <div class="col-md-6">
+                                            <div class="form-group row">
+                               <label class="col-sm-4 col-form-label">Project color </label>
+							   <div class="col-sm-8">
+                             <input [value]="color4"  class="form-control"   placeholder="Color" [cpPresetColors]="['#2889e9']" [style.background]="color4" [(colorPicker)]="color4" (colorPickerChange)="onChangeColor4($event)"/>
+                             </div>
+                          </div>
+						</div>
+                                          <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Select Information type</label>
+                                                <div class="col-sm-8">
+                                                    <div class="form-check"><label ><input  class="checkBoxClass" name="trade[]" type="radio" value="1"><span class="label-text"></span></label> Lead</div>
+                                                    <div class="form-check"><label ><input  class="checkBoxClass" name="trade[]" type="radio" value="1"><span  class="label-text"></span></label> Deal</div>
+                                                    <div class="form-check"><label ><input  class="checkBoxClass" name="trade[]" type="radio" value="1"><span  class="label-text"></span></label> Other</div>
+                                                </div>
+                                            </div>
+                                          </div>
+										            
+                                            <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Select Lead/Deal </label>
+                                                <div class="col-sm-8">
+                                                        <select class="custom-select"
+                                                        [(ngModel)]="projectPrimaryData.project_source_type" 
+                                                        #project_source_type="ngModel"
+                                                        name="project_source_type" >
+                                                        <option value="">Select Lead/Deal</option>
+                                                        <option>owner1</option>
+                                                        <option>owner2</option>
+                                                        <option>owner3</option>
+                                                        <option>owner4</option>
+                                                        <option>owner5</option>
+                                                    </select>
+                                                    
+                                                </div>
+                                            </div>
+                                            </div>
+                                
+                                      
+										         <div class="col-md-12" >
+                                           <div class="col-md-3" >
+                                                <div id="file-upload-form" class="uploader">
+                                            
+                                                    <input class="form-control"  id="file-upload" type="file" type="file"   (change)="onSelectFile($event)"  name="uploaded_file" ng2FileSelect [uploader]="uploader" accept="image/*"  #fileInput />
+													
+                                                    <label for="file-upload" id="file-drag">
+													<span  *ngIf="projectPrimaryData.project_image_url?.length == 0; else othercontent">
+                                                        <img  src="{{noImage}}"    width="150px">
+														</span>
+														<ng-template #othercontent>
+														 <img id="file-image" [src]="projectPrimaryData.project_image_url" alt="Preview"  width="150px">
+														</ng-template>
+                                                       
+                                                        <div id="start">
+                                                            
+                                                            <div>Project Image</div>
+                                                            <span id="file-upload-btn" class="btn btn-default">Change</span>
+                                                        </div>
+                                                        
+                                                    </label>
+                                                    <div class="progress" style="display: block;" *ngIf="pr_show" >
+                                                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                                                    </div>
+                                                </div>
+                                                <h6 style="color:red;">{{message}}</h6>
+                                            </div>
+                                            <div class="col-md-9">
+                                                    <div class="form-group row">
+                                                        <div class="col-sm-12">
+                                                                <label>Description</label>
+                                                            <textarea rows="2" placeholder="description" [class.is-invalid]="project_description.invalid && project_description.touched" 
+                                                            [(ngModel)]="projectPrimaryData.project_description" 
+                                                            #project_description="ngModel" maxlength="500"
+                                                            name="project_description" class="form-control" trim="blur" ></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                          </div>
+                                          <div class="col-md-12 mt-2 text-right">
+                                              <button class="btn btn-success btn-md" (click)="save_project_primary_details()"  [disabled]="profilePrimaryForm.form.invalid" type="button">Save </button>
+                                              <a href="javascript:void(0)" routerLink="../projects" class="btn btn-default btn-md"> Cancel</a>
+                                              
+                                          </div>
+                                      </div>
+                                  
+                                  </div>
+                                  </form>
+                                  </div>
+                                  <!----<div class="panel panel-primary border0">
+                                      <div class="panel-heading" role="tab" id="headingOne">
+                                          <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          <i class="more-less fa fa-plus"></i>
+                          Lead Information
+                        </a>
+                        </h4>
+                                      </div>
+                                      <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                          <div class="panel-body">
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">First Name</label>
+                                                      <div class="col-sm-8">
+                                                          <div class="input-group"> <a class="btn btn-default btn-city dropdown-toggle input-group-addon" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> None <span class="caret caret-search"></span> </a>
+                                                              <ul class="dropdown-menu left-0" aria-labelledby="dropdownMenu1">
+                                                                  <li><a href="#">Mr.</a></li>
+                                                                  <li><a href="#">Mrs.</a></li>
+                                                                  <li><a href="#">Ms.</a></li>
+                                                                  <li><a href="#">Dr.</a></li>
+                                                                  <li><a href="#">Prof.</a></li>
+                                                              </ul>
+                                                              <input placeholder="" type="text" class="form-input form-control">
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Last Name</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Phone</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Email</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="email" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Company</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Secondary Contact</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Project Type</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Secondary Phone</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Job Specific</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Secondary Email</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Project Number</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">FollowUP Date</label>
+                                                      <div class="col-sm-4">
+                                                          <input placeholder="" type="date" class="form-input form-control">
+                                                      </div>
+                                                      <div class="col-sm-4">
+                                                          <input placeholder="" type="time" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Stage</label>
+                                                      <div class="col-sm-8">
+                                                          <div class="input-group"> <a class="btn btn-default btn-city dropdown-toggle input-group-addon" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> None <span class="caret caret-search"></span> </a>
+                                                              <ul class="dropdown-menu left-0" aria-labelledby="dropdownMenu1">
+                                                                  <li><a href="#">Project Enquiry</a></li>
+                                                                  <li><a href="#">First FollowUP</a></li>
+                                                                  <li><a href="#">Second FollowUP</a></li>
+                                                                  <li><a href="#">Third FollowUP</a></li>
+                                                                  <li><a href="#">Need Project Walk Through</a></li>
+                                                                  <li><a href="#">Needs Estimate</a></li>
+                                                                  <li><a href="#">Lost Lead</a></li>
+                                                              </ul>
+                                                              <input placeholder="" type="text" class="form-input form-control">
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Lead Source</label>
+                                                      <div class="col-sm-8">
+                                                          <div class="input-group"> <a class="btn btn-default btn-city dropdown-toggle input-group-addon" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> None <span class="caret caret-search"></span> </a>
+                                                              <ul class="dropdown-menu left-0" aria-labelledby="dropdownMenu1">
+                                                                  <li><a href="#">Online</a></li>
+                                                                  <li><a href="#">Google Ad</a></li>
+                                                                  <li><a href="#">Referral</a></li>
+                                                                  <li><a href="#">Other</a></li>
+                                                              </ul>
+                                                              <input placeholder="" type="text" class="form-input form-control">
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">No Walk Needed</label>
+                                                      <div class="col-sm-8">
+                                                          <div class="form-check" style="margin-top:8px;">
+                                                              <label>
+                                                                  <input name="check" id="ckbCheckAll" type="checkbox">
+                                                                  <span class="label-text"></span> </label>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Referral Name</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Confrim Walk through</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="date" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Lead Owner</label>
+                                                      <div class="col-sm-8">
+                                                          <div class="input-group"> <a class="btn btn-default btn-city dropdown-toggle input-group-addon" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> None <span class="caret caret-search"></span> </a>
+                                                              <ul class="dropdown-menu left-0" aria-labelledby="dropdownMenu1">
+                                                                  <li><a href="#">Kameron</a></li>
+                                                                  <li><a href="#">Jeff</a></li>
+                                                              </ul>
+                                                              <input placeholder="" type="text" class="form-input form-control">
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Active/Inactive</label>
+                                                      <div class="col-sm-8">
+                                                          <div class="input-group"> <a class="btn btn-default btn-city dropdown-toggle input-group-addon" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> None <span class="caret caret-search"></span> </a>
+                                                              <ul class="dropdown-menu left-0" aria-labelledby="dropdownMenu1">
+                                                                  <li><a href="#">Active</a></li>
+                                                                  <li><a href="#">Inactive</a></li>
+                                                              </ul>
+                                                              <input placeholder="" type="text" class="form-input form-control">
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Sales Person</label>
+                                                      <div class="col-sm-8">
+                                                          <div class="input-group"> <a class="btn btn-default btn-city dropdown-toggle input-group-addon" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> None <span class="caret caret-search"></span> </a>
+                                                              <ul class="dropdown-menu left-0" aria-labelledby="dropdownMenu1">
+                                                                  <li><a href="#">Kameron</a></li>
+                                                                  <li><a href="#">Jeff</a></li>
+                                                              </ul>
+                                                              <input placeholder="" type="text" class="form-input form-control">
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Project Walk Notes</label>
+                                                      <div class="col-sm-8">
+                                                          <textarea rows="2" class="form-control"></textarea>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Time Window Availablity</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="clearfix"></div>
+                                              <h4>Address Information </h4>
+                                              <div class="clearfix"></div>
+                                              <hr>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Street</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">City</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">State</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Zip Code</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Project Site Access</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">County</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="clearfix"></div>
+                                              <h4>Project Information </h4>
+                                              <div class="clearfix"></div>
+                                              <hr>
+                                              <div class="col-md-12">
+                                                  <div class="form-group row">
+                                                      <div class="col-sm-12">
+                                                          <textarea rows="2" placeholder="description" class="form-control"></textarea>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12 mt-2 text-right">
+                                                  <button class="btn btn-success btn-md" type="button">Save </button>
+                                                  <button class="btn btn-default btn-md" type="button">Save and New </button>
+                                                  <button class="btn btn-default btn-md" type="button">Cancel </button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>-->
+                                 <!---- <div class="panel panel-primary border0">
+                                      <div class="panel-heading" role="tab" id="headingTwo">
+                                          <h4 class="panel-title">
+              <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <i class="more-less fa fa-plus"></i>
+                Deal Information
+              </a>
+              </h4>
+                                      </div>
+                                      <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                          <div class="panel-body">
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Deal Name</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Amount</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Account Name</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Project Number</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Email</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="email" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Closing Date</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="date" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Phone</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Deal Owner</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Project Type</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Secondary Contact</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Job Specific</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Secondary Phone</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Sales Person</label>
+                                                      <div class="col-sm-8">
+                                                          <div class="input-group"> <a class="btn btn-default btn-city dropdown-toggle input-group-addon" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> None <span class="caret caret-search"></span> </a>
+                                                              <ul class="dropdown-menu left-0" aria-labelledby="dropdownMenu1">
+                                                                  <li><a href="#">Kameron</a></li>
+                                                                  <li><a href="#">Jeff</a></li>
+                                                              </ul>
+                                                              <input placeholder="" type="text" class="form-input form-control">
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Secondary Email</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Stage</label>
+                                                      <div class="col-sm-8">
+                                                          <div class="input-group"> <a class="btn btn-default btn-city dropdown-toggle input-group-addon" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> None <span class="caret caret-search"></span> </a>
+                                                              <ul class="dropdown-menu left-0" aria-labelledby="dropdownMenu1">
+                                                                  <li><a href="#">Project Enquiry</a></li>
+                                                                  <li><a href="#">First FollowUP</a></li>
+                                                                  <li><a href="#">Second FollowUP</a></li>
+                                                                  <li><a href="#">Third FollowUP</a></li>
+                                                                  <li><a href="#">Need Project Walk Through</a></li>
+                                                                  <li><a href="#">Needs Estimate</a></li>
+                                                                  <li><a href="#">Lost Lead</a></li>
+                                                              </ul>
+                                                              <input placeholder="" type="text" class="form-input form-control">
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Project Link</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="clearfix"></div>
+                                              <h4>Address Information </h4>
+                                              <div class="clearfix"></div>
+                                              <hr>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Street</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">City</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">State</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Zip Code</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">Project Site Access</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                  <div class="form-group row">
+                                                      <label class="col-sm-4 col-form-label">County</label>
+                                                      <div class="col-sm-8">
+                                                          <input placeholder="" type="text" class="form-input form-control">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="clearfix"></div>
+                                              <h4>Description</h4>
+                                              <div class="clearfix"></div>
+                                              <hr>
+                                              <div class="col-md-12">
+                                                  <div class="form-group row">
+                                                      <div class="col-sm-12">
+                                                          <textarea rows="2" placeholder="description" class="form-control"></textarea>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <h4>Project Walk Notes</h4>
+                                              <div class="clearfix"></div>
+                                              <hr>
+                                              <div class="col-md-12">
+                                                  <div class="form-group row">
+                                                      <div class="col-sm-12">
+                                                          <textarea rows="2" placeholder="Note" class="form-control"></textarea>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-md-12 mt-2 text-right">
+                                                  <button class="btn btn-success btn-md" type="button">Save </button>
+                                                  <button class="btn btn-default btn-md" type="button">Save and New </button>
+                                                  <button class="btn btn-default btn-md" type="button">Cancel </button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>-->
+                              </div>
+                          </div>
+                      </div>
+                  
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

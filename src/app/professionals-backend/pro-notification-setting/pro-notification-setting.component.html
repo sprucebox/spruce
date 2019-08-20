@@ -1,0 +1,204 @@
+<section>
+  <div class="container">
+      <div class="w-100">
+        <div class="col-md-12">
+          <nav>
+            <ul class="nav navbar-nav">
+                      <li *ngIf="select_permissions.indexOf(8) !== -1"><a routerLink="../user-setting" >User</a></li>
+                      <li *ngIf="select_permissions.indexOf(11) !== -1" ><a routerLink="../role-setting"  >Roles & Permission</a></li>
+                      <li *ngIf="select_permissions.indexOf(14) !== -1"><a  routerLink="../notification-setting" class="active">Notification</a></li>
+                      <li *ngIf="select_permissions.indexOf(16) !== -1"><a  routerLink="../date-time-setting">Date Time Setting</a></li>
+                      <li ><a  routerLink="../color-setting">Project Setting</a></li>
+                      <li ><a  routerLink="../template-setting">Template Setting</a></li>
+					   <li ><a  routerLink="../backup">Backup</a></li>
+                      
+                  </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+            <div class="mt-2">
+                <div class="w-100">
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <div class="col-md-6">
+                                <h4 class="header-text-color" style="font-weight:bold"><i class="fa fa-bell" aria-hidden="true"></i>Task Notification</h4>
+                                <h6 class="header-text-color">Manage your task notifications</h6>
+                            </div>
+                            <div class="col-md-6">
+                              <table >
+                                <tr>
+                                  <td>  <h4 class="header-text-color"  style="font-weight: bold"><i class="fa fa-bell" aria-hidden="true"></i>Notify me for all activities</h4>
+                                  <h6 class="header-text-color" >Get emails by default for all your activities</h6></td>
+                                  <td>
+                                    <label class="switch" >
+                                        <input name="notimy_all_activites" type="checkbox" [(ngModel)]="NotificationData.notimy_all_activites" value="1" [checked]="NotificationData.notimy_all_activites" checked>
+                                      <span class="slider-switch"></span>
+                                    </label>
+                                  </td>
+                                </tr>
+                              </table>
+                            </div>
+                         
+                            <div class="clearfix"></div>
+                           
+                            <div class="col-md-6">
+                              <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        
+                                       
+                                        <th>Notify for me the tasks</th>
+                                        <th>I Created</th>
+                                        <th>I am assigned to</th>
+                                       
+                                      
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Assigned</td>
+                                        
+                                        <td> <label class="switch">
+                                          
+                                          <input name="assigned_icreated" type="checkbox" [(ngModel)]="NotificationData.assigned_icreated" value="1" [checked]="NotificationData.assigned_icreated" checked>
+                                          <span class="slider-switch"></span>
+                                      </label></td>
+                      
+                                        <td> <label class="switch">
+                                            <input name="assigned_iamassigned" type="checkbox" [(ngModel)]="NotificationData.assigned_iamassigned" value="1" [checked]="NotificationData.assigned_iamassigned" checked>
+                                          <span class="slider-switch"></span>
+                                      </label></td>
+                                       
+                                       
+                                    </tr>
+                                    <tr>
+                                      <td>Updated</td>
+                                      
+                                      <td> <label class="switch">
+                                          <input name="updated_icreated" type="checkbox" [(ngModel)]="NotificationData.updated_icreated" value="1" [checked]="NotificationData.updated_icreated" checked>
+                                        <span class="slider-switch"></span>
+                                    </label></td>
+                    
+                                      <td> <label class="switch">
+                                          <input name="update_iamassigned" type="checkbox" [(ngModel)]="NotificationData.update_iamassigned" value="1" [checked]="NotificationData.update_iamassigned" checked>
+                                        <span class="slider-switch"></span>
+                                    </label></td>
+                                     
+                                     
+                                  </tr>
+                                  <tr>
+                                    <td>Completed/Reopened</td>
+                                    
+                                    <td> <label class="switch">
+                                        <input name="complete_icreated" type="checkbox" [(ngModel)]="NotificationData.complete_icreated" value="1" [checked]="NotificationData.complete_icreated" checked>
+                                      <span class="slider-switch"></span>
+                                  </label></td>
+                  
+                                    <td> <label class="switch">
+                                        <input name="complete_iamassigned" type="checkbox" [(ngModel)]="NotificationData.complete_iamassigned" value="1" [checked]="NotificationData.complete_iamassigned" checked>
+                                      <span class="slider-switch"></span>
+                                  </label></td>
+                                   
+                                   
+                                </tr>
+                                <tr>
+                                  <td>Commented on</td>
+                                  
+                                  <td> <label class="switch">
+                                      <input name="comment_icreated" type="checkbox" [(ngModel)]="NotificationData.comment_icreated" value="1" [checked]="NotificationData.comment_icreated" checked>
+                                    <span class="slider-switch"></span>
+                                </label></td>
+                
+                                  <td> <label class="switch">
+                                      <input name="comment_iamassigned" type="checkbox" [(ngModel)]="NotificationData.comment_iamassigned" value="1" [checked]="NotificationData.comment_iamassigned" checked>
+                                    <span class="slider-switch"></span>
+                                </label></td>
+                                 
+                                 
+                              </tr>
+                              <tr>
+                                <td>Predecessor task upon co..</td>
+                                
+                                <td> <label class="switch">
+                                    <input name="processor_icreated" type="checkbox" [(ngModel)]="NotificationData.processor_icreated"value="1" [checked]="NotificationData.processor_icreated" checked>
+                                  <span class="slider-switch"></span>
+                              </label></td>
+              
+                                <td> <label class="switch">
+                                    <input name="processor_iamassigned" type="checkbox" [(ngModel)]="NotificationData.processor_iamassigned" value="1" [checked]="NotificationData.processor_iamassigned" checked>
+                                  <span class="slider-switch"></span>
+                              </label></td>
+                               
+                               
+                            </tr>
+                                  </tbody>
+                            </table>  
+                                
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="row">
+                                <div class="col-md-12 mt-2">
+                                    <div class="card-box">
+                                        <div class="col-md-6">
+                                            <h4 class="header-text-color"  style="font-weight: bold"><i class="fa fa-bell" aria-hidden="true"></i>Other Notification</h4>
+                                            <h6 class="header-text-color">Manage notifications on forums,documents and direct messages</h6>
+                                        </div>
+                                       
+                                     
+                                        <div class="clearfix"></div>
+                                       
+                                        <div class="col-md-6">
+                                          <table class="table table-striped">
+                                         
+                                            <tbody>
+                                                <tr>
+                                                    <td>When a message is posted on Discussion</td>
+                                                    
+                                                    <td> <label class="switch">
+                                                        <input name="whenamessagepostedondiscussion" type="checkbox" [(ngModel)]="NotificationData.whenamessagepostedondiscussion" value="1" [checked]="NotificationData.whenamessagepostedondiscussion" checked>
+                                                      <span class="slider-switch"></span>
+                                                  </label></td>
+                                  
+                                                 
+                                                   
+                                                </tr>
+                                               
+                                              <tr>
+                                                <td>When a new document is uploaded</td>
+                                                
+                                                <td> <label class="switch">
+                                                    <input name="when_a_new_doucment_is_uploaded" type="checkbox" [(ngModel)]="NotificationData.when_a_new_doucment_is_uploaded" value="1" [checked]="NotificationData.when_a_new_doucment_is_uploaded" checked>
+                                                  <span class="slider-switch"></span>
+                                              </label></td>
+                              
+                                               
+                                               
+                                            </tr>
+                                           
+                                         
+                                              </tbody>
+                                        </table>  
+                                            
+                                        </div> 
+                                        </div>
+                                </div>
+                            </div>
+                            
+                           
+                            <div class="clearfix"></div>
+                            <div class="row">
+                                <div class="col-md-12 mt-2 text-right">
+                                    <button class="btn btn-success btn-md" type="button" (click)="add_notifications_detail()">Save </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+</section>

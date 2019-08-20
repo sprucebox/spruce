@@ -1,0 +1,412 @@
+<section class="">
+  <div class="pageheader">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12">
+                  <h4><i class="fa fa-user"></i> Create Lead</h4>
+                  <div class="button-list pull-right mt-7">
+                      <ul class="float-btn float-btn-left">
+                          <li>
+                              <a routerLink="../crmlead" class="btn btn-default"> <i class="fa fa-arrow-left"></i> Go Back</a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="container">
+      <div class="row">
+          <div class="col-sm-12">
+              <div class="wow fadeIn">
+                  <form class="w-100" #myForm="ngForm" role="form" action="" method="post">
+                      <div class="card">
+                          <div class="card-body">
+                              <h4 class="col-md-12">Lead Information</h4>
+                              <div class="clearfix"></div>
+                              <hr>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">First Name</label>
+									   <div class="col-sm-8">
+                                       <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.first_name" #first_name="ngModel" maxlength="50" name="first_name"
+                                        placeholder="First Name" [class.is-invalid]="first_name.invalid && first_name.touched" required>
+										 <small class="text-danger" [class.d-none]="first_name.valid || first_name.untouched">First Name is required</small>
+										 </div>
+                                  
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Last Name</label>
+                                      <div class="col-sm-8">
+                                           <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.last_name" #last_name="ngModel" maxlength="50" name="last_name"
+                                        placeholder="Last Name" [class.is-invalid]="last_name.invalid && last_name.touched" required>
+										 <small class="text-danger" [class.d-none]="last_name.valid || last_name.untouched">Last Name is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Phone</label>
+                                      <div class="col-sm-8">
+                                            <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.phone" #phone="ngModel" maxlength="10" name="phone"
+                                        placeholder="phone" [class.is-invalid]="phone.invalid && phone.touched" required>
+										 <small class="text-danger" [class.d-none]="phone.valid || phone.untouched">phone is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Email</label>
+                                      <div class="col-sm-8">
+                                           <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.email" #email="ngModel" maxlength="50" name="email"
+                                        placeholder="Email" [class.is-invalid]="email.invalid && email.touched" required>
+										 <small class="text-danger" [class.d-none]="email.valid || email.untouched">email is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Company</label>
+                                      <div class="col-sm-8">
+                                          <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.company" #company="ngModel" maxlength="50" name="company"
+                                        placeholder="company" [class.is-invalid]="company.invalid && company.touched" required>
+										<small class="text-danger" [class.d-none]="company.valid || company.untouched">company is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Secondary Contact</label>
+                                      <div class="col-sm-8">
+                                           <input type="number" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.secondary_contact" #secondary_contact="ngModel" maxlength="50" name="secondary_contact"
+                                        placeholder="Secondary contact" [class.is-invalid]="company.invalid && secondary_contact.touched" required>
+										<small class="text-danger" [class.d-none]="secondary_contact.valid || secondary_contact.untouched">Secondary Contact is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Project Type</label>
+                                      <div class="col-sm-8">
+                                         <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.project_type" #project_type="ngModel" maxlength="50" name="project_type"
+                                        placeholder="Project Type" [class.is-invalid]="project_type.invalid && project_type.touched" required>
+										<small class="text-danger" [class.d-none]="project_type.valid || project_type.untouched">Project Type is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Secondary Phone</label>
+                                      <div class="col-sm-8">
+                                         <input type="number" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.secondary_phone" #secondary_phone="ngModel" maxlength="50" name="secondary_phone"
+                                        placeholder="Secondary Phone" [class.is-invalid]="secondary_phone.invalid && secondary_phone.touched" required>
+										<small class="text-danger" [class.d-none]="secondary_phone.valid || secondary_phone.untouched">Secondary Phone is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Job Specific</label>
+                                      <div class="col-sm-8">
+                                         <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.job_specific" #job_specific="ngModel" maxlength="50" name="job_specific"
+                                        placeholder="Job Specific" [class.is-invalid]="job_specific.invalid && job_specific.touched"  required>
+										<small class="text-danger" [class.d-none]="job_specific.valid || job_specific.untouched">Job Specific is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Secondary Email</label>
+                                      <div class="col-sm-8">
+                                          <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.secondary_email" #secondary_email="ngModel" maxlength="50" name="secondary_email"
+                                        placeholder="Secondary Email" [class.is-invalid]="secondary_email.invalid && secondary_email.touched" required>
+										<small class="text-danger" [class.d-none]="secondary_email.valid || secondary_email.untouched">Secondary Email is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Project Number</label>
+                                      <div class="col-sm-8">
+                                         <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.project_number" #project_number="ngModel" maxlength="50" name="project_number"
+                                        placeholder="Project Number" [class.is-invalid]="project_number.invalid && project_number.touched" required>
+										<small class="text-danger" [class.d-none]="project_number.valid || project_number.untouched">Project Number is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">FollowUP Date</label>
+                                      <div class="col-sm-4">
+                                          <input placeholder="FollowUP Date" class="form-control" [(ngModel)]="addLeadFormData.followUP_date" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" class="form-control" name="followUP_date" #followUP_date="ngModel" [class.is-invalid]="followUP_date.invalid && followUP_date.touched">
+                                    <owl-date-time #dt3></owl-date-time>
+									<small class="text-danger" [class.d-none]="followUP_date.valid || followUP_date.untouched">FollowUP Date is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Stage</label>
+                                      <div class="col-sm-8">
+                                          <select class="custom-select"
+                                        
+                                        [(ngModel)]="addLeadFormData.Stage" 
+                                        #Stage="ngModel"
+                                        name="Stage" [class.is-invalid]="Stage.invalid && Stage.touched">
+                                        <ng-container *ngIf = "addLeadFormData.Stage === ''"><option  value="">Select</option></ng-container>
+                                             <option  value="">Select</option>
+                                            <option value="0">Project Enquiry</option>
+                                            <option value="1">Second FollowUP</option>
+                                            <option value="2">Third FollowUP</option>
+                                            <option value="3">Need Project Walk Through</option>
+											<option value="4">Needs Estimate</option>
+										<option value="5">Lost Lead</option>
+											
+                                        </select>
+										<small class="text-danger" [class.d-none]="Stage.valid || Stage.untouched">Stagee is required</small>   
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Lead Source</label>
+                                      <div class="col-sm-8">
+                                      <select class="custom-select"
+                                        
+                                        [(ngModel)]="addLeadFormData.lead_source" 
+                                        #lead_source="ngModel"
+                                        name="Lead Source" [class.is-invalid]="lead_source.invalid && lead_source.touched" >
+                                        <ng-container *ngIf = "addLeadFormData.lead_source === ''"><option  value="">Select</option></ng-container>
+                                             <option  value="">Select</option>
+                                            <option value="0">Online</option>
+                                            <option value="1">Google Ad</option>
+                                            <option value="2">Referral</option>
+                                            <option value="3">Other</option>
+											
+											
+                                        </select>
+									<small class="text-danger" [class.d-none]="lead_source.valid || lead_source.untouched">Lead Source is required</small> 	      
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- <div class="col-md-6"> -->
+                                  <!-- <div class="form-group row"> -->
+                                      <!-- <label class="col-sm-4 col-form-label">No Walk Needed</label> -->
+                                      <!-- <div class="col-sm-8"> -->
+                                          <!-- <div class="form-check" style="margin-top:8px;"> -->
+                                              <!-- <label> -->
+                                                  <!-- <input name="check" id="ckbCheckAll" type="checkbox"> -->
+                                                  <!-- <span class="label-text"></span> </label> -->
+                                          <!-- </div> -->
+                                      <!-- </div> -->
+                                  <!-- </div> -->
+                              <!-- </div> -->
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Referral Name</label>
+                                      <div class="col-sm-8">
+                                          <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.referral_name" #referral_name="ngModel" maxlength="50" name="referral_name"
+                                        placeholder="Referral Name" required [class.is-invalid]="referral_name.invalid && referral_name.touched">
+										<small class="text-danger" [class.d-none]="referral_name.valid || referral_name.untouched">Referral Name is required</small> 	
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Confrim Walk through</label>
+                                      <div class="col-sm-8">
+                                          <input placeholder="Confrim Walk through" class="form-control" [(ngModel)]="addLeadFormData.confirm_walk_through" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="form-control" name="confirm_walk_through" #confirm_walk_through="ngModel" [class.is-invalid]="confirm_walk_through.invalid && confirm_walk_through.touched">
+                                    <owl-date-time #dt2></owl-date-time>
+									<small class="text-danger" [class.d-none]="confirm_walk_through.valid || confirm_walk_through.untouched">Confrim Walk through is required</small> 	
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Lead Owner</label>
+                                      <div class="col-sm-8">
+                                            <select class="custom-select"
+                                                        
+                                                        [(ngModel)]="addLeadFormData.lead_owner" 
+                                                        #lead_owner="ngModel"
+                                                          name="lead_owner" [class.is-invalid]="lead_owner.invalid && lead_owner.touched" required>
+                                                        <option value="">Select Lead Owner</option>
+                                                        <option value="{{puser.user_id}}" *ngFor="let puser of lead_user">{{puser.user_name}}</option>
+                                                       
+                                                    </select>
+										   <small class="text-danger" [class.d-none]="lead_owner.valid || lead_owner.untouched">Lead Owner is required</small> 
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Active/Inactive</label>
+                                      <div class="col-sm-8">
+                                            <select class="custom-select"
+                                        
+                                        [(ngModel)]="addLeadFormData.is_active" 
+                                        #is_active="ngModel"
+                                        name="Active/Inactive" [class.is-invalid]="is_active.invalid && is_active.touched" >
+                                        <ng-container *ngIf = "addLeadFormData.is_active === ''"><option  value="">Select</option></ng-container>
+                                             <option  value="">Select</option>
+                                            <option value="0">Active</option>
+                                            <option value="1">Inactive</option>
+                                          
+											
+											
+                                        </select>
+										  <small class="text-danger" [class.d-none]="is_active.valid || is_active.untouched">Active/Inactive is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Sales Person</label>
+                                      <div class="col-sm-8">
+                                          <select class="custom-select"
+                                                        
+                                                        [(ngModel)]="addLeadFormData.sales_person" 
+                                                        #sales_person="ngModel"
+                                                          name="sales_person" [class.is-invalid]="sales_person.invalid && sales_person.touched" required>
+                                                        <option value="">Select Sales Person</option>
+                                                        <option value="{{puser.user_id}}" *ngFor="let puser of lead_user">{{puser.user_name}}</option>
+                                                       
+                                                    </select>
+										      <small class="text-danger" [class.d-none]="sales_person.valid || sales_person.untouched">Sales Person is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Project Walk Notes</label>
+                                      <div class="col-sm-8">
+                                         <textarea name="" 
+                                        [(ngModel)]="addLeadFormData.project_walk_note" #project_walk_note="ngModel"
+                                        maxlength="200" name="project_walk_note" placeholder="Project Walk Notes" rows="3" class="form-control" [class.is-invalid]="project_walk_note.invalid && project_walk_note.touched"></textarea>
+										 <small class="text-danger" [class.d-none]="project_walk_note.valid || project_walk_note.untouched">Project Walk Notes is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Time Window Availablity</label>
+                                      <div class="col-sm-8">
+                                         <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.time_window_availability" #time_window_availability="ngModel" maxlength="100" name="time_window_availability"
+                                        placeholder="Time Window Availablity" [class.is-invalid]="time_window_availability.invalid && time_window_availability.touched" required>
+										<small class="text-danger" [class.d-none]="time_window_availability.valid || time_window_availability.untouched">Time Window Availablity is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="clearfix"></div>
+                              <h4>Address Information </h4>
+                              <div class="clearfix"></div>
+                              <hr>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Street</label>
+                                      <div class="col-sm-8">
+                                           <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.Street" #Street="ngModel" maxlength="50" name="Street"
+                                        placeholder="Street" [class.is-invalid]="Street.invalid && Street.touched" required>
+										<small class="text-danger" [class.d-none]="Street.valid || Street.untouched">Street is required</small>
+                                      </div>
+                                      </div>
+                                  </div>
+                             
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">City</label>
+                                      <div class="col-sm-8">
+                                           <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.City" #City="ngModel" maxlength="50" name="City"
+                                        placeholder="City" [class.is-invalid]="City.invalid && City.touched" required>
+										<small class="text-danger" [class.d-none]="City.valid || City.untouched">City is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">State</label>
+                                      <div class="col-sm-8">
+                                          <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.State" #State="ngModel" maxlength="50" name="State"
+                                        placeholder="State" [class.is-invalid]="State.invalid && State.touched" required>
+										<small class="text-danger" [class.d-none]="State.valid || State.untouched">State is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Zip Code</label>
+                                      <div class="col-sm-8">
+                                           <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.zip_code" #zip_code="ngModel" maxlength="10" name="zip_code"
+                                        placeholder="Zip Code" [class.is-invalid]="zip_code.invalid && zip_code.touched" required>
+										<small class="text-danger" [class.d-none]="zip_code.valid || zip_code.untouched">Zip Code is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Project Site Access</label>
+                                      <div class="col-sm-8">
+                                           <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.project_site_access" #project_site_access="ngModel" maxlength="100" name="project_site_access"
+                                        placeholder="Project Site Access" [class.is-invalid]="project_site_access.invalid && project_site_access.touched" required>
+										<small class="text-danger" [class.d-none]="project_site_access.valid || project_site_access.untouched">project_site_access is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">County</label>
+                                      <div class="col-sm-8">
+                                         <input type="text" class="form-control" 
+                                        [(ngModel)]="addLeadFormData.County" #County="ngModel" maxlength="50" name="County"
+                                        placeholder="County" [class.is-invalid]="County.invalid && County.touched" required>
+										<small class="text-danger" [class.d-none]="County.valid || County.untouched">County is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="clearfix"></div>
+                              <h4>Project Information </h4>
+                              <div class="clearfix"></div>
+                              <hr>
+                              <div class="col-md-12">
+                                  <div class="form-group row">
+                                      <div class="col-sm-12">
+                                          <textarea name="" 
+                                        [(ngModel)]="addLeadFormData.project_information" #project_information="ngModel"
+                                        maxlength="200" name="project_information" placeholder="Project Information" rows="3" class="form-control" [class.is-invalid]="project_information.invalid && project_information.touched"></textarea>
+										<small class="text-danger" [class.d-none]="project_information.valid || project_information.untouched">Project Information is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-12 mt-2 text-right">
+                                  <button class="btn btn-success btn-md" type="button" (click)="createleadprofile()" [disabled]="myForm.form.invalid" data-action="save" >Save </button>
+                                  <button class="btn btn-default btn-md" type="button" (click)="createlead(myForm)">Save and New </button>
+                                  <button class="btn btn-default btn-md" type="button">Cancel </button>
+                              </div>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+      </div>
+</section>

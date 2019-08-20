@@ -1,0 +1,93 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+			  <nav>
+                 <ul class="nav navbar-nav">
+                           
+                            <li><a routerLink="../../../template-project-task/{{project_id}}" >Template Task</a></li>
+                            
+                          
+                          
+                            <li><a routerLink="../../../template-project-discussion/{{project_id}}" class="active">Template Discussion</a></li>
+                            <li><a routerLink="../../../template-project-file/{{project_id}}">Template Files</a></li>
+                           
+                        </ul>
+              </nav>
+            </div>
+        </div>
+
+        <form class="w-100" role="form" #addDiscussionForm="ngForm">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Discussion Title</label>
+                    <input type="text" class="form-control" [class.is-invalid]="discussion_title.invalid && discussion_title.touched"
+                        [(ngModel)]="updatetemplatediscussionFromData.discussion_title" #discussion_title="ngModel" name="discussion_title"
+                        placeholder="Discussion Title" required>
+                    <small class="text-danger" [class.d-none]="discussion_title.valid || discussion_title.untouched">Discussion
+                        Title is required</small>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Discussion Description</label>
+                    <textarea [class.is-invalid]="discussion_description.invalid && discussion_description.touched"
+                        [(ngModel)]="updatetemplatediscussionFromData.discussion_description" #discussion_description="ngModel"
+                        name="discussion_description" placeholder="Description" required rows="3" class="form-control"></textarea>
+                    <small class="text-danger" [class.d-none]="discussion_description.valid || discussion_description.untouched">Discussion
+                        Description is required</small>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+				<span *ngIf="updatetemplatediscussionFromData.discussion_extension=='pdf' || updatetemplatediscussionFromData.discussion_extension=='xls'|| updatetemplatediscussionFromData.discussion_extension=='xlsx' || updatetemplatediscussionFromData.discussion_extension=='docx'|| updatetemplatediscussionFromData.discussion_extension=='doc'|| updatetemplatediscussionFromData.discussion_extension=='csv'|| updatetemplatediscussionFromData.discussion_extension=='txt'|| updatetemplatediscussionFromData.discussion_extension=='zip'||
+				updatetemplatediscussionFromData.discussion_extension=='PDF'||
+				updatetemplatediscussionFromData.discussion_extension=='XLS'||
+				updatetemplatediscussionFromData.discussion_extension=='XLSX'||
+				updatetemplatediscussionFromData.discussion_extension=='DOC'||
+				updatetemplatediscussionFromData.discussion_extension=='DOCX'||
+				updatetemplatediscussionFromData.discussion_extension=='TXT'||
+				updatetemplatediscussionFromData.discussion_extension=='ZIP';else other_content" >
+                       
+                            <img src="{{noImage}}" width="100px" height="100px">
+                      
+                    </span>
+					<ng-template #other_content >
+				<img [src]="updatetemplatediscussionFromData.discussion_file_url" width="100px" height="100px"><br>
+                    <label for="exampleInputPassword1">Change</label>
+					</ng-template>
+				
+                   
+                    <input class="form-control" id="file-upload" type="file" type="file" (change)="onSelectFile($event)"
+                        name="uploaded_file" ng2FileSelect [uploader]="uploader" accept="image/*" #fileInput />
+                    <input type="hidden" [(ngModel)]="updatetemplatediscussionFromData.discussion_file_url" #discussion_file_url="ngModel"
+                        name="discussion_file_url">
+                    <input type="hidden" [(ngModel)]="updatetemplatediscussionFromData.discussion_project_id"
+                        #discussion_project_id="ngModel" name="discussion_project_id" value="{{updatetemplatediscussionFromData.discussion_project_id}}">
+                    <div class="progress" style="display: block;" *ngIf="pr_show">
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                    </div>
+                </div>
+            </div>
+			<div class="col-md-12">
+            <div class="form-group">
+                <label> Discussion Type</label>
+                <select [class.is-invalid]="discussion_type.invalid && discussion_type.touched" [(ngModel)]="updatetemplatediscussionFromData.discussion_type"
+                    #discussion_type="ngModel" name="discussion_type" required>
+                    <option value="">Select Type</option>
+                    <option *ngIf="project_company_id==company_id" value="1">Internal (Private)</option>
+                    <option value="2">External (Public)</option>
+                </select>
+                <small class="text-danger" [class.d-none]="discussion_type.valid || discussion_type.untouched">Discussion
+                    Type is required</small>
+            </div>
+			</div>
+			<div class="col-md-12">
+            <div class="form-group">
+            <button type="button" class="btn btn-success" (click)="update_template_discussion_detail()" [disabled]="addDiscussionForm.form.invalid"
+                role="button">Update</button>
+				</div>
+				</div>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,708 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <nav>
+          <ul class="nav navbar-nav">
+            <li><a routerLink="../../project-overview/{{project_id}}" class="active">Overview</a></li>
+            <li *ngIf="select_permissions.indexOf(28) !== -1"><a routerLink="../../project-task/{{project_id}}">Task</a>
+            </li>
+            <li *ngIf="select_permissions.indexOf(22) !== -1"><a
+                routerLink="../../project-calendar/{{project_id}}">Calendar</a></li>
+            <li *ngIf="select_permissions.indexOf(27) !== -1 && project_company_id===company_id"><a
+                routerLink="../../project-activity/{{project_id}}">Activity</a></li>
+            <li *ngIf="select_permissions.indexOf(29) !== -1 &&  project_company_id===company_id"><a
+                routerLink="../../project-reports/{{project_id}}">Reports</a></li>
+            <li *ngIf="select_permissions.indexOf(25) !== -1"><a
+                routerLink="../../project-discussion/{{project_id}}">Discussion</a></li>
+            <li *ngIf="select_permissions.indexOf(31) !== -1"><a
+                routerLink="../../project-files/{{project_id}}">Files</a></li>
+            <li *ngIf="select_permissions.indexOf(33) !== -1 && project_company_id===company_id"><a
+                routerLink="../../project-users/{{project_id}}">Users</a></li>
+            <li *ngIf="select_permissions.indexOf(36) !== -1"><a routerLink="../../notes/{{project_id}}">Notes</a></li>
+
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="row">
+      <div class="w-100">
+        <div class="col-md-12">
+          <h4 style="text-transform: uppercase">{{Projectname}}</h4>
+        </div>
+        <div class="col-md-12">
+          <div class="card-box new-cardbox">
+            <h4>Project Description</h4>
+            <hr>
+            <p class="multi_lines_text" style="overflow-wrap: break-word;">{{project_description}}</p>
+            <p>Owner Name:- <strong>{{project_owner_firstname}}{{project_owner_lastname}} </strong></p>
+            <!-- <p>Email:- <strong>{{project_owner_email}}</strong></p> -->
+            <!-- <p>contact:- <strong>{{project_owner_contact}}</strong></p> -->
+            <!-- <p>city:- <strong>{{project_owner_city}}</strong></p> -->
+            <p>Create date:-<strong>{{project_start_date | date:alldate }}</strong></p>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="card-box">
+            <h4>Latest project Activity</h4>
+            <div  *ngIf="activity?.length == 0; else other_content">
+              <h5> No Record found </h5>
+              </div>
+            <hr>
+            <div class="clearfix"></div>
+            <ng-template #other_content>
+            <div *ngFor="let activity1 of activity">
+              <strong> <i class="fa fa-calendar"></i>{{ activity1.created_at  | date:alldate }} | <i
+                  class="fa fa-clock-o"></i> {{ activity1.created_at  | date: 'shortTime' }}</strong>
+              <p>
+                {{activity1.activity_details}}
+              </p>
+              <hr>
+            </div>
+
+            <a routerLink="../../project-activity/{{project_id}}">See All Activity</a>
+            
+          </ng-template> 
+          </div>
+        </div>
+        <div class="col-md-12">
+          <!-- <div class="button-list pull-right mb-15">
+                                <ul class="float-btn float-btn-left">
+                                    <li>  </li>
+                                </ul>
+                              </div> -->
+          <div class="card-box">
+            <h4>Discussions
+              <a class="btn btn-info waves-effect waves-light"
+                routerLink="../../project-add-discussion/{{project_id}}"><i class="fa fa-plus"></i> Add Discussion</a>
+            </h4>
+            <hr>
+            <div class="clearfix"></div>
+            <div  *ngIf="discussions?.length == 0; else other_content_discussion">
+              <h5> No Record found </h5>
+              </div>
+              <ng-template #other_content_discussion>
+            <div *ngIf=" project_company_id==company_id && usertype=='1'; else externaluser ">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <tbody>
+                    <tr *ngFor="let discussion of discussions">
+                      <td scope="row">
+                        <span
+                          *ngIf="discussion.discussion_extension=='pdf' || discussion.discussion_extension=='xls'|| discussion.discussion_extension=='xlsx' || discussion.discussion_extension=='docx'|| discussion.discussion_extension=='doc'|| discussion.discussion_extension=='csv'|| discussion.discussion_extension=='txt'|| discussion.discussion_extension=='zip'|| discussion.discussion_extension=='PDF'|| discussion.discussion_extension=='DOC'|| discussion.discussion_extension=='DOCX'|| discussion.discussion_extension=='TXT'|| discussion.discussion_extension=='XLSX'|| discussion.discussion_extension=='XLS'|| discussion.discussion_extension=='ZIP';else other_content">
+
+                          <img src="{{noImage}}" class="rounded-circle d-flex mr-10 rounded-circle thumb-md" alt="">
+
+                        </span>
+                        <ng-template #other_content>
+                          <img src="{{discussion.discussion_file_url}}"
+                            class="rounded-circle d-flex mr-10 rounded-circle thumb-md" alt="">
+                        </ng-template>
+
+                      </td>
+                      <td>
+                        <a
+                          routerLink="../../project-show-discussion/{{project_id}}/{{discussion.id}}">{{discussion.discussion_title}}</a>
+                      </td>
+                      <td>Created by : {{discussion.created_by}}, {{discussion.created_at.date   | date:alldate}}</td>
+                      <td>
+                        <div *ngIf="discussion.discussion_type == 1 " class="badge badge-success">internal</div>
+                        <div *ngIf="discussion.discussion_type == 2 " class="badge badge-danger">External</div>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+           
+            </div>
+            <ng-template #externaluser>
+              <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                  <tbody>
+                    <tr *ngFor="let discussion of discussions">
+                      <td scope="row">
+                        <span
+                          *ngIf="discussion.discussion_extension=='pdf' || discussion.discussion_extension=='xls'|| discussion.discussion_extension=='xlsx' || discussion.discussion_extension=='docx'|| discussion.discussion_extension=='doc'|| discussion.discussion_extension=='csv'|| discussion.discussion_extension=='txt'|| discussion.discussion_extension=='zip'|| discussion.discussion_extension=='PDF'|| discussion.discussion_extension=='DOC'|| discussion.discussion_extension=='DOCX'|| discussion.discussion_extension=='TXT'|| discussion.discussion_extension=='XLSX'|| discussion.discussion_extension=='XLS'|| discussion.discussion_extension=='ZIP';else other_content">
+
+                          <img src="{{noImage}}" class="rounded-circle d-flex mr-10 rounded-circle thumb-md" alt="">
+
+                        </span>
+                        <ng-template #other_content>
+                          <img src="{{discussion.discussion_file_url}}"
+                            class="rounded-circle d-flex mr-10 rounded-circle thumb-md" alt="">
+                        </ng-template>
+
+                      </td>
+                      <td>
+                        <a
+                          routerLink="../../project-show-discussion/{{project_id}}/{{discussion.id}}">{{discussion.discussion_title}}</a>
+                      </td>
+                      <td>Created by : {{discussion.created_by}}, {{discussion.created_at.date  | date:alldate}}</td>
+
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </ng-template>
+            <a routerLink="../../project-discussion/{{project_id}}">More Discussion</a>
+          </ng-template> 
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-12">
+          <div class="card-box">
+              
+            <h4>Task List
+              <a class="btn btn-info waves-effect waves-light" (click)="addTaskForm.form.reset();test()"
+                data-toggle="modal" data-target="#addTask"><i class="fa fa-plus"></i> Add Task</a>
+            </h4>
+            <hr>
+            <div  *ngIf="allTasks?.length == 0; else other__Task">
+                <h5> No Record found </h5>
+                </div>
+            <div class="clearfix"></div>
+            <ng-template #other__Task>
+            <div class="table-responsive">
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <!-- <th></th> -->
+                    <th>Task</th>
+				        	<th>Description</th>
+                    <th>Owner</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Start Date</th>
+                    <th>Due Date</th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let Taskhead of allTasks ">
+                  <tr class="view">
+                    <td colspan="7">{{Taskhead.task_list_name}} ( {{Taskhead.task_list_type}} )</td>
+                  </tr>
+
+                  <tr *ngFor="let Tasks of Taskhead.tasks | grdFilter: {task_name: searchText, names:searchText};">
+                    <!-- <td>
+                      <div class="form-check">
+                        <label>
+                          <input name="check" type="checkbox" class="checkBoxClass">
+                          <span class="label-text"></span> </label>
+                      </div>
+                    </td> -->
+                    <td [hidden]="hideTask1"><a routerLink="../../project-task-edit/{{project_id}}/{{Tasks.id}}">
+                        {{Tasks.task_name}} </a></td>
+						  
+						     <td class="text-wrap" [hidden]="hideDescription7"><span
+                                  innerHtml="{{Tasks.task_description| truncate : 100}}"></span></td>
+                    <td  *ngIf="Tasks.names"  [hidden]="hideOwner2"> <a href="javascript:void(0);" class="font-bold d-block text-wrap"
+                                  (click)="enter_owner_name(Tasks.id,Tasks.task_owner_ids);get_owner_name();"
+                                  >{{Tasks.names}}</a>
+								    <div class="d-flex"
+                                  *ngIf="Tasks.id==taskidchange && Tasks.task_owner_ids==taskownerid  && give_owner_name">
+                                  <ng-multiselect-dropdown [placeholder]="'Task Owner'" [data]="dropdownList"
+                                    [(ngModel)]="selectedItems" ng-model-options="{timezone:'UTC/GMT'}"
+                                    [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                                    (onDeSelect)="onItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+                                    [ngModelOptions]="{standalone: true}">
+                                  </ng-multiselect-dropdown>
+                                  <button type="button" (click)="update_task_owner_name(mayuritaskheadid);"
+                                    class="btn btn-info btn-sm rounded-0">
+                                    <i class="fa fa-check"></i>
+                                  </button>
+                                </div>
+								  </td>
+								   <td *ngIf="Tasks.names == '' || Tasks.names == null" [hidden]="hideOwner2"> <a
+                                  href="javascript:void(0);" class="font-bold d-block"
+                                  (click)="enter_owner_name(Tasks.id,Tasks.task_owner_ids);get_owner_name();"
+                                  >NA</a>
+                                <div class="d-flex"
+                                  *ngIf="Tasks.id==taskidchange && Tasks.task_owner_ids==taskownerid  && give_owner_name">
+                                  <ng-multiselect-dropdown [placeholder]="'Task Owner'" [data]="dropdownList"
+                                    [(ngModel)]="selectedItems" ng-model-options="{timezone:'UTC/GMT'}"
+                                    [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                                    (onDeSelect)="onItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+                                    [ngModelOptions]="{standalone: true}">
+                                  </ng-multiselect-dropdown>
+                                  <button type="button" (click)="update_task_owner_name(mayuritaskheadid);"
+                                    class="btn btn-info btn-sm rounded-0">
+                                    <i class="fa fa-check"></i>
+                                  </button>
+                                </div>
+                              </td>
+                              <td *ngIf="Tasks.status_name!=null" [hidden]="hideStatus3">
+                                  <div class="btn-group">
+                                    <a class="btn btn-xs {{Tasks.color_class}} select_status" style="color:#fff;"
+                                      [style.background]="Tasks.color_class" type="button" id="dropdownMenu1"
+                                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                      {{Tasks.status_name}}
+                                      <span class="caret caret-search"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                      <li *ngFor="let status of status_list"><a
+                                          (click)="change_status(Tasks.id,status.id,Taskhead.id)">{{status.status}}</a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </td>
+                                <td *ngIf="Tasks.status_name==null" [hidden]="hideStatus3">
+                                  <div class="btn-group">
+                                    <a class="btn btn-xs select_status" type="button" id="dropdownMenu1"
+                                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">None</a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                      <li *ngFor="let status of status_list"><a
+                                          (click)="change_status(Tasks.id,status.id,Taskhead.id)">{{status.status}}</a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </td>
+                                <td [hidden]="hidePriority4">
+                                  <div class="btn-group">
+                                    <a class="btn btn-xs select_status "
+                                      [ngClass]="Tasks.task_priority == 1 ? 'btn-danger' : Tasks.task_priority == 2 ? 'btn-warning' : 'btn-success'"
+                                      type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                                      aria-expanded="true">
+                                      <ng-template [ngIf]="Tasks.task_priority == 0">None</ng-template>
+                                      <ng-template [ngIf]="Tasks.task_priority == 1">High</ng-template>
+                                      <ng-template [ngIf]="Tasks.task_priority == 2">Medium</ng-template>
+                                      <ng-template [ngIf]="Tasks.task_priority == 3">Low</ng-template>
+                                      <span class="caret caret-search"></span>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                      <li><a (click)="change_priority(Tasks.id,0,Taskhead.id)">None</a></li>
+                                      <li><a (click)="change_priority(Tasks.id,1,Taskhead.id)">High</a></li>
+                                      <li><a (click)="change_priority(Tasks.id,2,Taskhead.id)">Medium</a></li>
+                                      <li><a (click)="change_priority(Tasks.id,3,Taskhead.id)">Low</a></li>
+                                    </ul>
+                                  </div>
+                                </td>
+                    <td *ngIf="Tasks.task_start_date !='0000-00-00 00:00:00' && Tasks.hide_time == 1"
+                      [hidden]="hideStart5"> <a href="javascript:void('0');" class="font-bold d-block"
+                        (click)="enter_start_date(Tasks.id,Tasks.task_start_date )">
+                        {{Tasks.task_start_date| date:alldate }}
+                        <br>
+                      </a>
+                      <br>
+                      <div *ngIf="Tasks.id==taskiddate && give_start_date">
+                         <input placeholder="Start Date"
+                          [(ngModel)]="addTaskstartdate.start_date" value="{{Tasks.task_start_date}}"
+                          class="form-control" name="start_date" #start_date="ngModel" [owlDateTimeTrigger]="dt4"
+                          [owlDateTime]="dt4" class="form-control">
+                        <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+                        <button type="button" (click)="update_task_start_date();" class="btn btn-info btn-sm rounded-0">
+                          <i class="fa fa-check"></i>
+                        </button>
+                      </div>
+                    </td>
+                    <td [hidden]="hideStart5"
+                      *ngIf="Tasks.task_start_date != '0000-00-00 00:00:00'&& Tasks.hide_time == 0">
+                      <a href="javascript:void('0');" class="font-bold d-block"
+                        (click)="enter_start_date(Tasks.id,Tasks.task_start_date )">
+                        {{Tasks.task_start_date| date:alldate }}
+                        <br>
+                        <small>{{Tasks.task_start_date  | date:'shortTime'}} </small> </a>
+                      <div *ngIf="Tasks.id==taskiddate && give_start_date"> <input placeholder="Start Date"
+                          [(ngModel)]="addTaskstartdate.start_date" value="{{Tasks.task_start_date}}"
+                          class="form-control" name="start_date" #start_date="ngModel" [owlDateTimeTrigger]="dt4"
+                          [owlDateTime]="dt4" class="form-control">
+                        <owl-date-time #dt4></owl-date-time>
+                        <button type="button" (click)="update_task_start_date()" class="btn btn-info btn-sm rounded-0">
+                          <i class="fa fa-check"></i>
+                        </button>
+                      </div>
+                    </td>
+                    <td [hidden]="hideStart5" *ngIf="Tasks.task_start_date == '0000-00-00 00:00:00'">
+                      <a href="javascript:void('0');" class="font-bold d-block" (click)="enter_start_date(Tasks.id)">
+                        NA
+                      </a>
+                      <div *ngIf="Tasks.id==taskiddate && give_start_date"> <input placeholder="Start Date"
+                          [(ngModel)]="addTaskstartdate.start_date" class="form-control" name="start_date"
+                          #start_date="ngModel" [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" class="form-control">
+                        <owl-date-time #dt4></owl-date-time>
+                        <button type="button" (click)="update_task_start_date()" class="btn btn-info btn-sm rounded-0">
+                          <i class="fa fa-check"></i>
+                        </button>
+                      </div>
+                    </td>
+                    <td *ngIf="Tasks.task_end_date !='0000-00-00 00:00:00'&& Tasks.hide_time == 1" [hidden]="hideDue6">
+                      <a href="javascript:void('0');" class="font-bold d-block"
+                        (click)="enter_end_date(Tasks.id)">{{Tasks.task_end_date | date:alldate}}
+                        <br></a>
+                      <div *ngIf="Tasks.id==taskendid && give_end_date">
+                         <input placeholder="End Date"
+                          [(ngModel)]="addTaskstartdate.end_date" class="form-control" name="end_date"
+                          #end_date="ngModel" [owlDateTimeTrigger]="dt5" [min]="addTaskstartdate.start_date" [owlDateTime]="dt5" class="form-control">
+                        <owl-date-time [pickerType]="'calendar'" #dt5></owl-date-time>
+                        <button type="button" (click)="update_task_end_date();" class="btn btn-info btn-sm rounded-0">
+                          <i class="fa fa-check"></i>
+                        </button>
+                      </div>
+                    </td>
+                    <td *ngIf="Tasks.task_end_date !='0000-00-00 00:00:00'&& Tasks.hide_time == 0" [hidden]="hideDue6">
+                      <a href="javascript:void('0');" class="font-bold d-block"
+                        (click)="enter_end_date(Tasks.id)">{{Tasks.task_end_date | date:alldate}}
+                        <br><small> {{Tasks.task_end_date | date:'shortTime'}}</small></a>
+
+                      <div *ngIf="Tasks.id==taskendid && give_end_date"> <input placeholder="End Date"
+                          [(ngModel)]="addTaskstartdate.end_date" class="form-control" name="end_date"
+                          #end_date="ngModel" [owlDateTimeTrigger]="dt5" [min]="addTaskstartdate.start_date" [owlDateTime]="dt5" class="form-control">
+                        <owl-date-time #dt5></owl-date-time>
+                        <button type="button" (click)="update_task_end_date();" class="btn btn-info btn-sm rounded-0">
+                          <i class="fa fa-check"></i>
+                        </button>
+                      </div>
+                    </td>
+                    <td *ngIf="Tasks.task_end_date =='0000-00-00 00:00:00'" [hidden]="hideDue6"><a
+                        href="javascript:void('0');" class="font-bold d-block" (click)="enter_end_date(Tasks.id)">NA
+                      </a>
+
+                      <div *ngIf="Tasks.id==taskendid && give_end_date"> <input placeholder="End Date"
+                          [(ngModel)]="addTaskstartdate.end_date" class="form-control" name="end_date"
+                          #end_date="ngModel" [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5" [min]="addTaskstartdate.start_date" class="form-control">
+                        <owl-date-time #dt5></owl-date-time>
+                        <button type="button" (click)="update_task_end_date();" class="btn btn-info btn-sm rounded-0">
+                          <i class="fa fa-check"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ng-template>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-12">
+          <div class="card-box">
+            <h4>Files
+              <a routerLink="../../project-files/{{project_id}}" class="btn btn-info waves-effect waves-light"><i
+                  class="fa fa-plus"></i> Add a File</a>
+            </h4>
+            <hr>
+            <div  *ngIf="allprojectfiles?.length == 0; else other__file">
+                <h5> No Record found </h5>
+                </div>
+                <ng-template #other__file>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="add-filesbox mt-2">
+                  <div style="text-align:center">
+                    <!-- <div class="text-center well"> -->
+                    <!-- <dropzone [config]="config" #drpzone [message]="'Click or drag images here to upload'" -->
+                    <!-- (error)="onError()" (sending)="onSending($event)" (sendingmultiple)="onSendingmultiple()" -->
+                    <!-- (success)="onSuccess($event)"> -->
+                    <!-- </dropzone> -->
+                    <!-- </div> -->
+                    <div class="white-box p-3">
+
+
+
+
+                      <div class="row mt-2">
+                        <div class="col-12">
+
+                           <p-fileUpload [showUploadButton]="yourCondition" name="file[]" url="{{upload_url}}"
+                          (onUpload)="onUpload($event)" (onRemove)="removeFile($event)" (onError)="onError($event)" (onSelect)="chooseFile($event)"
+                          (onBeforeSend)="onBeforeSend($event)" multiple="multiple"
+                          accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/doc,application/docs,application/xls,application/xlsx,text/Microsoft Excel Worksheet,text/html,video/mpeg,audio/mpeg3,video/mp4,audio/mp3,text/plain,image/heic heic,image/heif"
+                          maxFileSize="11000000">
+                          <ng-template pTemplate="content">
+                            <!-- <ul *ngIf="uplo*ngIfadedFiles.length"> -->
+                            <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes <span
+                                style="color: #28a745">Uploaded Success</span></li>
+
+                            <!-- </ul> -->
+                          </ng-template>
+                        </p-fileUpload>
+                        </div>
+                      </div>
+
+
+
+                    </div>
+                  </div>
+                </div>
+				 <ul>
+    <li style="color: red"> {{message}} </li>
+	</ul>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-md-3" *ngFor="let projectfiles of allprojectfiles">
+                <div class="product-image-wrapper wow fadeInUp" data-wow-delay="0.1s">
+                  <div class="single-products">
+                    <div class="productinfo text-center">
+                      <span
+                        *ngIf="projectfiles.file_type=='png' || projectfiles.file_type=='jpg'|| projectfiles.file_type=='gif' || projectfiles.file_type=='jpeg';else other_content"><img
+                          class="card-img-top img-responsive" src="{{projectfiles.thumb_url}}"
+                          (click)="onselect(projectfiles.file_url)" alt="cap"></span>
+                      <ng-template #other_content><img class="card-img-top img-responsive"
+                          src="http://itsabacus.net/sprucebox_api/public/file_type_images/{{projectfiles.file_type}}.png"
+                          alt="cap"></ng-template>
+                    </div>
+                    <div class="card-body">
+                      <h2>{{projectfiles.file_title}}</h2>
+                      <p>Add by {{projectfiles.firstname}} on {{projectfiles.created_at  | date:alldate}}
+                        <p
+                          *ngIf="projectfiles.file_type=='xls'|| projectfiles.file_type=='csv' || projectfiles.file_type=='doc'|| projectfiles.file_type=='docx'|| projectfiles.file_type=='txt'|| projectfiles.file_type=='zip'|| projectfiles.file_type=='XLS'|| projectfiles.file_type=='XLSX'|| projectfiles.file_type=='DOC'|| projectfiles.file_type=='DOCX'|| projectfiles.file_type=='TXT'|| projectfiles.file_type=='ZIP'|| projectfiles.file_type=='xlsx';else other">
+                          <a (click)="viewfile(projectfiles.file_url)" class="icon" download><i class="fa fa-eye"
+                              aria-hidden="true"></i></a>
+                          <a (click)="deletefile(projectfiles.file_id,projectfiles.file_name)" class="icon" download><i
+                              class="fa fa-trash"></i></a>
+                          <a (click)="downloadFile(projectfiles.file_url,projectfiles.file_name)" class="icon"
+                            download="test.jpg"><i class="fa fa-download"></i></a></p>
+                        <ng-template #other>
+                          <ng-container
+                            *ngIf="projectfiles.file_type=='pdf'|| projectfiles.file_type=='PDF';else third">
+                            <a (click)="viewpdffile(projectfiles.file_url)" class="icon" download><i class="fa fa-eye"
+                                aria-hidden="true"></i></a>
+                            <a (click)="deletefile(projectfiles.file_id,projectfiles.file_name)" class="icon"
+                              download><i class="fa fa-trash"></i></a>
+                            <a (click)="downloadFile(projectfiles.file_url,projectfiles.file_name)" class="icon"
+                              download="test.jpg"><i class="fa fa-download"></i></a>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template #third>
+                          <a (click)="deletefile(projectfiles.file_id,projectfiles.file_name)" class="icon" download><i
+                              class="fa fa-trash"></i></a>
+                          <a (click)="downloadFile(projectfiles.file_url,projectfiles.file_name)" class="icon"
+                            download="test.jpg"><i class="fa fa-download"></i></a>
+                        </ng-template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a routerLink="../../project-files/{{project_id}}" class="clearfix col-md-12"> More Files</a>
+            </div>
+          </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" *ngIf="modeldisplay5" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+      tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color:#fff;width:800px; height: auto; margin: 0; padding: 0; left: -88px;
+ ">
+          <div class="modal-header">
+            <h4 class="modal-title">View file</h4>
+            <button type="button" (click)="hidemodel6()" class="close" data-dismiss="modal" style="color:black;"><span
+                aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+          </div>
+          <div class="modal-body">
+            <iframe [src]="filedata | safe" style="width:770px; height: 500px;" frameborder="0"></iframe>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+              (click)="hidemodel6()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" *ngIf="modeldisplay3" [style.background]="applyback?'#21212185':'red'" id="ModalAdd"
+      tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form role="form" #addfolderform="ngForm" style="background-color:#fff ">
+            <div class="modal-header">
+              <h4 class="modal-title">Image <button type="button" class="close" style="color:#000000 "
+                  (click)="hidemodel3()" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button></h4>
+            </div>
+            <div class="modal-body">
+              <img class='img-fluid w-100' style="margin: 0 auto;" src="{{fileurldata}}" alt="cap">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+                (click)="hidemodel3()">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal" *ngIf="modeldisplay4" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+      tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color:#fff;">
+          <div class="modal-header">
+            <h4 class="modal-title">Remove file</h4>
+            <button type="button" class="close" (click)="hidemodel5()" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+          </div>
+
+          <div class="modal-body">
+            <p> Are You Sure ?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+              (click)="hidemodel5()">Close</button>
+            <button type="submit" class="btn btn-success" (click)="remove_user(remove_user_id,user_file_name)">Remove
+              File</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="modal fade" id="addTask" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog bright-modal-style">
+    <div class="modal-content">
+      <form class="w-100" role="form" #addTaskForm="ngForm" style="background-color: white">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+              class="sr-only">Close</span></button>
+          <h3 class="modal-title" id="lineModalLabel">New Task</h3>
+        </div>
+        <div class="modal-body">
+
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Task Name</label>
+
+              <input type="text" class="form-control" [class.is-invalid]="task_name.invalid && task_name.touched"
+                [(ngModel)]="addTaskFromData.task_name" #task_name="ngModel" maxlength="100" name="task_name"
+                placeholder="Task Name" required>
+              <small class="text-danger" [class.d-none]="task_name.valid || task_name.untouched">Description is
+                required</small>
+
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Description</label>
+              <textarea name="" [class.is-invalid]="task_description.invalid && task_description.touched"
+                [(ngModel)]="addTaskFromData.task_description" #task_description="ngModel" maxlength="200"
+                name="task_description" placeholder="Description" rows="3" class="form-control"></textarea>
+              <small class="text-danger"
+                [class.d-none]="task_description.valid || task_description.untouched">Description is required</small>
+
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Attachment</label>
+              <input class="form-control" id="file-upload" type="file" type="file" (change)="onSelectFile($event)"
+                name="uploaded_file" ng2FileSelect [uploader]="uploader" accept="image/*" #fileInput />
+              <input type="hidden" [(ngModel)]="addTaskFromData.task_image_url" #task_image_url="ngModel"
+                name="task_image_url">
+
+              <div class="progress" style="display: block;" *ngIf="pr_show">
+                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Task List</label>
+              <select class="custom-select" [class.is-invalid]="task_list_id.invalid && task_list_id.touched"
+                [(ngModel)]="addTaskFromData.task_list_id" #task_list_id="ngModel" name="task_list_id">
+                <optgroup *ngFor="let TasksType of TasksTypes" label="{{TasksType.task_list_type}}">
+                  <option *ngFor="let tasklist of TasksType.tasklists" value="{{tasklist.id}}">
+                    {{tasklist.task_list_name}}</option>
+                </optgroup>
+
+              </select>
+              <small class="text-danger" [class.d-none]="task_list_id.valid || task_list_id.untouched">Task List is
+                required</small>
+
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Task Owner</label>
+              <ng-multiselect-dropdown [placeholder]="'Task Owner'" [data]="dropdownList" [(ngModel)]="selectedItems"
+                [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)"
+                (onSelectAll)="onSelectAll($event)" [ngModelOptions]="{standalone: true}">
+              </ng-multiselect-dropdown>
+
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <div class="form-check">
+                <label>
+                  <input type="checkbox" name="checkbox"
+                    (change)="datetriggerEvent($event);checkValue(addTaskFromData.hide_time?'1':'0')"
+                    [(ngModel)]="addTaskFromData.hide_time">
+                  <span class="label-text"></span> Hide Time</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 ">
+            <div class="form-group" *ngIf="dateEditable">
+              <label for="exampleInputPassword1">Start Date</label>
+              <input placeholder="Start Date" class="form-control" [(ngModel)]="addTaskFromData.task_start_date"
+                [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" class="form-control" name="task_start_date"
+                #task_start_date="ngModel">
+              <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+            </div>
+            <div class="form-group" *ngIf="!dateEditable">
+              <label for="exampleInputPassword1">Start Date</label>
+              <input placeholder="Start Date" class="form-control" [(ngModel)]="addTaskFromData.task_start_date"
+                [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" class="form-control" name="task_start_date"
+                #task_start_date="ngModel">
+              <owl-date-time #dt3></owl-date-time>
+            </div>
+          </div>
+          <div class="col-md-6 ">
+            <div class="form-group" *ngIf="dateEditable">
+              <label for="exampleInputPassword1">Due Date</label>
+             <input placeholder="Due Date" class="form-control" [min]="addTaskFromData.task_start_date" [(ngModel)]="addTaskFromData.task_end_date" [owlDateTimeTrigger]="dt" [owlDateTime]="dt" name="task_end_date" #task_end_date="ngModel">
+        
+       
+              <owl-date-time [pickerType]="'calendar'" #dt></owl-date-time>
+            </div>
+            <div class="form-group" *ngIf="!dateEditable">
+              <label for="exampleInputPassword1">Due Date</label>
+              <input placeholder="Due Date" class="form-control" [min]="addTaskFromData.task_start_date" [(ngModel)]="addTaskFromData.task_end_date" [owlDateTimeTrigger]="dt" [owlDateTime]="dt" name="task_end_date" #task_end_date="ngModel">
+              <owl-date-time #dt></owl-date-time>
+            </div>
+
+          </div>
+          <div class="col-md-6 ">
+            <div class="form-group" *ngIf="dateEditable">
+              <label for="exampleInputPassword1">Reminder</label>
+              <input placeholder="Reminder Date" class="form-control" [(ngModel)]="addTaskFromData.task_reminder_date"
+                [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" name="task_reminder_date" [max]="addTaskFromData.task_end_date"
+                #task_reminder_date="ngModel">
+              <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+            </div>
+            <div class="form-group" *ngIf="!dateEditable">
+              <label for="exampleInputPassword1">Reminder</label>
+              <input placeholder="Reminder Date" class="form-control" [(ngModel)]="addTaskFromData.task_reminder_date" [max]="addTaskFromData.task_end_date"
+                [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" name="task_reminder_date"
+                #task_reminder_date="ngModel">
+              <owl-date-time #dt2></owl-date-time>
+            </div>
+          </div>
+          <div class="col-md-6 demo">
+            <label for="exampleInputPassword1">Priority</label>
+            <select class="custom-select" [class.is-invalid]="task_priority.invalid && task_priority.touched"
+              [(ngModel)]="addTaskFromData.task_priority" #task_priority="ngModel" name="task_priority">
+              <option value="">Select</option>
+              <option value="1">High</option>
+              <option value="2">Medium</option>
+              <option value="3">Low</option>
+            </select>
+            <small class="text-danger" [class.d-none]="task_priority.valid || task_priority.untouched">Priority is
+              required</small>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="btn-group" role="group" aria-label="group button">
+            <div class="btn-group" role="group">
+              <button type="button" id="" data-dismiss="modal" class="btn btn-success" (click)="add_new_task()"
+                data-action="save" [disabled]="addTaskForm.form.invalid" role="button">Add</button>
+            </div>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Close</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

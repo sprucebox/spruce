@@ -1,0 +1,15 @@
+.d-flex{
+    display: flex;
+    justify-content: space-between;
+    align-items: self-start;
+}
+.scroll-height{
+    height: calc(100vh - 400px);
+    overflow: auto;
+    position: relative;
+}
+
+.modal{
+    overflow: auto;
+}
+

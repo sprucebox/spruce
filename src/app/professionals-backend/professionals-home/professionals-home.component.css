@@ -1,0 +1,8 @@
+.list-box{
+    display: block;
+    padding-right: 0px;
+}
+.list-box img{
+    height: 150px;
+    object-fit: cover;
+}

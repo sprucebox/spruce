@@ -1,0 +1,550 @@
+<header id="header"><!--header-->
+  
+  <div class="header-middle"><!--header-middle-->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="logo pull-left"> <a href="javascript:void(0);"><img src="../assets/front-assets/images/home/logo.png" class="img-responsive" alt="" /> </a> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/header-middle--> 
+</header>
+<!--/header-->
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="stepwizard mt-4">
+          <div class="stepwizard-row setup-panel">
+            <div class="stepwizard-step col-md-2"> <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+              <p>Create Account</p>
+            </div>
+            <div class="stepwizard-step col-md-2"> <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+              <p>Company Profile</p>
+            </div>
+            <div class="stepwizard-step col-md-3"> <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+              <p>License Verification</p>
+            </div>
+            <div class="stepwizard-step col-md-3"> <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
+              <p>Background Check</p>
+            </div>
+            <div class="stepwizard-step col-md-2"> <a href="#step-5" type="button" class="btn btn-default btn-circle" disabled="disabled">5</a>
+              <p>Completed</p>
+            </div>
+          </div>
+        </div>
+        
+          <div class="setup-content col-md-8 col-xs-12 col-sm-12 p0" id="step-1">
+            <form class="w-100" role="form" #createprofessionalForm="ngForm">
+            <div class="card">
+              <div class="card-body">
+              	<div class="col-md-12">
+              	<h4 class="header-text-color">Company Detail</h4>
+              	</div>
+                <div class="clearfix"></div>
+                <hr>
+                <div class="form-group w-100">
+                <div class="col-md-6">
+                  <label>Company Name</label>
+                  <input type="text"
+                  class="form-control"
+                  [class.is-invalid]="company_name.invalid && company_name.touched" 
+                  [(ngModel)]="professionalData.company_name" 
+                  #company_name="ngModel" 
+                  name="company_name" 
+                  placeholder="Company Name" required>
+                  <small class="text-danger" [class.d-none]="company_name.valid || company_name.untouched">Company Name is required</small>
+                </div>
+                 <div class="col-md-6">
+                  <label>Website</label>
+                  <input type="text"
+                  class="form-control"
+                  [class.is-invalid]="company_website.invalid && company_website.touched" 
+                  [(ngModel)]="professionalData.company_website" 
+                  #company_website="ngModel" 
+                  name="company_website" 
+                  placeholder="Website" required>
+                  <small class="text-danger" [class.d-none]="company_website.valid || company_website.untouched">Website is required</small>
+                </div>
+              </div>
+                <div class="col-md-6">
+                  <label>Year Establised</label>
+                  <select class="custom-select">
+                    <option>--Year--</option>
+                    <option>1992</option>
+                    <option>1993</option>
+                    <option>1994</option>
+                    <option>1995</option>
+                    <option>1996</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label>Company Size</label>
+                  <select class="custom-select">
+                    <option>--Size--</option>
+                    <option>10</option>
+                    <option>25</option>
+                    <option>50</option>
+                    <option>75</option>
+                    <option>100</option>
+                  </select>
+                </div>
+                
+              	<div class="col-md-12">
+              	<h4 class="header-text-color">Contact Detail</h4>
+              	</div>
+                <div class="clearfix"></div>
+              	<hr>
+                <div class="col-md-6">
+                  <label>First Name</label>
+                  <input type="text"
+                  class="form-control"
+                  [class.is-invalid]="company_contact_first_name.invalid && company_contact_first_name.touched" 
+                  [(ngModel)]="professionalData.company_contact_first_name" 
+                  #company_contact_first_name="ngModel" 
+                  name="company_contact_first_name" 
+                  placeholder="First Name" required>
+                  <small class="text-danger" [class.d-none]="company_contact_first_name.valid || company_contact_first_name.untouched">First Name is required</small>
+                </div>
+                <div class="col-md-6">
+                  <label>Last Name</label>
+                  <input type="text"
+                  class="form-control"
+                  [class.is-invalid]="company_contact_last_name.invalid && company_contact_last_name.touched" 
+                  [(ngModel)]="professionalData.company_contact_last_name" 
+                  #company_contact_last_name="ngModel" 
+                  name="company_contact_last_name" 
+                  placeholder="Last Name" required>
+                  <small class="text-danger" [class.d-none]="company_contact_last_name.valid || company_contact_last_name.untouched">Last Name is required</small>
+                </div>
+                <div class="col-md-6">
+                  <label>Email</label>
+                  <input type="text"
+                  class="form-control"
+                  [class.is-invalid]="company_contact_email.invalid && company_contact_email.touched" 
+                  [(ngModel)]="professionalData.company_contact_email" 
+                  #company_contact_email="ngModel" 
+                  name="company_contact_email" 
+                  placeholder="Email" required>
+                  <small class="text-danger" [class.d-none]="company_contact_email.valid || company_contact_email.untouched">Email is required</small>
+                </div>
+                <div class="col-md-12"> <span>Already have an account <a href="login.html">Log in</a></span> </div>
+                <div class="clearfix"></div>
+                <hr>
+                <div class="col-md-4">
+                  <label>Phone Number</label>
+                  <input type="text"
+                  class="form-control"
+                  [class.is-invalid]="company_contact_mobile.invalid && company_contact_mobile.touched" 
+                  [(ngModel)]="professionalData.company_contact_mobile" 
+                  #company_contact_mobile="ngModel" 
+                  name="company_contact_mobile" 
+                  placeholder="Phone Number" required>
+                  <small class="text-danger" [class.d-none]="company_contact_mobile.valid || company_contact_mobile.untouched">Phone Number is required</small>
+                </div>
+                <div class="col-md-4">
+                  <label>Confirm Phone Number</label>
+                  <input placeholder="Confirm Phone Number" type="text">
+                </div>
+                <div class="col-md-4">
+                  <label class="d-block v-hidden">Text Me</label>
+                  <div class="form-check">
+                      <label>
+                          <input name="check" class="checkBoxClass" type="checkbox">
+                          <span class="label-text"></span> </label>
+                          Text me 
+                  </div>
+                  </div>
+                <div class="col-md-12"> <small>Receive Update via text message or direct calls from your profile</small> </div>
+                <div class="clearfix"></div>
+                <hr>
+                <div class="col-md-6">
+                  <label>Street</label>
+                  <input type="text"
+                  class="form-control"
+                  [class.is-invalid]="company_address_street.invalid && company_address_street.touched" 
+                  [(ngModel)]="professionalData.company_address_street" 
+                  #company_address_street="ngModel" 
+                  name="company_address_street" 
+                  placeholder="Street" required>
+                  <small class="text-danger" [class.d-none]="company_address_street.valid || company_address_street.untouched">Street is required</small>
+                </div>
+                <div class="col-md-6">
+                  <label>Suite</label>
+                  <input type="text"
+                  class="form-control"
+                  [class.is-invalid]="company_address_suite.invalid && company_address_suite.touched" 
+                  [(ngModel)]="professionalData.company_address_suite" 
+                  #company_address_suite="ngModel" 
+                  name="company_address_suite" 
+                  placeholder="Suite" required>
+                  <small class="text-danger" [class.d-none]="company_address_suite.valid || company_address_suite.untouched">Suite is required</small>
+                </div>
+                <div class="col-md-3">
+                  <label class="d-block">City</label>
+                  <input type="text"
+                  class="form-control"
+                  [class.is-invalid]="company_address_city.invalid && company_address_city.touched" 
+                  [(ngModel)]="professionalData.company_address_city" 
+                  #company_address_city="ngModel" 
+                  name="company_address_city" 
+                  placeholder="Suite" required>
+                  <small class="text-danger" [class.d-none]="company_address_city.valid || company_address_city.untouched">City is required</small>
+                </div>
+                <div class="col-md-3">
+                  <label class="d-block">State</label>
+                  <select class="custom-select">
+                    <option>--State--</option>
+                    <option>Alaska</option>
+                    <option>Arizona</option>
+                    <option>California</option>
+                    <option>Ohio</option>
+                    <option>Texas</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label class="d-block">Country</label>
+                  <input placeholder="Country" type="text">
+                </div>
+                <div class="col-md-3">
+                  <label class="d-block">Zip</label>
+                  <input type="text"
+                  class="form-control"
+                  [class.is-invalid]="company_address_zip.invalid && company_address_zip.touched" 
+                  [(ngModel)]="professionalData.company_address_zip" 
+                  #company_address_zip="ngModel" 
+                  name="company_address_zip" 
+                  placeholder="Zip" required>
+                  <small class="text-danger" [class.d-none]="company_address_zip.valid || company_address_zip.untouched">Zip is required</small>
+                </div>
+                <div class="clearfix"></div>
+                <hr>
+                <div class="col-md-3">
+                  <label class="d-block">Corporate Name</label>
+                  <input type="text"
+                  class="form-control"
+                  [class.is-invalid]="company_corporate_name.invalid && company_corporate_name.touched" 
+                  [(ngModel)]="professionalData.company_corporate_name" 
+                  #company_corporate_name="ngModel" 
+                  name="company_corporate_name" 
+                  placeholder="Corporate Name" required>
+                  <small class="text-danger" [class.d-none]="company_corporate_name.valid || company_corporate_name.untouched">Corporate Name is required</small>
+                </div>
+                 <div class="col-md-3">
+                  <label class="d-block">Tax ID</label>
+                  <input type="text"
+                  class="form-control"
+                  [class.is-invalid]="company_tax_id.invalid && company_tax_id.touched" 
+                  [(ngModel)]="professionalData.company_tax_id" 
+                  #company_tax_id="ngModel" 
+                  name="company_tax_id" 
+                  placeholder="Tax ID" required>
+                  <small class="text-danger" [class.d-none]="company_tax_id.valid || company_tax_id.untouched">Tax ID is required</small>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-check">
+                        <label>
+                            <input name="check" class="checkBoxClass" type="checkbox">
+                            <span class="label-text"></span> </label>
+                            I Agree 
+                    </div>
+                  </div>
+                <div class="clearfix"></div>
+                <hr>
+                <div class="col-md-12">
+                  <button class="btn btn-primary nextBtn btn-md mt-7 pull-right" (click)="createprofessionalAccount()" [disabled]="createprofessionalForm.form.invalid" type="button" >Create Account</button>
+                  
+                </div>
+              </div>
+            </div>
+            </form>
+          </div>
+          <div class="setup-content col-md-8 col-xs-12 col-sm-12 p0" id="step-2">
+            
+              <div class="card">
+                <div class="card-body">
+                  <div class="col-md-12">
+                    <h4 class="header-text-color">What are your Speciality ?</h4>
+                    <hr>
+                    <div class="row mt-2">
+                      <div class="col-md-3" *ngFor="let speciality of specialities">
+                         
+                        <div class="card" >
+                          <div class="card-body selection"  (click)="addData(speciality.id)" >
+                          <div class="circle-image check-img" id="select_id{{speciality.id}}">
+                          <img src="../assets/front-assets/images/my-icons-collection/landscap.png" class="img-responsive" alt="">
+                          </div>
+                          <p>{{speciality.specialities_name}} </p>
+                          <input name="speciality[]" [(ngModel)]="professionalProfileData.speciality" 
+                          #speciality[]="ngModel" type="checkbox"  class="form-check hidden"  value="{{speciality.id}}">
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="card">
+                  <div class="card-header">
+                    <h4 class="header-text-color">More Trade <a href="javascript:void(0);" class="pull-right slideBox"><i class="fa fa-angle-down"></i></a></h4>
+                    </div>
+                <div class="card-body slideBoxshow">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <ul class="trade-list">
+                        <li>
+                          <div class="form-check">
+                            <label>
+                                <input name="trade[]" class="checkBoxClass" type="checkbox" value="1" (change)="onChange(1, $event.target.checked)">
+                                <span class="label-text"></span> </label>
+                                Appliance Install  
+                          </div>
+                          </li>
+                        <li>
+                          <div class="form-check">
+                            <label>
+                              <input name="trade[]" class="checkBoxClass" type="checkbox" value="2" (change)="onChange(2, $event.target.checked)">
+                                <span class="label-text"></span> </label>
+                                Appliance Repair 
+                          </div>
+                          </li>
+                        <li>
+                          <div class="form-check">
+                            <label>
+                              <input name="trade[]" class="checkBoxClass" type="checkbox" value="3" (change)="onChange(3, $event.target.checked)">
+                                <span class="label-text"></span> </label>
+                                Architect  
+                          </div>
+                        </li>
+                        <li>
+                          <div class="form-check">
+                            <label>
+                              <input name="trade[]" class="checkBoxClass" type="checkbox" value="4" (change)="onChange(4, $event.target.checked)">
+                                <span class="label-text"></span> </label>
+                                Asbestos Removal 
+                          </div>
+                        </li>
+                        <li>
+                          <div class="form-check">
+                            <label>
+                              <input name="trade[]" class="checkBoxClass" type="checkbox" value="5" (change)="onChange(5, $event.target.checked)">
+                                <span class="label-text"></span> </label>
+                                Asphalt + Paving 
+                          </div>
+                          </li>
+                        <li>
+                          <div class="form-check">
+                            <label>
+                              <input name="trade[]" class="checkBoxClass" type="checkbox" value="6" (change)="onChange(6, $event.target.checked)">
+                                <span class="label-text"></span> </label>
+                                Swing Contractor 
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body">
+                  <div class="col-md-12">
+                    <form [formGroup]="referencesForm" >
+                      <div formArrayName="references" > 
+                        <div *ngFor="let item of references.controls; let pointIndex=index" [formGroupName]="pointIndex">
+                          <h4 class="header-text-color">Work Experience</h4>
+                          <hr>
+                          <div class="row" >
+                            <div class="col-md-4">
+                              <label>Year of Experience ?</label>
+                              <select class="custom-select" formControlName="experience_id">
+                                <option value="">Please select Experience</option>
+                                <option value="1">0 - 6 months</option>
+                                <option value="2">6 months - 1 year</option>
+                                <option value="3">1 year - 3 years</option>
+                                <option value="4">3 years - 5 years</option>
+                                <option value="5">5+ years</option>
+                              </select>
+                            </div>
+                            <div class="clearfix"></div>
+                            <a href="javascript:void(0);" *ngIf="pointIndex < 1" (click)="addReferences()" class="mt-0 btn btn-xs btn-success pull-right"> Work Reference <i class="fa fa-plus"></i> </a>
+                            <a href="javascript:void(0);" *ngIf="pointIndex > 0"  (click)="deleteReferences(pointIndex)" class="mt-0 btn btn-xs btn-success pull-right"> remove </a>
+                            
+                            <div class="col-md-10 p0" >
+                              <div class="form-inline" >
+                            
+                                <div class="form-group w-100">
+                                  <label class="d-block col-md-12">References</label>
+                                  <div class="col-md-4">
+                                    <label class="d-block hidden">Name</label>
+                                    <input placeholder="Name" type="text" formControlName="name">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label class="d-block hidden">Phone Number</label>
+                                    <input placeholder="Phone Number" type="text" formControlName="number">
+                                  </div>
+                                  <div class="col-md-4">
+                                    <label class="d-block hidden">Email</label>
+                                    <input placeholder="Email" type="text" formControlName="email">
+                                  </div>
+                                  <div class="col-md-12">
+                                    <label class="d-block hidden">Notes</label>
+                                    <textarea rows="2" placeholder="Note" formControlName="note"></textarea>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                          <hr>
+                        <div class="row">
+                          <div class="col-md-12">
+                              <button class="btn btn-primary nextBtn btn-md mt-7 pull-right" type="button" (click)="checkdata()" >Update Profile </button>
+                          </div>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+          <div class="setup-content col-md-8 col-xs-12 col-sm-12 p0" id="step-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="col-md-12"> Industry License
+                  <input class="checkbox pull-left" style="margin-right: 10px; margin-top: 0px;" type="checkbox">
+                </div>
+                <form [formGroup]="licenseForm" >
+                  <div formArrayName="licenses" > 
+                    <div *ngFor="let item of licenses.controls; let pointIndex=index" [formGroupName]="pointIndex">
+                      <div class="clearfix"></div>
+                      <hr>
+                      <div class="col-md-12">
+                  <div class="add-state"> <a href="javascript:void(0);"  *ngIf="pointIndex < 1" (click)="addlicenses()" class="mt-0 btn btn-xs btn-success pull-right"> Add License <i class="fa fa-plus"></i> </a>
+                                          <a href="javascript:void(0);"  *ngIf="pointIndex > 0"  (click)="deletelicenses(pointIndex)" class="mt-0 btn btn-xs btn-success pull-right"> Remove License  </a>
+                    <div id="DivAppend">
+                      <div class="repete-box" >
+                        <div class="col-md-12 p0">
+                          <div class="form-inline">
+                            <div class="form-group w-100">
+                              <div class="col-md-3">
+                                <label class="d-block">State Registered</label>
+                                <select class="custom-select" formControlName="state_id">
+                                  <option value="">--State--</option>
+                                  <option value="1">Alaska</option>
+                                  <option value="2">Arizona</option>
+                                  <option value="3">California</option>
+                                  <option value="4">Ohio</option>
+                                  <option value="5">Texas</option>
+                                </select>
+                              </div>
+                              <div class="col-md-3">
+                                <label class="d-block">License#</label>
+                                <input placeholder="License" type="text" formControlName="license_number">
+                              </div>
+                              <div class="col-md-3">
+                                  <label for="userName">Status</label>
+                                  <select class="custom-select" formControlName="status">
+                                    <option value="">--Status--</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                  </select>
+                              </div>
+                              <div class="col-md-3 p0">
+                                <label class="v-hidden d-block">Verify</label>
+                                <!-- <a href="javascript:void();" class="btn btn-info btn-md">Verify</a> -->
+                                <!-- <div class="circle-loader">
+                                  <div class="checkmark draw"></div>
+                                </div> -->
+                                <button id="toggle" type="button"  class="btn btn-info">Verify</button>
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                      </div>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                    <hr>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <button class="btn btn-primary nextBtn btn-md mt-7 pull-right" (click)="savelicenses()" type="button" >Next </button>
+                      </div>
+                    </div>
+                 </form> 
+                </div>
+              </div>
+            
+          </div>
+          <div class="setup-content col-md-12 col-xs-12 col-sm-12 p0" id="step-4">
+            <div class="card">
+              <div class="card-body">
+               <div class="col-md-12">
+                  <div class="text-center">
+                    <h1>
+                      
+                      <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
+
+                    </h1>
+                    <h3>All Details are Verified</h3>
+                  </div>
+                    
+                    <div class="row">
+                      <div class="col-md-12">
+                        <button class="btn btn-primary nextBtn btn-md mt-7 pull-right" type="button" >Next </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+          </div>
+
+          <div class="setup-content col-md-12 col-xs-12 col-sm-12 p0" id="step-5">
+            <div class="card">
+              <div class="card-body">
+                <div class="col-md-12">
+                  <div class="text-center">
+                    <h1><i class="fa fa-check" style="background: #92d050;border-radius: 100px;padding: 10px;color: #fff;"></i></h1>
+                    <h3>Account Created Successfully</h3>
+                  </div>
+                </div>
+                <div class="col-md-12 mt-4">
+                  <h3 class="text-center">Videos & tutorial</h3>
+                <div class="col-md-4">
+                        <div class="video"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/AWdA7hdP4ZA?rel=0&showinfo=0" frameborder="0" allowfullscreen width="100%"></iframe></div>
+                  </div>
+                    <div class="col-md-4">
+                      <div class="video"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/I39RKjerJss?rel=0&showinfo=0" frameborder="0" allowfullscreen width="100%"></iframe></div>
+                </div>
+                    <div class="col-md-4">
+                        <div class="video"><iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Dkx4LYeFnVY?rel=0&showinfo=0" frameborder="0" allowfullscreen width="100%"></iframe></div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+<footer id="footer"><!--Footer-->
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row">
+        <p class="pull-left">Copyright © 2018 SpuceBox. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>

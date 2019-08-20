@@ -1,0 +1,135 @@
+<section>
+  <div class="container">
+    <div class="w-100">
+      <div class="col-md-12">
+        <nav>
+          <div class="d-flex align-items-start justify-content-end col-md-12">
+            <ul class="filter-view mt-7">
+              <li><a data-tab="tab-1" href="javascript:void(0);" class="activelink"><i class="fa fa-th"></i></a></li>
+              <li><a data-tab="tab-2" href="javascript:void(0);" class=""><i class="fa fa-th-list"></i></a></li>
+              <li>
+                <a *ngIf="role == 'Administrator'" class="btn btn-info waves-effect waves-light ml-10"
+                  routerLink="../project-show-archive"> <span  pTooltip="Archive"><i class="fa fa-archive"></i></span></a>
+              </li>
+              <!-- <li> -->
+              <!-- <a class="btn btn-info waves-effect waves-light ml-10" routerLink="../project-show-archive"> <i -->
+              <!-- class="fa fa-file-zip-o"></i></a> -->
+              <!-- </li> -->
+            </ul>
+            <button *ngIf="list_type=='DESC'" class="btn btn-info btn-md ml-10 mt-7"
+              (click)="sorting_in_list('asc');"><span  pTooltip="Sorting"><i class="fa fa-sort-amount-desc" aria-hidden="true"></i></span></button>
+            <button *ngIf="list_type=='asc'" class="btn btn-info btn-md ml-10 mt-7"
+              (click)="sorting_in_list('DESC');"><span  pTooltip="Sorting"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i></span></button>
+            <a href="javascript:void(0)" *ngIf="select_permissions.indexOf(1) !== -1 && userroletype != '2'" routerLink="../add-projects"
+              class="btn btn-info waves-effect waves-light ml-10 mt-7"><i class="fa fa-plus"></i> Add Project</a>
+            <span class="search_box col-md-4 ml-10" >
+              <input class="form-control m-0" placeholder="Search" type="text" [(ngModel)]="namesearch">
+            </span>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div id="tab-1" class="grid-view content current mt-2">
+          <div class="d-flex flex-wrap">
+            <div class="col-md-4" *ngFor="let Project of allProjects | dataFilter : namesearch">
+              <div class="card-box">
+                <div class="media d-flex position-relative">
+                   
+                    <!-- <div *ngIf="(Project | dataFilter : namesearch).length === 0">
+                        "No matches"
+                      </div> -->
+                      <ng-container *ngFor="let Project of allProjects | dataFilter: namesearch">
+                        <div *ngIf="Project === -1">"No matches"</div>
+                        
+                      </ng-container>
+                  <a routerLink="../project-overview/{{Project.id}}">
+                    <img src="{{Project.project_image}}" class="rounded-circle d-flex mr-10 rounded-circle thumb-md"
+                      alt="">
+                  </a>
+                  <div class="media-body w-100">
+                    <h5><a routerLink="../project-overview/{{Project.id}}">{{Project.project_name| truncate : 20}} <span [escape]="false" tooltipPosition="bottom" pTooltip={{Project.project_name}}>...</span></a></h5>
+                    <div class="card-text">
+                    </div>
+                    <p class="text-muted mb-1" *ngIf="Project.project_description">
+                      <span innerHtml="{{Project.project_description| truncate : 100}}"></span> <span
+                        style="cursor:pointer;color:#00b0f0;" routerLink="../project-overview/{{Project.id}}">...Read
+                        more</span>
+                    </p>
+                    <!-- <ul class="on-project-user"> -->
+                    <!-- <li *ngFor="let image of Project.profile_images;  let j=index">  -->
+                    <!-- <div *ngIf="Project.profile_images?.length <= '4'"><img src="{{image.profile_image}}"  class="img-responsive rounded-circle" alt=""></div> -->
+                    <!-- <div *ngIf="j<5"><img src="{{image.profile_image}}"  class="img-responsive rounded-circle" alt=""></div></li> -->
+                    <!-- </ul> -->
+                    <ul class="on-project-user">
+                      <li *ngFor="let image of Project.profile_images;  let j=index">
+                        <div *ngIf="j<6"><span [escape]="false" tooltipPosition="bottom" pTooltip={{image.firstname}}><img src="{{image.profile_image}}" class="img-responsive rounded-circle"
+                          alt=""></span></div>
+                      </li>
+                      <!-- <li>
+                        <div *ngIf="Project.profile_images?.length>4"><img src="{{Project.profile_images}}"
+                            class="img-responsive rounded-circle" alt=""><span class="badge badge-primary"><i
+                              class="fa fa-plus"></i>{{Project.profile_images?.length - 4}}</span></div>
+                      </li> -->
+                      <li style="margin-left:5px" *ngIf="Project.profile_images?.length>4">
+                        <small class="notify">{{Project.profile_images?.length - 4}}</small>
+                        <a class="fa fa-user plus-more-user" href="javascript:void(0);" title="More Project"></a>
+                      </li>
+                    </ul>
+                    <div *ngIf="select_permissions.indexOf(2) !== -1 && Project.company_id==company_id"
+                      class="buttonAction pull-right"><a routerLink="../edit-project/{{Project.id}}" class="edit"><span
+                          class="badge badge-primary"><span  pTooltip="Edit"><i class="fa fa-pencil"></i></span></span></a> </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="tab-2" class="list-view content hide">
+          <div class="col-md-12">
+            <div class="card-box" *ngFor="let Project of allProjects">
+              <div class="media d-flex position-relative">
+                <a href="javascript:void();">
+                  <img src="{{Project.project_image}}" class="rounded-circle d-flex mr-10 rounded-circle thumb-md"
+                    alt="">
+                </a>
+                <div class="media-body col-sm-12">
+                  <h5><a routerLink="../project-overview/{{Project.id}}">{{Project.project_name| truncate : 20}}</a></h5>
+                  <p class="text-muted mb-1" *ngIf="Project.project_description">
+                      <span innerHtml="{{Project.project_description| truncate : 100}}"></span> <span
+                        style="cursor:pointer;color:#00b0f0;" routerLink="../project-overview/{{Project.id}}">...Read
+                        more</span>
+                    </p>
+                  <!-- <ul class="on-project-user"> -->
+                  <!-- <li *ngFor="let image of Project.profile_images;  let j=index">  -->
+                  <!-- <div *ngIf="Project.profile_images?.length <= '4'"><img src="{{image.profile_image}}"  class="img-responsive rounded-circle" alt=""></div> -->
+                  <!-- <div *ngIf="j<5"><img src="{{image.profile_image}}"  class="img-responsive rounded-circle" alt=""></div></li> -->
+
+                  <!-- </ul> -->
+                  <ul class="on-project-user">
+                    <li *ngFor="let image of Project.profile_images;  let j=index">
+                      <div *ngIf="j<6"><img src="{{image.profile_image}}" class="img-responsive rounded-circle"
+                          alt=""></div>
+                    </li>
+                    <!-- <li>
+                      <div *ngIf="Project.profile_images?.length>4"><img src="{{Project.profile_images}}"
+                          class="img-responsive rounded-circle" alt=""><span class="badge badge-primary"><i
+                            class="fa fa-plus"></i>{{Project.profile_images?.length - 4}}</span></div>
+                    </li> -->
+                    <li style="margin-left:5px" *ngIf="Project.profile_images?.length>4">
+                      <small class="notify">{{Project.profile_images?.length - 4}}</small>
+                      <a class="fa fa-user plus-more-user" href="javascript:void(0);" title="More Project"></a>
+                    </li>
+                  </ul>
+                  <div class="buttonAction pull-right"><a routerLink="../project-overview/{{Project.id}}"
+                      class="edit"><span class="badge badge-primary"><span  pTooltip="Edit"><i class="fa fa-pencil"></i></span></span></a> </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

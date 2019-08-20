@@ -1,0 +1,243 @@
+<div class=" col-md-8 col-xs-12 col-sm-12 p0" >
+  <form class="w-100" role="form" #createprofessionalForm="ngForm">
+  <div class="card">
+    <div class="card-body">
+      <div class="col-md-12">
+      <h4 class="header-text-color">Company Detail</h4>
+      </div>
+      <div class="clearfix"></div>
+      <hr>
+      <div class="form-group w-100">
+      <div class="col-md-6">
+        <label>Company Name</label>
+        <input type="text"
+        class="form-control"
+        [class.is-invalid]="company_name.invalid && company_name.touched" 
+        [(ngModel)]="professionalData.company_name" 
+        #company_name="ngModel"  maxlength="150"
+        name="company_name" 
+        placeholder="Company Name" trim="blur"  required>
+        <small class="text-danger" [class.d-none]="company_name.valid || company_name.untouched">Company Name is required</small>
+      </div>
+       <div class="col-md-6">
+        <label>Website</label>
+        <input type="text"
+        class="form-control"
+        [class.is-invalid]="company_website.invalid && company_website.touched" 
+        [(ngModel)]="professionalData.company_website" 
+        #company_website="ngModel" maxlength="100"
+        name="company_website" trim="blur"
+        placeholder="Website" >
+        
+      </div>
+    </div>
+      <div class="col-md-6">
+        <label>Year Establised</label>
+        <select class="custom-select"
+        [class.is-invalid]="est_year.invalid && est_year.touched" 
+        [(ngModel)]="professionalData.est_year" 
+        #est_year="ngModel"
+         name="est_year" required>
+         <option value="">--Year--</option>
+         <option value="1992">1992</option>
+         <option value="1993">1993</option>
+         <option value="1994">1994</option>
+         <option value="1995">1995</option>
+         <option value="1996">1996</option>
+        </select>
+        <small class="text-danger" [class.d-none]="est_year.valid || est_year.untouched">Year Establised is required</small>
+      </div>
+      <div class="col-md-6">
+        <label>Company Size</label>
+        <select class="custom-select"
+        [class.is-invalid]="company_size.invalid && company_size.touched" 
+        [(ngModel)]="professionalData.company_size" 
+        #company_size="ngModel"
+          name="company_size" required>
+          <option value="">--Size--</option>
+          <option value="10-20">10-20</option>
+          <option value="21-30">21-30</option>
+          <option value="31-40">31-40</option>
+          <option value="41-50">41-50</option>
+          <option value="51-60">51-60</option>
+          <option value="61-70">61-70</option>
+          <option value="71-80">71-80</option>
+          <option value="81-90">81-90</option>
+          <option value="91-100">91-100</option>
+          <option value="101-500">101-500</option>
+          <option value="501-1000">501-1000</option>
+        </select>
+        <small class="text-danger" [class.d-none]="company_size.valid || company_size.untouched">Company Size is required</small>
+        
+      </div>
+      
+      <div class="col-md-12">
+      <h4 class="header-text-color">Contact Detail</h4>
+      </div>
+      <div class="clearfix"></div>
+      <hr>
+      <div class="col-md-6">
+        <label>First Name</label>
+        <input type="text"
+        class="form-control"
+        [class.is-invalid]="company_contact_first_name.invalid && company_contact_first_name.touched" 
+        [(ngModel)]="professionalData.company_contact_first_name" 
+        #company_contact_first_name="ngModel" maxlength="70"
+        name="company_contact_first_name" trim="blur"
+        placeholder="First Name" >
+      </div>
+      <div class="col-md-6">
+        <label>Last Name</label>
+        <input type="text"
+        class="form-control"
+        [class.is-invalid]="company_contact_last_name.invalid && company_contact_last_name.touched" 
+        [(ngModel)]="professionalData.company_contact_last_name" 
+        #company_contact_last_name="ngModel" maxlength="70"
+        name="company_contact_last_name" trim="blur"
+        placeholder="Last Name" >
+      </div>
+      <div class="col-md-6">
+        <label>Email</label>
+        <input type="text"
+        class="form-control"
+        [class.is-invalid]="company_contact_email.invalid && company_contact_email.touched" 
+        [(ngModel)]="professionalData.company_contact_email" 
+        #company_contact_email="ngModel" 
+        name="company_contact_email" maxlength="250"
+        placeholder="Email" >
+      </div>
+      <div class="col-md-12"> <span>Already have an account <a routerLink="../../login">Log in</a></span> </div>
+      <div class="clearfix"></div>
+      <hr>
+      <div class="col-md-4">
+        <label>Phone Number</label>
+        <input type="number"
+        class="form-control"
+        [class.is-invalid]="company_contact_mobile.invalid && company_contact_mobile.touched" 
+        [(ngModel)]="professionalData.company_contact_mobile" 
+        #company_contact_mobile="ngModel" maxlength="10" 
+        name="company_contact_mobile" 
+        placeholder="Phone Number" >
+       
+    </div>
+      <div class="col-md-4">
+        <label>Confirm Phone Number</label>
+        <input placeholder="Confirm Phone Number" type="number" maxlength="10">
+      </div>
+      <div class="col-md-4">
+        <label class="d-block v-hidden">Text Me</label>
+        <div class="form-check">
+            <label>
+                <input name="check" class="checkBoxClass" type="checkbox">
+                <span class="label-text"></span> </label>
+                Text me 
+        </div>
+        </div>
+      <div class="col-md-12"> <small>Receive Update via text message or direct calls from your profile</small> </div>
+      <div class="clearfix"></div>
+      <hr>
+      <div class="col-md-6">
+        <label>Street</label>
+        <input type="text"
+        class="form-control"
+        [class.is-invalid]="company_address_street.invalid && company_address_street.touched" 
+        [(ngModel)]="professionalData.company_address_street" 
+        #company_address_street="ngModel" maxlength="100" trim="blur"
+        name="company_address_street" 
+        placeholder="Street" >
+      </div>
+      <div class="col-md-6">
+        <label>Suite</label>
+        <input type="text"
+        class="form-control" maxlength="100" 
+        [class.is-invalid]="company_address_suite.invalid && company_address_suite.touched" 
+        [(ngModel)]="professionalData.company_address_suite" 
+        #company_address_suite="ngModel" 
+        name="company_address_suite" trim="blur"
+        placeholder="Suite" >
+      </div>
+      <div class="col-md-3">
+        <label class="d-block">City</label>
+        <input type="text"
+        class="form-control" maxlength="100" trim="blur"
+        [class.is-invalid]="company_address_city.invalid && company_address_city.touched" 
+        [(ngModel)]="professionalData.company_address_city" 
+        #company_address_city="ngModel" 
+        name="company_address_city" 
+        placeholder="Suite" >
+      </div>
+      <div class="col-md-3">
+        <label class="d-block">Country</label>
+        <select class="custom-select"
+        [class.is-invalid]="company_address_country.invalid && company_address_country.touched" 
+        [(ngModel)]="professionalData.company_address_country" 
+        #company_address_country="ngModel"
+          name="company_address_country" (change)="get_all_states($event.target.value)">
+          <option value="">--Country--</option>
+          <option value="{{country.id}}" *ngFor="let country of countries" >{{country.name}}</option>
+         
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="d-block">State</label>
+        <select class="custom-select"
+        [class.is-invalid]="company_address_state.invalid && company_address_state.touched" 
+        [(ngModel)]="professionalData.company_address_state" 
+        #company_address_state="ngModel"
+          name="company_address_state" >
+          <option value="">--State--</option>
+          <option value="{{state.id}}" *ngFor="let state of states">{{state.name}}</option>
+          
+        </select>
+      </div>
+      
+      <div class="col-md-3">
+        <label class="d-block">Zip</label>
+        <input type="number"
+        class="form-control"
+        [class.is-invalid]="company_address_zip.invalid && company_address_zip.touched" 
+        [(ngModel)]="professionalData.company_address_zip" 
+        #company_address_zip="ngModel" maxlength="7" trim="blur"
+        name="company_address_zip" 
+        placeholder="Zip" >
+      </div>
+      <div class="clearfix"></div>
+      <hr>
+      <div class="col-md-3">
+        <label class="d-block">Corporate Name</label>
+        <input type="text"
+        class="form-control"
+        [class.is-invalid]="company_corporate_name.invalid && company_corporate_name.touched" 
+        [(ngModel)]="professionalData.company_corporate_name" 
+        #company_corporate_name="ngModel" maxlength="70" trim="blur"
+        name="company_corporate_name" 
+        placeholder="Corporate Name" >
+      </div>
+       <div class="col-md-3">
+        <label class="d-block">Tax ID</label>
+        <input type="text"
+        class="form-control"
+        [class.is-invalid]="company_tax_id.invalid && company_tax_id.touched" 
+        [(ngModel)]="professionalData.company_tax_id" 
+        #company_tax_id="ngModel"  maxlength="70" trim="blur"
+        name="company_tax_id" 
+        placeholder="Tax ID" >
+      </div>
+      <div class="col-md-12">
+          <div class="form-check">
+              <label>
+                  <input name="check" class="checkBoxClass" type="checkbox">
+                  <span class="label-text"></span> </label>
+                  I Agree 
+          </div>
+        </div>
+      <div class="clearfix"></div>
+      <hr>
+      <div class="col-md-12">
+        <button class="btn btn-primary nextBtn btn-md mt-7 pull-right" (click)="createprofessionalAccount()" [disabled]="createprofessionalForm.form.invalid" type="button" >Create Account</button>
+        
+      </div>
+    </div>
+  </div>
+  </form>
+</div>

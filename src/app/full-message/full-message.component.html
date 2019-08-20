@@ -1,0 +1,49 @@
+<section class="">
+  <div class="container">
+      <div class="row">
+        <div class="col-md-12 mb-15">
+          <h4 class="text-uppercase">Message
+            <button class="btn btn-success btn-md pull-right" type="submit" (click)="delete_all_notification()">Clear All </button>
+          </h4>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-md-12">
+	    <div  *ngIf="notification?.length == 0; else other_content">
+                  <h5> No Record found </h5>
+                  </div>
+				   <ng-template #other_content>
+        <div class="card-box event-border" *ngFor="let notifications of notification">
+          <div class="">
+            <h4 style="margin-top: 5px !important"> <small class="pull-right"> <i class="fa fa-calendar"></i>
+                {{ notifications.created_at  | date:alldate }} | <i class="fa fa-clock-o"></i>
+                {{ notifications.created_at  | date: 'HH:mm' }} <a class="delete"
+                  (click)="confirm_remove_user(notifications.id)"><span class="badge badge-primary"><i
+                      class="fa fa-trash"></i></span></a> </small></h4>
+            <p>{{notifications.notification_text}}</p>
+          </div>
+        </div>
+		 </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="modal" *ngIf="modeldisplay2" id="Modalupdate2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    style="display:block;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="background-color:#fff;">
+        <div class="modal-header">
+          <h4 class="modal-title">Remove All Message</h4>
+          <button type="button" class="close" (click)="hidemodel2()" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <p> Are You Sure ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel5()">Close</button>
+          <button type="submit" class="btn btn-success" (click)="remove_user()">Remove All Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

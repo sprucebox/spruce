@@ -1,0 +1,18 @@
+.check-img+.form-check{
+    z-index: 9;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    top: 0;
+    margin: auto;
+}
+.check-img+ p{
+    text-align: center;
+}
+.selection-overlay {
+    background: linear-gradient(to top, #1b9fde, #0f6cb6);
+    color: #fff;
+    transform: translateY(-5px);
+    transition: 0.3s all;
+}

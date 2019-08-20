@@ -1,0 +1,6 @@
+.stepwizard-step2 {
+    position: relative;
+    display: flex;
+    padding: 15px;
+    align-items: center;
+}

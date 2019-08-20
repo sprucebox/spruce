@@ -1,0 +1,85 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav>
+                    <ul class="nav navbar-nav">
+                        <li><a routerLink="../../../project-overview/{{project_id}}">Overview</a></li>
+                        <li><a routerLink="../../../project-task/{{project_id}}">Task</a></li>
+                        <li><a routerLink="../../../project-calendar/{{project_id}}">Calendar</a></li>
+                        <li><a routerLink="../../../project-activity/{{project_id}}">Activity</a></li>
+                        <li><a routerLink="../../../project-reports/{{project_id}}">Reports</a></li>
+                        <li><a routerLink="../../../project-discussion/{{project_id}}" class="active">Discussion</a></li>
+                        <li><a routerLink="../../../project-files/{{project_id}}">Files</a></li>
+                        <li><a routerLink="../../../project-users/{{project_id}}">Users</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <form class="w-100" role="form" #addDiscussionForm="ngForm">
+            <div class="card-box">
+                    <div class="col-md-12">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Discussion Title</label>
+                    <input type="text" class="form-control" [class.is-invalid]="discussion_title.invalid && discussion_title.touched"
+                        [(ngModel)]="updatediscussionFromData.discussion_title" #discussion_title="ngModel" name="discussion_title"
+                        placeholder="Discussion Title" trim="blur" required>
+                    <small class="text-danger" [class.d-none]="discussion_title.valid || discussion_title.untouched">Discussion
+                        Title is required</small>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Discussion Description</label>
+                    <textarea [class.is-invalid]="discussion_description.invalid && discussion_description.touched"
+                        [(ngModel)]="updatediscussionFromData.discussion_description" #discussion_description="ngModel"
+                        name="discussion_description" placeholder="Description" required rows="3" class="form-control" trim="blur"></textarea>
+                    <small class="text-danger" [class.d-none]="discussion_description.valid || discussion_description.untouched">Discussion
+                        Description is required</small>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+				 <span *ngIf="updatediscussionFromData.discussion_extension=='pdf' || updatediscussionFromData.discussion_extension=='xls'|| updatediscussionFromData.discussion_extension=='xlsx' || updatediscussionFromData.discussion_extension=='docx'|| updatediscussionFromData.discussion_extension=='doc'|| updatediscussionFromData.discussion_extension=='csv'|| updatediscussionFromData.discussion_extension=='txt'|| updatediscussionFromData.discussion_extension=='zip'||
+updatediscussionFromData.discussion_extension=='PDF'||updatediscussionFromData.discussion_extension=='XLS'||updatediscussionFromData.discussion_extension=='XLSX'||updatediscussionFromData.discussion_extension=='DOC'||updatediscussionFromData.discussion_extension=='DOCX'||updatediscussionFromData.discussion_extension=='TXT'||updatediscussionFromData.discussion_extension=='ZIP';else other_content" >
+                       
+                            <img src="{{noImage}}" width="100px" height="100px">
+                      
+                    </span>
+					<ng-template #other_content >
+				<img [src]="updatediscussionFromData.discussion_file_url" width="100px" height="100px"><br>
+                    <label for="exampleInputPassword1">Change</label>
+					</ng-template>
+                    <input class="form-control" id="file-upload" type="file" type="file" (change)="onSelectFile($event)"
+                        name="uploaded_file" ng2FileSelect [uploader]="uploader" accept="image/*" #fileInput />
+                    <input type="hidden" [(ngModel)]="updatediscussionFromData.discussion_file_url" #discussion_file_url="ngModel"
+                        name="discussion_file_url">
+                    <input type="hidden" [(ngModel)]="updatediscussionFromData.discussion_project_id"
+                        #discussion_project_id="ngModel" name="discussion_project_id" value="{{updatediscussionFromData.discussion_project_id}}">
+                    <div class="progress" style="display: block;" *ngIf="pr_show">
+                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+            <div class="form-group">
+                <label> Discussion Type</label>
+                <select [class.is-invalid]="discussion_type.invalid && discussion_type.touched" [(ngModel)]="updatediscussionFromData.discussion_type"
+                    #discussion_type="ngModel" name="discussion_type" required>
+                    <option value="">Select Type</option>
+                    <option *ngIf="project_company_id==company_id" value="1">Internal (Private)</option>
+                    <option value="2">External (Public)</option>
+                </select>
+                <small class="text-danger" [class.d-none]="discussion_type.valid || discussion_type.untouched">Discussion
+                    Type is required</small>
+            </div>
+            </div>
+            <div class="col-md-12">
+            <button type="button" class="btn btn-success" (click)="update_discussion_detail()" [disabled]="addDiscussionForm.form.invalid"
+                role="button">Update</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</section>

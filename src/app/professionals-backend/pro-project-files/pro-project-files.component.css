@@ -1,0 +1,339 @@
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1000;
+  float: left;
+  min-width: 10rem;
+  padding: .5rem 0;
+  margin: .125rem 0 0;
+  font-size: 1.5rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: .25rem;
+}
+
+.task {
+  left: 0;
+}
+.task_width {
+  padding: 5px;
+}
+
+.dropdown-item {
+  display: inline;
+  width: 100%;
+  padding: .25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #007bff;
+}
+
+.dropdown-toggle::after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: .255em;
+
+  content: "";
+  border-top: .3em solid;
+  border-right: .3em solid transparent;
+  border-bottom: 0;
+  border-left: .3em solid transparent;
+}
+
+.hide {
+  display: none;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.well {
+  border: 2px dashed #aaa;
+}
+
+.icon {
+  padding: 0px 5px;
+  cursor: pointer;
+}
+
+.fade.show {
+  opacity: 1 !important;
+}
+
+.multiselect-dropdown>.dropdown-list {
+  padding-top: 0px !important;
+  margin-top: 0px !important;
+}
+
+.kanbanBox {
+  overflow: auto;
+  width: 100%;
+  float: left;
+}
+
+.dd-item {
+  display: block;
+  position: relative;
+  list-style: none;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1;
+  position: relative;
+  background: #fff;
+  border-radius: 2px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  padding: 5px;
+  text-align: center;
+  margin-bottom: 3px;
+}
+
+.dd {
+  display: flex;
+}
+
+.dd-item p {
+  margin: 3px;
+}
+
+.kanban {
+  border-top: 5px solid #78909C;
+  height: auto;
+  min-width: 260px;
+  margin: 0.5%;
+  display: inline-block;
+  vertical-align: top;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+  flex-direction: column;
+  min-height: 200px;
+  z-index: 1;
+  position: relative;
+  background: #fafafa;
+  padding: 1em;
+  border-radius: 2px;
+  cursor: move;
+}
+
+h4 {
+  text-align: left;
+}
+
+sub {
+  display: block;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  font-size: 11px;
+  font-style: italic;
+}
+
+.gh-fork {
+  position: fixed;
+  top: 0;
+  right: 0;
+  border: 0;
+}
+
+
+
+/* dragula-specific example page styles */
+.wrapper {
+  display: block;
+}
+
+/*
+       * note that styling gu-mirror directly is a bad practice because it's too generic.
+       * you're better off giving the draggable elements a unique class and styling that directly!
+       */
+
+.container p,
+.gu-mirror:not(.container) {
+  transition: opacity 0.4s ease-in-out;
+
+}
+.gu-mirror {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+.container.ex-over {
+  background-color: rgba(255, 255, 255, 0.3);
+
+}
+.handle {
+  padding: 0 5px;
+  margin-right: 5px;
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: move;
+}
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  pointer-events: none;
+}
+/* high-performance display:none; helper */
+.gu-hide {
+  display: none !important;
+}
+/* added to mirrorContainer (default = body) while dragging */
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+/* added to the source element while its mirror is dragged */
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+}
+i {
+  position: unset !important;
+  bottom: 0px !important;
+  right: 0px !important;
+  top: auto !important;
+  cursor: pointer;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1000;
+  float: left;
+  min-width: 10rem;
+  padding: .5rem 0;
+  margin: .125rem 0 0;
+  font-size: 1.5rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: .25rem;
+}
+.task {
+  left: 0;
+}
+.task_width {
+  padding: 5px;
+}
+.dropdown-item {
+  display: inline;
+  width: 100%;
+  padding: .25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #007bff;
+}
+
+.dropdown-toggle::after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: .255em;
+
+  content: "";
+  border-top: .3em solid;
+  border-right: .3em solid transparent;
+  border-bottom: 0;
+  border-left: .3em solid transparent;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.dropzone .dz-preview .dz-image img {
+  margin: auto;
+  /* center the image inside the thumbnail */
+}
+
+.dropzone .dz-preview .dz-error-message {
+  top: 140px;
+  /* move the tooltip below the "Remove" link */
+}
+
+.dropzone .dz-preview .dz-error-message:after {
+  left: 30px;
+  /* move the tooltip's arrow to the left of the "Remove" link */
+  top: -18px;
+  border-bottom-width: 18px;
+}
+
+.dropzone .dz-preview .dz-remove {
+  margin-top: 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+.grid-view .card-header{
+    background: #fafafa;
+}
+.grid-view .card-header a{
+    display: block;
+    text-align: center;
+}
+.grid-view .card-header a img {
+    height: 200px;
+    width: 100%;
+    object-fit: contain;
+}
+.grid-view .card-header i {
+    height: 190px;
+}
+.grid-view .card-body h4{
+    text-overflow: ellipsis;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.card-box h4 .btn{
+  text-transform: capitalize;
+}
+.grid-view img{
+  height: 150px !important;
+}
+.card-header{
+  height: 190px;
+}
+.card-header-small{
+  height: 186px;
+}

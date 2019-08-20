@@ -1,0 +1,229 @@
+<section>
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-md-12">
+              <nav>
+                <h4 style="display: inline-block;padding: 5px 15px;">Top 5 Active Projects</h4>
+                <div class="nav navbar-nav navbar-right"
+                  style="margin-right: 15px; margin-top: 8px; margin-bottom: 8px;">
+                  <ul class="filter-view pull-right">
+                    <li><a (click)="changeView(1);" href="javascript:void(0);" class="{{showGrid}}"><i class="fa fa-th"></i></a>
+                    </li>
+                    <li><a (click)="changeView(2);" href="javascript:void(0);" class="{{showList}}"><i class="fa fa-th-list"></i></a></li>
+                  </ul>
+                </div>
+              </nav>
+            </div>
+          </div>
+          <div id="tab-1" *ngIf="viewgrid" class="grid-view content">
+            <div class="card-box w-100">
+              <div class="d-flex flex-wrap">
+                <div class="p10" *ngFor="let home of homes">
+                  <div class="product-image-wrapper wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="single-products">
+                      <div class=" text-center"> <img src="{{home.project_image}}" width="220px" alt="" />
+                        <div class="product-overlay">
+                          <div class="overlay-content">
+                            <a href="javascript:void();"> <i class="fa fa-eye"></i> </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="choose">
+                      <h5><a routerLink="../project-overview/{{home.id}}">{{home.project_name| truncate :15}}<span [escape]="false" tooltipPosition="bottom" pTooltip={{home.project_name}}>...</span></a></h5>
+                      <p innerHtml="{{home.project_description| truncate : 90}}"> <span [escape]="false" tooltipPosition="bottom" pTooltip={{home.project_description}}>...</span></p>
+                      <p><span>People on Project:</span></p>
+                      <div class="project-person">
+                          <ul class="on-project-user" >
+                              <li *ngFor="let image of home.profile_images ">
+                                <img src="{{image.profile_image}}"
+                                  class="img-responsive rounded-circle" alt=""></li>
+                             </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="tab-2" *ngIf="viewlist" class="list-view content">
+            <div class="w-100" *ngFor="let home of homes">
+              <div class="card-box">
+                <div class="row w-100">
+                <div class="col-md-2">
+                  <a href="javascript:void(0);" class="list-box"> <img src="{{home.project_image}}" width=""
+                    alt="" class="img-responsive"/>
+                </a>
+              </div>
+              <div class="col-md-10">
+                <div class="details">
+                  <h3 style="margin-top: 5px !important"><a routerLink="../project-overview/{{home.id}}">Project Name : {{home.project_name| truncate : 10}}</a></h3>
+                  <p><b>Description:</b> <b> {{home.project_description| truncate : 10}}</b></p>
+                  <p><span>People on Project:</span></p>
+                  <div class="project-person">
+                      <ul class="on-project-user" >
+                          <li *ngFor="let image of home.profile_images ">
+                            <img src="{{image.profile_image}}"
+                              class="img-responsive rounded-circle" alt=""></li>
+                         </ul>
+                  </div>
+                </div>
+              </div>
+              </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card-box w-100">
+            <div class="wow fadeInUp" data-wow-delay="0.1s">
+              <div class="col-sm-12">
+                <h2>Discussion</h2>
+                <hr>
+              </div>
+              <div class="clearfix"></div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="card-box w-100" *ngFor="let discussion of discussions">
+                    <div class="row">
+                      <div class="col-sm-2 col-xs-12">
+
+                          <span *ngIf="discussion.discussion_extension=='pdf' || discussion.discussion_extension=='xls'|| discussion.discussion_extension=='xlsx' || discussion.discussion_extension=='docx'|| discussion.discussion_extension=='doc'|| discussion.discussion_extension=='csv'|| discussion.discussion_extension=='txt'|| discussion.discussion_extension=='zip'||discussion.discussion_extension=='PDF'||
+                          discussion.discussion_extension=='XLS'||discussion.discussion_extension=='XLSX'||
+                          discussion.discussion_extension=='DOC'||discussion.discussion_extension=='DOCX'||
+                          discussion.discussion_extension=='TXT'||discussion.discussion_extension=='ZIP';else other_content">
+                
+                                <img src="{{noImage}}"  class="media-object img-responsive" alt="">
+                
+                              </span>
+                              <ng-template #other_content>
+                                  <a class="discussion-img-container" >
+                                      <img class="media-object img-responsive" src="{{discussion.discussion_file_url}}">
+                                    </a>
+                              </ng-template>
+                      
+                      </div>
+                      <div class="col-sm-10 col-xs-12">
+                        <a
+                          routerLink="../project-show-discussion/{{discussion.project_id}}/{{discussion.id}}">{{discussion.discussion_title}}</a>
+                        <p>{{discussion.discussion_description}}</p>
+                        <ul class="list-inline list-unstyled">
+                          <li>Project Name : {{discussion.project_name}}</li>
+                          <li>|</li>
+                          <li>Created by : {{discussion.created_by}}</li>
+                          <li>|</li>
+                          <li><span><i class="fa fa-calendar"></i> {{ discussion.created_at.date | date:alldate }}
+                            </span></li>
+                          <li>|</li>
+                          <span><i class="fa fa-comment"></i> {{discussion.comments}} comments</span>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 " *ngIf="discussions?.length < 1">
+                    <h3 style="text-align:center"> No Discussion</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card-box pull-left col-md-12">
+            <div>
+              <div class="col-sm-12">
+                <h2>Files</h2>
+                <hr>
+              </div>
+              <div class="col-sm-3" *ngFor="let homefiles of allhomefiles">
+                <div class="product-image-wrapper wow fadeInUp" data-wow-delay="0.1s">
+                  <div class="single-products">
+                    <div class="productinfo text-center">
+                      <span
+                        *ngIf="homefiles.file_type=='png' || homefiles.file_type=='jpg'|| homefiles.file_type=='gif' || homefiles.file_type=='jpeg';else other_content"><img
+                          class="card-img-top img-responsive" src="{{homefiles.file_url}}" alt="cap"></span>
+                      <ng-template #other_content><img class="card-img-top img-responsive"
+                          src="http://itsabacus.net/sprucebox_api/public/file_type_images/{{homefiles.file_type}}.png"
+                          alt="cap"></ng-template>
+                    </div>
+                    <div class="card-body">
+                      <h2>{{homefiles.file_title}}</h2>
+                      <p>Project Name: {{homefiles.project_name}}</p>
+
+                      <p
+                        *ngIf="homefiles.file_type=='xls'|| homefiles.file_type=='csv' || homefiles.file_type=='doc'|| homefiles.file_type=='docx'|| homefiles.file_type=='txt'|| homefiles.file_type=='zip'|| homefiles.file_type=='XLS'|| homefiles.file_type=='XLSX'|| homefiles.file_type=='DOC'|| homefiles.file_type=='DOCX'|| homefiles.file_type=='TXT'|| homefiles.file_type=='ZIP'|| homefiles.file_type=='xlsx';else other">
+                        <!-- <a (click)="viewfile(homefiles.file_url)" class="icon" download><i class="fa fa-eye" -->
+                        <!-- aria-hidden="true"></i></a> -->
+                        <!-- <a (click)="deletefile(homefiles.id,homefiles.file_name)" class="icon" download><i -->
+                        <!-- class="fa fa-trash"></i></a> -->
+                        <a (click)="downloadFile(homefiles.file_url,homefiles.file_name)" class="icon"
+                          download="test.jpg"><span  pTooltip="Download"><i class="fa fa-download"></i></span></a></p>
+                      <ng-template #other>
+                        <ng-container *ngIf="homefiles.file_type=='pdf'|| homefiles.file_type=='PDF';else third">
+                          <!-- <a (click)="viewpdffile(homefiles.file_url)" class="icon" download><i class="fa fa-eye" -->
+                          <!-- aria-hidden="true"></i></a> -->
+                          <!-- <a (click)="deletefile(homefiles.id,homefiles.file_name)" class="icon" download><i -->
+                          <!-- class="fa fa-trash"></i></a> -->
+                          <a (click)="downloadFile(homefiles.file_url,homefiles.file_name)" class="icon"
+                            download="test.jpg"><span  pTooltip="Download"><i class="fa fa-download"></i></span></a>
+                        </ng-container>
+                      </ng-template>
+                      <ng-template #third>
+                        <!-- <a (click)="deletefile(homefiles.id,homefiles.file_name)" class="icon" download><i -->
+                        <!-- class="fa fa-trash"></i></a> -->
+                        <a (click)="downloadFile(homefiles.file_url,homefiles.file_name)" class="icon"
+                          download="test.jpg"><i class="fa fa-download"></i></a>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 " *ngIf="allhomefiles?.length < 1">
+              <h3 style="text-align:center"> No FILES</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" *ngIf="modeldisplay4" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+      tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color:#fff;">
+          <div class="modal-header">
+            <h4 class="modal-title">Remove file</h4>
+            <button type="button" class="close" (click)="hidemodel5()" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+          </div>
+
+          <div class="modal-body">
+            <p> Are You Sure ?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+              (click)="hidemodel5()">Close</button>
+            <button type="submit" class="btn btn-success" (click)="remove_user(remove_user_id,user_file_name)">Remove
+              File</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>

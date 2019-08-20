@@ -1,0 +1,135 @@
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav>
+                    <ul class="nav navbar-nav">
+                        <li><a routerLink="../../project-overview/{{project_id}}">Overview</a></li>
+                        <li><a routerLink="../../project-task/{{project_id}}">Task</a></li>
+                        <li><a routerLink="../../project-calendar/{{project_id}}">Calendar</a></li>
+                        <li><a routerLink="../../project-activity/{{project_id}}">Activity</a></li>
+                        <li *ngIf="select_permissions.indexOf(29) !== -1"><a
+                                routerLink="../../project-reports/{{project_id}}" class="active">Reports</a></li>
+                        <li><a routerLink="../../project-discussion/{{project_id}}">Discussion</a></li>
+                        <li><a routerLink="../../project-files/{{project_id}}">Files</a></li>
+                        <li><a routerLink="../../project-users/{{project_id}}">Users</a></li>
+                        <li><a routerLink="../../notes/{{project_id}}">Notes</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="button-list pull-left">
+                    <h4 class="text-uppercase">{{projectname}} </h4>
+                </div>
+                <div class="dropdown text-right mb-15">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Chart type
+                    </button>
+                    <a href="javascript:void(0)" class="btn btn-warning ml-10" (click)="print()">
+                        <i class="fa fa-print" aria-hidden="true">Print</i></a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a [className]="chart_type=='column' ? 'active dropdown-item' : 'dropdown-item'"
+                            (click)="change_chart_type('column')"><img src="../assets/images/bar-chart.png" /></a>
+                        <a [className]="chart_type=='bar' ? 'active dropdown-item' : 'dropdown-item'"
+                            (click)="change_chart_type('bar')"><img
+                                src="../assets/images/horizontal-bars-graphic.png" /></a>
+                        <a [className]="chart_type=='doughnut' ? 'active dropdown-item' : 'dropdown-item'"
+                            (click)="change_chart_type('doughnut')"><img src="../assets/images/chart-donut.png" /></a>
+                        <a [className]="chart_type=='pie' ? 'active dropdown-item' : 'dropdown-item'"
+                            (click)="change_chart_type('pie')"><img src="../assets/images/chart-pie.png" /></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-md-2" (click)="onButtonGroupClick($event)">
+                            <button (click)="get_all_task_data_by_project_id('Task Status')" type="button"
+                                class="btn btn-primary btn-block">Status</button>
+                            <button (click)="get_all_task_data_by_project_id('Task Priority')" type="button"
+                                class="btn btn-primary btn-block">Priority</button>
+                            <button (click)="get_all_task_data_by_project_id('Task Completion')" type="button"
+                                class="btn btn-primary btn-block">Completion</button>
+                            <button (click)="get_all_task_data_by_project_id('Task Owner')" type="button"
+                                class="btn btn-primary btn-block">Owner</button>
+                            <button (click)="get_due_task()" type="button" class="btn btn-primary btn-block">Todays Due
+                                Tasks</button>
+                        </div>
+                        <div class="col-md-10">
+                            <div id="chartContainer" *ngIf="showchart"
+                                style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
+                            <div id="print-section">
+                                <div *ngIf="showlist" class="content current">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Task</th>
+                                                    <th>Owner</th>
+                                                    <th>Status</th>
+                                                    <th>Priority</th>
+                                                    <th>Start Date</th>
+                                                    <th>Due Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let PrivateTasks of allDueTasks">
+
+                                                    <td><a
+                                                            routerLink="../../project-task-edit/{{project_id}}/{{PrivateTasks.id}}">
+                                                            {{PrivateTasks.task_name}} </a></td>
+                                                    <td>{{PrivateTasks.names}}</td>
+                                                    <td>
+                                                        <div class="btn-group"><a class="btn btn-xs"
+                                                                [ngClass]="PrivateTasks.status == 0 ? 'btn-danger' : (PrivateTasks.status == 1 ? 'btn-warning' : 'btn-success')"
+                                                                type="button" id="dropdownMenu1" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="true">
+
+                                                                <ng-template [ngIf]="PrivateTasks.status==0">Open
+                                                                </ng-template>
+                                                                <ng-template [ngIf]="PrivateTasks.status==1">Pending
+                                                                </ng-template>
+                                                                <ng-template [ngIf]="PrivateTasks.status==2">Close
+                                                                </ng-template>
+                                                                <ng-template [ngIf]="PrivateTasks.status==3">None
+                                                                </ng-template>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="btn-group"><a class="btn btn-xs"
+                                                                [ngClass]="PrivateTasks.task_priority == 1 ? 'btn-danger' : PrivateTasks.task_priority == 2 ? 'btn-warning' : 'btn-success'"
+                                                                type="button" id="dropdownMenu1" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="true">
+                                                                <ng-template [ngIf]="PrivateTasks.task_priority == 1">
+                                                                    High</ng-template>
+                                                                <ng-template [ngIf]="PrivateTasks.task_priority == 2">
+                                                                    Medium</ng-template>
+                                                                <ng-template [ngIf]="PrivateTasks.task_priority == 3">
+                                                                    Low</ng-template>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{PrivateTasks.task_start_date | date:alldatetask}}
+                                                        <br><small>{{PrivateTasks.task_start_date | date:'shortTime'}}
+                                                        </small> </td>
+                                                    <td>{{PrivateTasks.task_end_date | date:alldatetask}}
+                                                        <br><small>
+                                                            {{PrivateTasks.task_end_date | date:'shortTime'}}</small>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

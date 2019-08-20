@@ -1,0 +1,4 @@
+.privacy-box-height{
+	height:calc(100vh - 220px);
+	overflow:auto;
+}

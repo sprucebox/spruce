@@ -1,0 +1,202 @@
+<section>
+  <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <nav>
+                    <ul class="nav navbar-nav">
+                      <li *ngIf="select_permissions.indexOf(8) !== -1"><a routerLink="../user-setting" >User</a></li>
+                      <li *ngIf="select_permissions.indexOf(11) !== -1" ><a routerLink="../role-setting"  >Roles & Permission</a></li>
+                      <li *ngIf="select_permissions.indexOf(14) !== -1"><a  routerLink="../notification-setting">Notification</a></li>
+                      <li *ngIf="select_permissions.indexOf(16) !== -1"><a  routerLink="../date-time-setting">Date Time Setting</a></li>
+                      <li *ngIf="select_permissions.indexOf(37) !== -1"><a  routerLink="../color-setting" class="active">Project Setting</a></li>
+                      <li *ngIf="select_permissions.indexOf(40) !== -1"><a  routerLink="../template-setting">Template Setting</a></li>
+					   <li *ngIf="select_permissions.indexOf(41) !== -1"><a  routerLink="../backup">Backup</a></li>
+                      
+                  </ul>
+                  
+                  <div class="nav navbar-nav navbar-right" style="margin-right: 15px; margin-top: 8px;">
+                      <a routerLink="../user-setting" class="btn btn-default"> <i class="fa fa-arrow-left"></i> Go Back</a>
+                  </div>
+              </nav>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-12">
+              <div class="stepwizard">
+                  <div class="stepwizard-row setup-panel">
+                      <div class="stepwizard-step col-md-2"> <a  type="button" class="btn  btn-circle" [ngClass]="firsttab ? 'btn-primary' : 'btn-default'">1</a>
+                          <p>Step 1</p>
+                      </div>
+                      <div class="stepwizard-step col-md-2"> <a  type="button" class="btn  btn-circle" [ngClass]="secondtab ? 'btn-primary' : 'btn-default'">2</a>
+                          <p>Step 2</p>
+                      </div>
+                      <div class="stepwizard-step col-md-2"> <a  type="button" class="btn  btn-circle" [ngClass]="thirdtab ? 'btn-primary' : 'btn-default'">3</a>
+                          <p>Step 3</p>
+                      </div>
+                  </div>
+              </div>
+              
+                  <div class=" col-md-12 col-xs-12 col-sm-12 p0" *ngIf="firsttab" >
+                      <div class="card">
+                          <div class="card-body">
+                              <div class="col-md-12">
+                                  <h4 class="header-text-color">Invite new people to your SpruceBox account
+        <small class="clearfix">Type each person's email address:</small>
+        </h4>
+                              </div>
+                              <div class="clearfix"></div>
+                              <hr>
+                              <div class="col-md-6">
+                                  <div class="add-state">
+                                      <!-- <a href="javascript:void();" id="addmore" class="mt-0 btn btn-sm btn-success pull-right">
+                                          <i class="fa fa-plus"></i>
+                                      </a> -->
+                                      <div id="DivAppend">
+                                          <div class="clearfix"></div>
+                                          <hr>
+                                          <div class="col-md-12 p0">
+                                              <div class="form-inline">
+                                                  <div class="form-group w-100">
+                                                      <div class="col-md-8">
+                                                        <input  type="email"
+                                                        class="form-control "
+                                                        [class.is-invalid]="email.invalid && email.touched" 
+                                                        [(ngModel)]="addUserFromData.email" 
+                                                        (keydown)="on_type_email()"
+                                                        #email="ngModel" 
+                                                        name="email" 
+                                                        placeholder="Email" required >
+                                                        <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
+                                                        <small class="text-danger" *ngIf="email_exist!=''">{{email_exist}}</small>
+                                                    </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="clearfix"></div>
+                                  <hr>
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                          <button class="btn btn-primary nextBtn btn-md mt-7 pull-right" type="button" (click)="registerbyemail()">Next </button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-12 col-xs-12 col-sm-12 p0"  *ngIf="secondtab"  >
+                      <div class="card">
+                          <div class="card-body">
+                              <div class="col-md-12">
+                                  <h4 class="header-text-color">Which superpowers, if any, should they have?</h4>
+                                  <hr>
+                                  <div class="col-md-4 p0">
+								  <div *ngIf ="homeowner=='Home Owner'">
+                                       <select class="custom-select"
+                                        [class.is-invalid]="userrole.invalid && userrole.touched" 
+                                        [(ngModel)]="addUserFromData.userrole" 
+                                        #userrole="ngModel"
+                                        name="userrole"  required>
+										 <option value="">Select Role</option>
+                                          <ng-container *ngFor="let userrole of userrolelist1" >
+                                        <option  *ngIf="userrole.id==user_id" [ngValue]="userrole.id">{{userrole.role}}</option>
+                                       </ng-container>
+                                        </select>
+                                        <small class="text-danger" [class.d-none]="userrole.valid || userrole.untouched">Role is required</small>
+										</div>
+										<div *ngIf ="homeowner!='Home Owner'">
+                                       <select class="custom-select"
+                                        [class.is-invalid]="userrole.invalid && userrole.touched" 
+                                        [(ngModel)]="addUserFromData.userrole" 
+                                        #userrole="ngModel"
+                                        name="userrole"  required>
+                                        <option value="">Select Role</option>
+                                        <option  [value]="userrole.id" *ngFor="let userrole of userrolelist1">{{userrole.role}}</option>
+                                       
+                                        </select>
+                                        <small class="text-danger" [class.d-none]="userrole.valid || userrole.untouched">Role is required</small>
+										</div>
+									
+                                </div>
+                              </div>
+
+                              <div class="clearfix"></div>
+                              <hr>
+
+                             <div class="col-md-12">
+                                  <h4 class="header-text-color">Which projects can these people access?
+        <small class="clearfix text-muted">You can only add people to projects as clients if client access has been turned on for that project.</small>
+        </h4>
+                                  <hr>
+                                  <div class="col-md-6 mt-2">
+                                      <div class="form-check">
+                                          <label>
+                                              <input name="check" type="checkbox"  [checked]="allcheck"  (change)="check_all_project($event.target.checked)">
+                                              <span class="label-text"></span> Add to All Projects</label>
+                                      </div>
+                                      <hr>
+                                      <div class="form-check" *ngFor="let project of projects">
+                                          <label>
+                                              <input [checked]="select_projects.indexOf(project.id) !== -1" type="checkbox"  (change)="onselectproject(project.id, $event.target.checked)" class="checkBoxClass" value="{{project.id}}">
+                                              <span class="label-text"></span>{{project.project_name}} </label>
+                                      </div>
+
+                                      
+                                  </div>
+                              </div>
+                              <!--  <div class="col-md-6">
+                                  <h4 class="header-text-color">Which calendars can these people access?</h4>
+                                  <hr>
+                                  <div class="col-md-12 mt-2">
+                                      <div class="form-check">
+                                          <label>
+                                              <input name="check" type="checkbox" id="ckbCheckAll">
+                                              <span class="label-text"></span> Add to All Calendar</label>
+                                      </div>
+                                      <hr>
+                                      <div class="form-check">
+                                          <label>
+                                              <input name="check" type="checkbox" class="checkBoxClass">
+                                              <span class="label-text"></span>General </label>
+                                      </div>
+
+                                      <div class="form-check">
+                                          <label>
+                                              <input name="check" type="checkbox" class="checkBoxClass">
+                                              <span class="label-text"></span>Internal Calendar Notes</label>
+                                      </div>
+                                      <div class="form-check">
+                                          <label>
+                                              <input name="check" type="checkbox" class="checkBoxClass">
+                                              <span class="label-text"></span> ORDER MATERIALS</label>
+                                      </div>
+                                  </div>
+                              </div> -->
+                              <div class="clearfix"></div>
+                              <hr>
+                              <div class="col-md-6">
+                                  <button class="btn btn-primary nextBtn btn-md mt-7 pull-right" type="button"  (click)="updatetherole()">Next</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class=" col-md-12 col-xs-12 col-sm-12 p0" *ngIf="thirdtab"  >
+                      <div class="card">
+                          <div class="card-body">
+                              <div class="col-md-12">
+                                  <div class="text-center mt-4">
+                                      <!-- <a href="" class="btn btn-primary">Send the Invitation</a> -->
+                                      <a  class="btn btn-info waves-effect waves-light" data-toggle="modal" (click)="sendInvitation()">Send the Invitation</a>
+                                      <h3>person will get an email with a link to your account</h3>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  
+
+         </div>
+      </div>
+  </div>
+</section>

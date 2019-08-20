@@ -1,0 +1,473 @@
+<section>
+        <div class="container">
+		    <div class="w-100">
+          <div class="col-md-12">
+              <nav>
+                  <ul class="nav navbar-nav">
+                      <li *ngIf="select_permissions.indexOf(8) !== -1"><a routerLink="../../user-setting" >User</a></li>
+                      <li *ngIf="select_permissions.indexOf(11) !== -1" ><a routerLink="../../role-setting" >Roles & Permission</a></li>
+                      <li *ngIf="select_permissions.indexOf(14) !== -1"><a  routerLink="../../notification-setting">Notification</a></li>
+                      <li *ngIf="select_permissions.indexOf(16) !== -1"><a  routerLink="../../date-time-setting">Date Time Setting</a></li>
+                      <li *ngIf="select_permissions.indexOf(37) !== -1" ><a  routerLink="../../color-setting">Project Setting</a></li>
+                      <li *ngIf="select_permissions.indexOf(40) !== -1"><a  routerLink="../../template-setting">Template Setting</a></li>
+					   <li *ngIf="select_permissions.indexOf(41) !== -1" ><a  routerLink="../../backup"  class="active">Backup</a></li>
+                      
+                  </ul>
+				   
+                
+              </nav>
+          </div>
+      </div>
+         
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="pos-relative">
+                        <ul class="nav navbar-nav">
+                           
+                            <li><a routerLink="../../template-project-task/{{project_id}}" class="active">Template Task</a></li>
+                            
+                          
+                          
+                            <li><a routerLink="../../template-project-discussion/{{project_id}}">Template Discussion</a></li>
+                            <li><a routerLink="../../template-project-file/{{project_id}}">Template Files</a></li>
+                           
+                        </ul>
+                        <ul class="filter-box pull-right" style="padding: 8px 15px 0px 15px;">
+                            <li>
+                                <div class="col-sm-12">
+                                    <div class="search_box pull-right p0">
+                                        <input placeholder="Search" type="text" [(ngModel)]="searchText">
+                                    </div>
+                                </div>
+                            </li>
+                            
+                        </ul>
+                        
+                    </nav>
+                </div>
+            </div>
+      <div class="table-rep-plugin">
+                      <div class="button-list pull-right mb-15">
+                        <ul class="float-btn float-btn-left">
+                           
+                            <li> <a class="btn btn-info waves-effect waves-light"  (click)="addTaskForm.reset();test()"
+                                    data-toggle="modal" data-target="#addTask"><i class="fa fa-plus"></i> Add Task</a> </li>
+                            <li> <a class="btn btn-info waves-effect waves-light"  (click)="addTaskTypeForm.reset();get_template_task_title_list();"
+                                    data-toggle="modal" data-target="#addTitle"><i class="fa fa-plus"></i> Add Title</a>
+                            </li>
+						   </ul>
+					
+                    </div>
+                </div>
+				 
+                    <div class="table-responsive">
+                        <div  *ngFor="let Taskhead of allTasks ">
+                            {{Taskhead.task_list_name}} ( {{Taskhead.task_list_type}} ) 
+    
+                            <table class="table" colspan="6">
+                                    
+                                
+                              
+                                    <thead>
+                                        <tr style="border-bottom:1pt solid #D0D0D0;">
+                                            <th></th>
+                                            <th [hidden]="hideTask1">Task</th>
+                                           <th [hidden]="hideDescription7">Description</th>
+                                            <th [hidden]="hideStatus3">Status</th>
+                                            <th [hidden]="hidePriority4">Priority</th>
+                                            
+                                        </tr>
+                                    </thead>  
+                                     <tbody  *ngFor="let Tasks of Taskhead.tasks | grdFilter: {task_name: searchText, names:searchText};" style="border-bottom:1pt solid #D0D0D0;" >
+                                       
+                                        
+                                   
+                                   
+                                        <tr >
+                                        
+                                            <td>
+                                                <div class="form-check">
+                                                    <label>
+                                                        <input name="check" type="checkbox" class="checkBoxClass">
+                                                        <span class="label-text"></span> </label>
+                                                </div>
+                                            </td>
+        
+                                            <td [hidden]="hideTask1"><a routerLink="../../template-project-edit-task/{{project_id}}/{{Tasks.id}}"
+                                                    id="{{Tasks.id}}">{{Tasks.task_name}} </a></td>
+											<td [hidden]="hideDescription7">{{Tasks.task_description}}</td>
+                                         
+        
+                                            <td [hidden]="hideStatus3">
+                                                <div class="btn-group"><a class="btn btn-xs {{Tasks.color_class}}" style="color:#fff;" [style.background] = "Tasks.color_class"
+                                                        type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="true">
+        
+                                                        {{Tasks.status_name}}
+                                                        <span class="caret caret-search"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li *ngFor="let status of status_list"><a (click)="change_status(Tasks.id,status.id)" >{{status.status}}</a></li></ul>
+                                                </div>
+                                            </td>
+                                            <td [hidden]="hidePriority4">
+                                                <div class="btn-group"><a class="btn btn-xs" [ngClass]="Tasks.task_priority == 1 ? 'btn-danger' : Tasks.task_priority == 2 ? 'btn-warning' : 'btn-success'"
+                                                        type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="true">
+                                                        <ng-template [ngIf]="Tasks.task_priority == 0">None</ng-template>
+                                                        <ng-template [ngIf]="Tasks.task_priority == 1">High</ng-template>
+                                                        <ng-template [ngIf]="Tasks.task_priority == 2">Medium</ng-template>
+                                                        <ng-template [ngIf]="Tasks.task_priority == 3">Low</ng-template>
+                                                        <span class="caret caret-search"></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                    <li><a (click)="change_priority(Tasks.id,0)">None</a></li>
+                                                        <li><a (click)="change_priority(Tasks.id,1)">High</a></li>
+                                                        <li><a (click)="change_priority(Tasks.id,2)">Medium</a></li>
+                                                        <li><a (click)="change_priority(Tasks.id,3)">Low</a></li>
+                                                    </ul>
+                                                </div>
+        
+                                            </td>
+                                            
+                                          	
+                                                   		
+                                           	
+                                            
+                                          
+                                        </tr>
+                                        
+                                    </tbody>
+                                
+                               
+                            </table>
+                            
+                        </div>
+                       
+                    </div>
+              
+				 <div class="modal fade"  [hidden]="hideModal" id="addTask" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog bright-modal-style">
+                <div class="modal-content">
+                    <form class="w-100" role="form" #addTaskForm="ngForm" style="background-color: white">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+                                    class="sr-only">Close</span></button>
+                            <h3 class="modal-title" id="lineModalLabel">New Task</h3>
+                        </div>
+                        <div class="modal-body">
+    
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Task Name</label>
+    
+                                    <input type="text" class="form-control" [class.is-invalid]="task_name.invalid && task_name.touched"
+                                        [(ngModel)]="addTasktemplateData.task_name" #task_name="ngModel" maxlength="100" name="task_name"
+                                        placeholder="Task Name"   required >
+                                    <small class="text-danger" [class.d-none]="task_name.valid || task_name.untouched">task name
+                                        is required</small>
+    
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Description</label>
+                                    <textarea name="" [class.is-invalid]="task_description.invalid && task_description.touched"
+                                        [(ngModel)]="addTasktemplateData.task_description" #task_description="ngModel"
+                                        maxlength="200" name="task_description" placeholder="Description" rows="3" class="form-control" trim="blur"></textarea>
+                                    <small class="text-danger" [class.d-none]="task_description.valid || task_description.untouched">Description
+                                        is required</small>
+    
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Attachment</label>
+                                    <input class="form-control" id="file-upload" type="file" type="file" (change)="onSelectFile($event)"
+                                        name="uploaded_file" ng2FileSelect [uploader]="uploader" accept="image/*"
+                                        #fileInput />
+                                    <input type="hidden" [(ngModel)]="addTasktemplateData.task_image_url" #task_image_url="ngModel"
+                                        name="task_image_url">
+    
+                                    <div class="progress" style="display: block;" *ngIf="pr_show">
+                                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Task List</label>
+                                    <select class="custom-select" [class.is-invalid]="task_list_id.invalid && task_list_id.touched"
+                                        [(ngModel)]="addTasktemplateData.task_list_id" #task_list_id="ngModel" name="task_list_id">
+                                        <optgroup *ngFor="let TasksType of TasksTypes" label="{{TasksType.task_list_type}}">
+                                            <option *ngFor="let tasklist of TasksType.tasklists" value="{{tasklist.id}}">{{tasklist.task_list_name}}</option>
+                                        </optgroup>
+    
+                                    </select>
+                                    <small class="text-danger" [class.d-none]="task_list_id.valid || task_list_id.untouched">Task
+                                        List is required</small>
+    
+                                </div>
+                               
+                            </div>
+                           
+                            
+                               
+                               
+                            <div class="col-md-6 demo">
+                                <label for="exampleInputPassword1">Priority</label>
+                                <select class="custom-select" [class.is-invalid]="task_priority.invalid && task_priority.touched"
+                                    [(ngModel)]="addTasktemplateData.task_priority" #task_priority="ngModel" name="task_priority">
+							<ng-container *ngIf = "addTasktemplateData.task_priority === '1'"><option  value="">Select</option></ng-container>
+                                    <option value="">Select</option>
+                                    <option value="1">High</option>
+                                    <option value="2">Medium</option>
+                                    <option value="3">Low</option>
+									<option value="0">None</option>
+                                </select>
+                                <small class="text-danger" [class.d-none]="task_priority.valid || task_priority.untouched">Priority
+                                    is required</small>
+                            </div>
+                        </div>
+                      <div class="modal-footer">
+                        <div class="btn-group" role="group" aria-label="group button">
+                            <div class="btn-group" role="group">
+                                <button type="button" id="" class="btn btn-success" data-dismiss="modal" (click)="add_template_task(addTaskForm)"
+                                    [disabled]="addTaskForm.form.invalid" data-action="save" role="button">Add</button>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+		 <div class="modal fade" id="addTitle" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog bright-modal-style">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+                                class="sr-only">Close</span></button>
+                       <h3 class="modal-title" id="lineModalLabel">Manage Task List Title</h3>
+        <button type="button" (click)="open_sorting_popup();">Title Sorting Setting</button>
+						
+                    </div>
+                    <div class="modal-body">
+                        <form class="w-100" role="form" #addTaskTypeForm="ngForm">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Title Name</label>
+                                    <input type="text" class="form-control" [class.is-invalid]="task_list_name.invalid && task_list_name.touched"
+                                        [(ngModel)]="addTasktypetemplateData.task_list_name" #task_list_name="ngModel"
+                                        maxlength="100" name="task_list_name" placeholder="Title Name" required>
+                                    <small class="text-danger" [class.d-none]="task_list_name.valid || task_list_name.untouched">Title
+                                        Name is required</small>
+    
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Title Type</label>
+                                    <select [class.is-invalid]="task_type_id.invalid && task_type_id.touched" [(ngModel)]="addTasktypetemplateData.task_type_id"
+                                        #task_type_id="ngModel" name="task_type_id" required>
+                                        <option value="">Select Type</option>
+                                        <option value="2">Internal (Private)</option>
+                                        <option value="1">External (Public)</option>
+                                    </select>
+                                    <small class="text-danger" [class.d-none]="task_type_id.valid || task_type_id.untouched">Title
+                                        Type is required</small>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table  table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Task</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let task_title of task_title_list">
+                                            <td>{{task_title.task_list_name}}({{task_title.task_type_name}})</td>
+                                            <td>
+                                                <a title="Edit" (click)="editTaskTitleForm.reset();edit_template_task_title(task_title.id,task_title.task_list_name,task_title.task_type_id);"
+                                                    data-toggle="modal" data-target="#EditTitle"><i class="fa fa-pencil"></i></a>
+                                                <a title="Delete" (click)="delete_template_task_title(task_title.id);"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+					
+			
+                    <div class="modal-footer">
+                        <div class="btn-group" role="group" aria-label="group button">
+                            <div class="btn-group" role="group">
+                                <button type="button" id="" class="btn btn-success" data-dismiss="modal" (click)="add_template_task_type()"
+                                    [disabled]="addTaskTypeForm.form.invalid" data-action="save" role="button">Add</button>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+				<div class="modal" data-backdrop="static" *ngIf="project_title_sorting_popup" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" style="display:block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color:#fff;">
+      <div class="modal-header">
+
+        <h4 class="modal-title">List</h4>
+        <button type="button" class="close" (click)="hidemodel7()" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+
+
+      <!-- <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" dragula="VAMPIRE">
+                    <div class="example-box" *ngFor="let movie of movies" cdkDrag>{{movie}}</div>
+                  </div> -->
+
+      <div class="col-md-12" onclick="drop()">
+        <div class="table-responsive">
+          <table class="table  table-striped" id="tableId ">
+            <thead>
+
+            </thead>
+            <tbody id="tableId" *ngFor="let task_title of task_title_list ; let i=index" [attr.data-index]="i"
+              class="container ex-over" dragula="VAMPIRESS">
+              <tr>
+                <td class="alignC even tddrop" data-id="{{task_title.id}}" data-position="1" class="container ex-over"
+                  id="{{task_title.id}}">{{task_title.task_list_name}} ({{task_title.task_type_name}})</td>
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="btn-group" role="group">
+        <button type="button"   [disabled]="buttonDisabled"  id="" class="btn btn-success" data-dismiss="modal"
+          (click)="create_task_title_new(task_update_id)" data-action="save" role="button">Save</button>
+      </div>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel7()">Close</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+           <div class="modal fade" id="EditTitle" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog bright-modal-style">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+                                class="sr-only">Close</span></button>
+                        <h3 class="modal-title">Edit Title</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form class="w-100" role="form" #editTaskTitleForm="ngForm">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Title Name</label>
+                                    <input type="text" class="form-control" [class.is-invalid]="task_list_name.invalid && task_list_name.touched"
+                                        [(ngModel)]="edittemplateTaskTitleFormData.task_list_name" #task_list_name="ngModel"
+                                        maxlength="100" minlength="5" name="task_list_name" placeholder="Title Name"
+                                        required>
+                                    <small class="text-danger" [class.d-none]="task_list_name.valid || task_list_name.untouched">Title
+                                        Name is required</small>
+    
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                  <label>Title Type</label>
+                                  <select [class.is-invalid]="task_type_id.invalid && task_type_id.touched"
+                                    [(ngModel)]="edittemplateTaskTitleFormData.task_type_id" #task_type_id="ngModel" name="task_type_id" required>
+                                    <option value="">Select</option>
+                                    <option  value="2">Internal (Private)
+                                    </option>
+                                    <option value="1">External (Public)</option>
+                                  </select>
+                                  <small class="text-danger" [class.d-none]="task_type_id.valid || task_type_id.untouched">Title
+                                    Type is required</small>
+                                </div>
+                              </div>
+                        </form>
+    
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-group" role="group" aria-label="group button">
+                            <div class="btn-group" role="group">
+                                <button type="button" id="" class="btn btn-success" data-dismiss="modal" (click)="update_template_task_title()"
+                                    [disabled]="editTaskTitleForm.form.invalid" data-action="save" role="button">Save</button>
+                            </div>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		  <div class="modal" *ngIf="modeldisplay2" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2" tabindex="-1"
+        role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color:#fff;">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Title</h4>
+                    <button type="button" class="close" (click)="hidemodel()" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+    
+                <div class="modal-body">
+                    <p> Are You Sure ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel2()">Close</button>
+                    <button type="submit" class="btn btn-success" (click)="delete_template_title(delete_title_id)">Delete Title</button>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+	<div class="modal" *ngIf="modeldisplay3" [style.background]="applyback?'#21212185':'red'" id="Modalupdate3" tabindex="-1"
+        role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color:#fff;">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Title</h4>
+                    <button type="button" class="close" (click)="hidemodel3()" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+    
+                <div class="modal-body">
+                    <p> You can not Delete this title, this titel used in Task</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default bn-sm" (click)="hidemodel3()">OK</button>
+    
+                </div>
+    
+            </div>
+        </div>
+    </div>
+        </div>
+     
+    
+     
+    
+        
+    </section>
+   

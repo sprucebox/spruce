@@ -1,0 +1,504 @@
+<section class="">
+    <div class="pageheader">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4><i class="fa fa-user"></i> My Profile</h4>
+                    <div class="button-list pull-right mt-7">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <div class="card-box w-100">
+                    <ul class="nav nav-tabs customTab" role="tablist">
+                        <li role="presentation" class="active"><a href="#company-detail" aria-controls="home" role="tab" data-toggle="tab">Account Detail</a></li>
+                        <li role="presentation"><a href="#contact-detail" aria-controls="home" role="tab" data-toggle="tab">Contact Detail</a></li>
+                        <li role="presentation"><a href="#reset-pass" aria-controls="document" role="tab" data-toggle="tab">Reset Password</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="company-detail">
+                          
+    
+  
+  
+        <br>
+  <section>
+    <div class="">
+      <div class="row">
+        <div class="col-md-12">
+          
+        <form  [formGroup]="referencesForm" (ngSubmit)="updateprofile()">
+        <div formGroupName="address">
+         
+      
+        <div class="col-md-12">
+          <h4 class="header-text-color">Home Owner Detail</h4>
+        </div>
+        <div class="clearfix"></div>
+        <hr>
+      
+        <div class="col-md-4">
+          <label>Mobile Number</label>
+          <input type="text" formControlName="mobile_no" class="form-control" maxlength="10" [ngClass]="{ 'is-invalid': submitted && f.mobile_no?.errors }" placeholder="Mobile Number" required>
+                         <div *ngIf="submitted && f.mobile_no?.errors" class="invalid-feedback">
+                             <div *ngIf="f.mobile_no.errors?.required">Mobile Number is required</div>
+                         </div>    
+        </div>
+        <div class="col-md-4">
+          <label>Confirm Mobile Number</label>
+          <input placeholder="Confirm Phone Number" type="text" maxlength="10">
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-4">
+          <input class="checkbox pull-left" type="checkbox" style="margin-right: 10px; margin-top: 0px;">
+          Able to receive text message</div>
+        <div class="clearfix"></div>
+        <div class="col-md-12">
+          <h4 class="header-text-color mt-4">Mailing Address</h4>
+        </div>
+        <div class="clearfix"></div>
+        <hr>
+        <div class="col-md-4">
+          <label>Street</label>
+          <input type="text" maxlength="100"
+         
+         formControlName="mail_address_street"
+          
+          
+          placeholder="Street Number" required>
+         
+        </div>
+        <div class="col-md-4">
+          <label>Suite</label>
+          <input type="text" maxlength="100"
+          formControlName="mail_address_suit"
+          
+         
+          placeholder="Suite (Optional)" >
+          
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-2">
+          <label>City</label>
+          <input type="text"
+          formControlName="mail_address_city"
+          
+         
+          placeholder="City" required>
+          
+        </div>
+        <div class="col-md-2">
+          <label>State</label>
+          <select class="custom-select" maxlength="60"
+          formControlName="mail_address_state"
+            required >
+            <option value="">Please Select State</option>
+            <option value="1">Alaska</option>
+            <option value="2">Arizona</option>
+            <option value="3">California</option>
+            <option value="4">Ohio</option>
+          </select>
+        
+        </div>
+        <div class="col-md-2">
+          <label>Zip</label>
+          <input type="text"
+          class="form-control"
+          
+         formControlName="mail_address_zip" maxlength="10"
+          placeholder="Zip" required>
+         
+        </div>
+        
+        <div class="col-md-12">
+          <input class="checkbox pull-left" type="checkbox" style="margin-right: 10px; margin-top: 0px;">
+          Enter Later </div>
+          
+     
+    
+          
+            </div>
+           
+      
+      
+      
+        <div class="col-md-12">
+        
+         <div formArrayName="references" > 
+              <div *ngFor="let item of references.controls; let pointIndex=index" [formGroupName]="pointIndex">
+           
+                <h4 class="header-text-color">Project Address</h4>
+                <hr>
+                <div class="row" >
+                  
+                  <div class="clearfix"></div>
+                  <a href="javascript:void(0);" *ngIf="pointIndex < 1" (click)="addReferences()" class="mt-0 btn btn-xs btn-success pull-right"> Add Projects Address <i class="fa fa-plus"></i> </a>
+                  <a href="javascript:void(0);" *ngIf="pointIndex > 0"  (click)="deleteReferences(pointIndex)" class="mt-0 btn btn-xs btn-success pull-right"> remove </a>
+                  
+            
+              <div class="col-md-10 p0">
+                
+                  <div class="form-group w-100">
+                    <div class="col-md-4">
+                      <label>Street</label>
+                      <input placeholder="Street" type="text" formControlName="street" maxlength="100">
+                    </div>
+                    <div class="col-md-4">
+                      <label>Suite</label>
+                      <input placeholder="Suite (Optional)" type="text" formControlName="suite" maxlength="100" >
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-2">
+                      <label class="d-block">City</label>
+                      <input placeholder="City" type="text" formControlName="city" maxlength="60">
+                    </div>
+                    <div class="col-md-2">
+                      <label class="d-block">State</label>
+                      <select class="custom-select" formControlName="state">
+                        <option value="">--State--</option>
+                        <option value="1">Alaska</option>
+                        <option value="2">Arizona</option>
+                        <option value="3">California</option>
+                        <option value="4">Ohio</option>
+                        <option value="5">Texas</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <label class="d-block">Zip</label>
+                      <input placeholder="Zip" type="text" formControlName="zip" maxlength="10">
+                    </div>
+                  </div>
+               
+              </div>
+            </div>
+          </div>
+                  </div>
+  
+           
+              <div class="row">
+                <div class="col-md-12">
+                  
+                   <button class="btn btn-primary nextBtn btn-md mt-7 pull-right" type="button"  [disabled]="referencesForm.invalid" (click)="updateaccountdetail()" >Update Account </button>
+                </div>
+              </div>
+         
+        </div>
+      
+   
+        </form>
+       
+   
+          
+       
+      </div>
+      
+    </div>
+    
+    </div>
+   
+  </section>
+  
+                        </div>
+                         <div role="tabpanel" class="tab-pane" id="contact-detail">
+                            <div class="col-md-3">
+                                <div class="card-box text-center">
+                                    <div class="browsePhoto">
+                                        <input   style="display: none"  id="file-upload" type="file" type="file"   (change)="onSelectFile($event)"  name="uploaded_file" ng2FileSelect [uploader]="uploader" accept="image/*"  #fileInput />
+                                              <a (click)="fileInput.click()" class="text-dafault" title="Edit"><i class="fa fa-pencil"></i>
+                                              </a>
+                                        <img  class="profile-user-img img-fluid rounded-circle" [src]="url" alt="User profile picture" width="150px" style="border: 5px solid rgba(255, 255, 255, 0.5);">
+                                    </div>
+                                    <div class="progress" style="display: block;" *ngIf="pr_show">
+                                      <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                                  </div>
+                                    <div class="pt-2">
+                                        <h4 class="profile-username">{{professionalData.user_first_name}} {{professionalData.user_last_name}}</h4>
+                                    </div>
+                                </div>
+                                <h6 style="color:red;">{{message}}</h6>
+                            </div>
+                            <form #personalprofessionalForm="ngForm" >
+                            <div class="col-md-9">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">First Name</label>
+                                        <div class="col-sm-8">
+                                            <input type="text"
+                                            class="form-control"
+                                            [class.is-invalid]="user_first_name.invalid && user_first_name.touched" 
+                                            [(ngModel)]="professionalData.user_first_name" 
+                                            #user_first_name="ngModel" maxlength="70"
+                                            name="user_first_name" 
+                                            placeholder="First Name" required>
+                                            <div *ngIf="user_first_name.invalid && (user_first_name.dirty || user_first_name.touched)"
+                                                  class="text-danger">
+  
+                                                <div *ngIf="user_first_name.errors.required">
+                                                  First Name is required.
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Last Name</label>
+                                        <div class="col-sm-8">
+                                            <input type="text"
+                                            class="form-control"
+                                            [class.is-invalid]="user_last_name.invalid && user_last_name.touched" 
+                                            [(ngModel)]="professionalData.user_last_name" 
+                                            #user_last_name="ngModel" maxlength="70"
+                                            name="user_last_name" 
+                                            placeholder="Last Name" required>
+                                            <div *ngIf="user_last_name.invalid && (user_last_name.dirty || user_last_name.touched)"
+                                            class="text-danger">
+  
+                                          <div *ngIf="user_last_name.errors.required">
+                                              Last Name is required.
+                                          </div>
+                                  </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Email</label>
+                                        <div class="col-sm-8">
+                                            <input type="text"
+                                            class="form-control"
+                                            [class.is-invalid]="user_email.invalid && user_email.touched" 
+                                            [(ngModel)]="professionalData.user_email" maxlength="255"
+                                            #user_email="ngModel" 
+                                            name="user_email" 
+                                            placeholder="Email" required readonly>
+                                            <small class="text-danger" [class.d-none]="user_email.valid || user_email.untouched">Email is required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Contact No.</label>
+                                        <div class="col-sm-8">
+                                            <input type="text"
+                                            class="form-control" maxlength="10"
+                                            [class.is-invalid]="user_contact_mobile.invalid && user_contact_mobile.touched" 
+                                            [(ngModel)]="professionalData.user_contact_mobile" 
+                                            #user_contact_mobile="ngModel" 
+                                            name="user_contact_mobile" 
+                                            placeholder="Phone Number" required>
+                                            <div *ngIf="user_contact_mobile.invalid && (user_contact_mobile.dirty || user_contact_mobile.touched)"
+                                            class="text-danger">
+  
+                                          <div *ngIf="user_contact_mobile.errors.required">
+                                              Contact No. is required.
+                                          </div>
+                                  </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Street</label>
+                                        <div class="col-sm-8">
+                                            <input type="text"
+                                            class="form-control"  maxlength="100"
+                                            [class.is-invalid]="user_address_street.invalid && user_address_street.touched" 
+                                            [(ngModel)]="professionalData.user_address_street" 
+                                            #user_address_street="ngModel" 
+                                            name="user_address_street" 
+                                            placeholder="Street" required>
+                                            <div *ngIf="user_address_street.invalid && (user_address_street.dirty || user_address_street.touched)"
+                                            class="text-danger">
+  
+                                          <div *ngIf="user_address_street.errors.required">
+                                              Street is required.
+                                          </div>
+                                  </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Suit</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" maxlength="100"
+                                            class="form-control"
+                                            [class.is-invalid]="user_address_suite.invalid && user_address_suite.touched" 
+                                            [(ngModel)]="professionalData.user_address_suite" 
+                                            #user_address_suite="ngModel" 
+                                            name="user_address_suite" 
+                                            placeholder="Suite" required>
+                                            <div *ngIf="user_address_suite.invalid && (user_address_suite.dirty || user_address_suite.touched)"
+                                            class="text-danger">
+  
+                                          <div *ngIf="user_address_suite.errors.required">
+                                              Suit is required.
+                                          </div>
+                                  </div>
+                     
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Country</label>
+                                      <div class="col-sm-8">
+                                        <select class="custom-select"
+                                        [class.is-invalid]="user_address_country.invalid && user_address_country.touched" 
+                                        [(ngModel)]="professionalData.user_address_country" 
+                                        #user_address_country="ngModel"
+                                          name="user_address_country" (change)="get_all_states($event.target.value)">
+                                          <option value="">--Country--</option>
+                                          <option value="{{country.id}}" *ngFor="let country of countries" >{{country.name}}</option>
+                                         
+                                        </select>
+                                        <small class="text-danger" [class.d-none]="user_address_country.valid || user_address_country.untouched">Country is required</small>
+                                      </div>
+                                  </div>
+                              </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">State</label>
+                                        <div class="col-sm-8">
+                                          <select class="custom-select"
+                                          [class.is-invalid]="user_address_state.invalid && user_address_state.touched" 
+                                          [(ngModel)]="professionalData.user_address_state" 
+                                          #user_address_state="ngModel"
+                                            name="user_address_state" >
+                                            <option value="">--State--</option>
+                                            <option value="{{state.id}}" *ngFor="let state of states">{{state.name}}</option>
+                                            
+                                          </select>
+                                            <small class="text-danger" [class.d-none]="user_address_state.valid || user_address_state.untouched">State is required</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                               
+                                <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">City</label>
+                                      <div class="col-sm-8">
+                                          <input type="text"
+                                          class="form-control" maxlength="60"
+                                          [class.is-invalid]="user_address_city.invalid && user_address_city.touched" 
+                                          [(ngModel)]="professionalData.user_address_city" 
+                                          #user_address_city="ngModel" 
+                                          name="user_address_city" 
+                                          placeholder="Suite" required>
+                                          <div *ngIf="user_address_city.invalid && (user_address_city.dirty || user_address_city.touched)"
+                                          class="text-danger">
+  
+                                        <div *ngIf="user_address_city.errors.required">
+                                          City is required.
+                                        </div>
+                                </div>
+                   
+                                      </div>
+                                  </div>
+                              </div>
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 col-form-label">Zip</label>
+                                        <div class="col-sm-8">
+                                            <input type="text"
+                                            class="form-control"  maxlength="10"
+                                            [class.is-invalid]="user_address_zip.invalid && user_address_zip.touched" 
+                                            [(ngModel)]="professionalData.user_address_zip" 
+                                            #user_address_zip="ngModel" 
+                                            name="user_address_zip" 
+                                            placeholder="Zip" required>
+                                            <div *ngIf="user_address_zip.invalid && (user_address_zip.dirty || user_address_zip.touched)"
+                                          class="text-danger">
+  
+                                        <div *ngIf="user_address_zip.errors.required">
+                                          Zip is required.
+                                        </div>
+                                </div>
+                   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-2 text-right">
+                                <button class="btn btn-success btn-md" type="submit" (click)="updateprofile()" [disabled]="personalprofessionalForm.form.invalid">Save </button>
+                                <button class="btn btn-default btn-md" type="button">Cancel </button>
+                            </div>
+                            </form>
+                        </div>
+  
+                             <div role="tabpanel" class="tab-pane" id="reset-pass">
+                            <div class="alert alert-danger mt-3" role="alert" *ngIf="err_message!=null">
+                                    {{ err_message }}
+                            </div>
+                            <div class="alert alert-success mt-3" role="alert" *ngIf="success_message!=null">
+                                    {{ success_message }}
+                            </div>
+                                      <br>
+                        <form #passwordprofessionalForm="ngForm" >
+                          <div class="col-md-7">
+                              <div class="form-group row">
+                                  <label class="col-sm-4 col-form-label">Current Password</label>
+                                  <div class="col-sm-8">
+                                      <input type="text" 
+                                          class="form-control"
+                                          [class.is-invalid]="old_password.invalid && old_password.touched" 
+                                          [(ngModel)]="changepasswordForm.old_password" 
+                                          #old_password="ngModel" 
+                                          name="old_password" maxlength='15' minlength='4'
+                                          placeholder="Current Password" trim required>
+                                          <small class="text-danger" [class.d-none]="old_password.valid || old_password.untouched">Current Password is required</small>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="col-md-7">
+                              <div class="form-group row">
+                                  <label class="col-sm-4 col-form-label">New Password</label>
+                                  <div class="col-sm-8">
+                                      <input type="password"
+                                          class="form-control"
+                                          [class.is-invalid]="new_password.invalid && new_password.touched" 
+                                          [(ngModel)]="changepasswordForm.new_password" maxlength='15' minlength='4'
+                                          #new_password="ngModel" 
+                                          name="new_password" 
+                                          placeholder="New Password" trim required>
+                                          <small class="text-danger" [class.d-none]="new_password.valid || new_password.untouched">New Password is required</small>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="col-md-7">
+                              <div class="form-group row">
+                                  <label class="col-sm-4 col-form-label">Confirm Password</label>
+                                  <div class="col-sm-8">
+                                    <input type="password"
+                                    class="form-control"
+                                    [class.is-invalid]="con_password.invalid && con_password.touched" 
+                                    [(ngModel)]="changepasswordForm.con_password" (change)="check_confirm();"
+                                    #con_password="ngModel" 
+                                    validateEqual="changepasswordForm.new_password"
+                                    name="con_password" 
+                                    placeholder="New Password" trim required>
+                                    <small class="text-danger" [class.d-none]="con_password.valid || con_password.untouched">Confirm Password is required</small>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-12 mt-2 text-right">
+                              <button class="btn btn-success btn-md" type="button" (click)="changepassword()" [disabled]="passwordprofessionalForm.form.invalid">Save </button>
+                              <button class="btn btn-default btn-md" type="button">Cancel </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+  
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>

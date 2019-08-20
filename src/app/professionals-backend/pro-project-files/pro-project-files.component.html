@@ -1,0 +1,743 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <nav>
+          <ul class="nav navbar-nav" *ngIf="folder_id==0">
+            <li><a routerLink="../../project-overview/{{project_id}}">Overview</a></li>
+            <li><a routerLink="../../project-task/{{project_id}}">Task</a></li>
+            <li><a routerLink="../../project-calendar/{{project_id}}">Calendar</a></li>
+            <li *ngIf="project_company_id==company_id"><a
+                routerLink="../../project-activity/{{project_id}}">Activity</a></li>
+            <li *ngIf="project_company_id==company_id"><a routerLink="../../project-reports/{{project_id}}">Reports</a>
+            </li>
+            <li><a routerLink="../../project-discussion/{{project_id}}">Discussion</a></li>
+            <li *ngIf="select_permissions.indexOf(31) !== -1"><a routerLink="../../project-files/{{project_id}}"
+                class="active">Files</a></li>
+            <li *ngIf="project_company_id===company_id"><a routerLink="../../project-users/{{project_id}}">Users</a>
+            </li>
+            <li><a routerLink="../../notes/{{project_id}}">Notes</a></li>
+          </ul>
+          <ul class="nav navbar-nav" *ngIf="folder_id!=0">
+            <li><a routerLink="../../../project-overview/{{project_id}}">Overview</a></li>
+            <li><a routerLink="../../../project-task/{{project_id}}">Task</a></li>
+            <li><a routerLink="../../../project-calendar/{{project_id}}">Calendar</a></li>
+            <li *ngIf="project_company_id===company_id"><a
+                routerLink="../../../project-activity/{{project_id}}">Activity</a></li>
+            <li><a routerLink="../../project-reports/{{project_id}}">Reports</a></li>
+            <li><a routerLink="../../../project-discussion/{{project_id}}">Discussion</a></li>
+            <li *ngIf="select_permissions.indexOf(30) !== -1"><a routerLink="../../../project-files/{{project_id}}"
+                class="active">Files</a></li>
+            <li *ngIf="project_company_id==company_id"> <a routerLink="../../../project-users/{{project_id}}">Users</a>
+            </li>
+            <li><a routerLink="../../../notes/{{project_id}}">Notes</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="text-uppercase">{{projectname}}</h4>
+        <div class="card-box">
+          <div class="row">
+            <div class="col-md-12">
+              <h4>Files
+                <div *ngIf="select_permissions.indexOf(30) !== -1">
+                  <a (click)="showmodel();" *ngIf="folder_id==0" class="btn btn-sm btn-primary"><i
+                      class="fa fa-plus"></i>
+                    Create Folder</a>
+                  <a routerLink="../../../project-files/{{project_id}}" *ngIf="folder_id!=0" class="btn btn-default"> <i
+                      class="fa fa-arrow-left"></i> Go Back</a>
+                </div>
+              </h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="add-filesbox">
+                <div style="text-align:center">
+                  <!-- <div class="text-center well"> -->
+                  <!-- <dropzone [config]="config" #drpzone [message]="'Click or drag images here to upload'" -->
+                  <!-- (error)="onError()" (sending)="onSending($event)" (sendingmultiple)="onSendingmultiple()" -->
+                  <!-- (success)="onSuccess($event)"> -->
+                  <!-- </dropzone> -->
+                  <!-- </div> -->
+                  <div class="white-box p-3">
+                    <div class="row mt-2">
+                      <div class="col-12">
+                        <p-fileUpload  [showUploadButton]="yourCondition" name="file[]" url="{{upload_url}}"
+                          (onUpload)="onUpload($event)"  (onRemove)="removeFile($event)" (onError)="onError($event)" (onSelect)="chooseFile($event)"
+                          (onBeforeSend)="onBeforeSend($event)" multiple="multiple"
+                          accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/doc,application/docs,application/xls,application/xlsx,text/Microsoft Excel Worksheet,text/html,video/mpeg,audio/mpeg3,video/mp4,audio/mp3,text/plain,image/heic heic,image/heif"
+                          maxFileSize="11000000">
+                          <ng-template pTemplate="content">
+                            <!-- <ul *ngIf="uplo*ngIfadedFiles.length"> -->
+                            <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes <span
+                                style="color: #28a745">Uploaded Success</span></li>
+
+                            <!-- </ul> -->
+                          </ng-template>
+
+                          <ul>
+
+                          </ul>
+                        </p-fileUpload>
+                        <!-- <li>Total Size - </li> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+	<ul>
+    <li style="color: red"> {{message}} </li>
+	</ul>
+    <!-- <h6 style="color:red;">file size should be not greater than 10mb.</h6> -->
+    <!-- <h6 style="color:red;">file type should be -->
+    <!-- image,pdf,msword,text/html,video/mpeg,audio/mpeg3,video/mp4,audio/mp3,ms-excel,docx,jpeg.</h6> -->
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="tool-view border-bot">
+          <div class="col-sm-12">
+            <div class="col-md-4">
+              <h3>{{folder_name}}</h3>
+            </div>
+            <ul class="filter-view pull-right mb-0">
+              <li><a data-tab="tab-1" href="javascript:void('0');" class="activelink"><i class="fa fa-th"></i></a></li>
+              <li><a data-tab="tab-2" href="javascript:void('0');" class=""><i class="fa fa-th-list"></i></a></li>
+            </ul>
+          </div>
+        </div>
+        <div id="tab-1" class="grid-view content current mt-2">
+          <div class="d-flex">
+            <div class="card-box" id='{{folder_id}}'>
+              <div class="row">
+                <div *ngIf="project_company_id==company_id && usertype=='1' ; else externaluser">
+                  <h4>{{allfoldername}}</h4>
+                  <div *ngIf="folder_id=='0'">
+                  <div class="col-md-3" *ngFor="let projectfolders of allprojectfolders">
+                    <div  class="card m-b-30">
+                      <div class="card-header card-header-small" >
+                        <a routerLink='../../project-files/{{project_id}}/{{projectfolders.id}}'>
+                          <i class="fa fa-folder filefolder" aria-hidden="true" id="{{projectfolders.id}}"
+                            dragula="VAMPIRE"></i></a>
+                      </div>
+                      <div class="card-body" >
+                        <p><a routerLink='../../project-files/{{project_id}}/{{projectfolders.id}}'>
+                            <h4>{{projectfolders.folder_name}}</h4>
+                          </a><span *ngIf="projectfolders.folder_type_id==1">Internal</span><span
+                            *ngIf="projectfolders.folder_type_id==2">External</span> </p>
+                        <!--edit delete drop dow-->
+                        <div class="col-md-2 pull-right" *ngIf="projectfolders.is_default==0">
+                          <!-- <div class="dropdown text-left mb-20"> -->
+                          <!-- <button  type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+                          <!-- <i class="fa fa-ellipsis-v" aria-hidden="true"></i> -->
+                          <!-- </button> <div class="dropdown-menu task" aria-labelledby="dropdownMenuButton"> -->
+                          <!-- <ul class="task_width"> -->
+                          <!-- <li><a  (click)="on_project_select(projectfolders.id)" [className]="task_type=='Edit' ? 'active dropdown-item' : 'dropdown-item'" (click)="showmodel1();" > -->
+                          <!-- <label> <span class="label-text"></span> </label>Edit</a></li> -->
+                          <!-- <li> <a  (click)="on_select(projectfolders.id)" [className]="task_type=='source' ? 'active dropdown-item' : 'dropdown-item'"><label> -->
+                          <!-- <span class="label-text"></span> </label>Delete</a></li> -->
+
+                          <!-- </ul> -->
+                          <!-- </div> -->
+                          <!-- </div> -->
+                        </div>
+                        <div class="col-md-4 pull-right" *ngIf="projectfolders.is_default==1">
+                          <div class="dropdown text-left">
+                            <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">
+                              <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu task" aria-labelledby="dropdownMenuButton">
+                              <ul class="task_width">
+                                <li><a (click)="on_project_select(projectfolders.id)"
+                                    [className]="task_type=='Edit' ? 'active dropdown-item' : 'dropdown-item'"
+                                    (click)="showmodel1();">
+                                    <label> <span class="label-text"></span> </label>Edit</a></li>
+                                <li> <a (click)="on_select(projectfolders.id)"
+                                    [className]="task_type=='source' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                      <span class="label-text"></span> </label>Delete</a></li>
+
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <!--edit delete drop down-->
+                        <span class="card-text text-muted"> Create at
+                          {{projectfolders.created_at | date:alldate}}</span>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                  <div class="ex-over col-md-3" *ngFor="let projectfiles of allprojectfiles"
+                    id="{{projectfiles.file_id}}" dragula="VAMPIRE">
+                    <div class="card m-b-30">
+                      <div class="card-header">
+                        <span
+                          *ngIf="projectfiles.file_type=='png' || projectfiles.file_type=='jpg'|| projectfiles.file_type=='gif'  || projectfiles.file_type=='jpeg';else other_content"><img
+                            class="card-img-top img-responsive" style="margin: 0 auto;" src="{{projectfiles.thumb_url}}"
+                            (click)="onselect(projectfiles.file_url)" alt="cap"></span>
+                        <ng-template #other_content>
+                          <ng-container
+                            *ngIf="projectfiles.file_type=='xls'|| projectfiles.file_type=='csv' || projectfiles.file_type=='doc'|| projectfiles.file_type=='docx'|| projectfiles.file_type=='txt'|| projectfiles.file_type=='zip'|| projectfiles.file_type=='XLS'|| projectfiles.file_type=='XLSX'|| projectfiles.file_type=='DOC'|| projectfiles.file_type=='DOCX'|| projectfiles.file_type=='TXT'|| projectfiles.file_type=='ZIP'|| projectfiles.file_type=='xlsx';else otherwise">
+                            <a (click)="viewfile(projectfiles.file_url)" class="icon" download> <img
+                                class="card-img-top img-responsive" style="margin: 0 auto;"
+                                src="http://itsabacus.net/sprucebox_api/public/file_type_images/{{projectfiles.file_type}}.png"
+                                alt="cap"></a>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template #otherwise>
+                          <ng-container *ngIf="projectfiles.file_type=='pdf'|| projectfiles.file_type=='PDF'">
+                            <a (click)="viewpdffile(projectfiles.file_url)" class="icon" download> <img
+                                class="card-img-top img-responsive" style="margin: 0 auto;"
+                                src="http://itsabacus.net/sprucebox_api/public/file_type_images/{{projectfiles.file_type}}.png"
+                                alt="cap"></a>
+                          </ng-container>
+                        </ng-template>
+                      </div>
+                      <div class="card-body">
+                        <h4>{{projectfiles.file_title}}</h4>
+                        <!--move dropdow-->
+                        <div class="col-md-2 pull-right">
+                          <div class="dropdown text-left mb-20">
+                            <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">
+                              <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu task" aria-labelledby="dropdownMenuButton">
+                              <ul class="task_width">
+
+
+                                <li> <a (click)="on_select_data(projectfiles.file_id)"
+                                    [className]="task_type=='source' ? 'active dropdown-item' : 'dropdown-item'"
+                                    (click)="showmodel2();"><label>
+                                      <span class="label-text"></span> </label>Move</a></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <!--move dropdow-->
+                        <span class="card-text text-muted">
+                          Add by {{projectfiles.firstname}} on {{projectfiles.created_at  | date:alldate}}
+                        </span>
+                        <br />
+                        <span
+                          *ngIf="projectfiles.file_type=='xls'|| projectfiles.file_type=='csv' || projectfiles.file_type=='doc'|| projectfiles.file_type=='docx'|| projectfiles.file_type=='txt'|| projectfiles.file_type=='zip'|| projectfiles.file_type=='XLS'|| projectfiles.file_type=='XLSX'|| projectfiles.file_type=='DOC'|| projectfiles.file_type=='DOCX'|| projectfiles.file_type=='TXT'|| projectfiles.file_type=='ZIP'|| projectfiles.file_type=='xlsx';else other">
+                          <a (click)="viewfile(projectfiles.file_url)" class="icon" download><i class="fa fa-eye"
+                              aria-hidden="true"></i></a>
+                          <a (click)="deletefile(projectfiles.file_id,projectfiles.file_name)" class="icon" download><i
+                              class="fa fa-trash"></i></a>
+                          <a (click)="downloadFile(projectfiles.file_url,projectfiles.file_name)" class="icon"
+                            download="test.jpg"><i class="fa fa-download"></i></a></span>
+                        <ng-template #other>
+                          <ng-container
+                            *ngIf="projectfiles.file_type=='pdf'|| projectfiles.file_type=='PDF';else third">
+                            <a (click)="viewpdffile(projectfiles.file_url)" class="icon" download><i class="fa fa-eye"
+                                aria-hidden="true"></i></a>
+                            <a (click)="deletefile(projectfiles.file_id,projectfiles.file_name)" class="icon"
+                              download><i class="fa fa-trash"></i></a>
+                            <a (click)="downloadFile(projectfiles.file_url,projectfiles.file_name)" class="icon"
+                              download="test.jpg"><i class="fa fa-download"></i></a>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template #third>
+                          <a (click)="deletefile(projectfiles.file_id,projectfiles.file_name)" class="icon" download><i
+                              class="fa fa-trash"></i></a>
+                          <a (click)="downloadFile(projectfiles.file_url,projectfiles.file_name)" class="icon"
+                            download="test.jpg"><i class="fa fa-download"></i></a>
+                        </ng-template>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <ng-template #externaluser>
+                  <div class="col-md-3" *ngFor="let projectfolders of allprojectfolders">
+
+                    <div *ngIf="folder_id=='0'" class="card m-b-30">
+                      <div class="card-header">
+                        <a routerLink='../../project-files/{{project_id}}/{{projectfolders.id}}'><i
+                            class="fa fa-folder filefolder" aria-hidden="true" id="{{projectfolders.id}}"
+                            dragula="VAMPIRE"></i></a>
+                      </div>
+                      <div class="card-body">
+                        <p><a routerLink='../../project-files/{{project_id}}/{{projectfolders.id}}'>
+                            <h4>{{projectfolders.folder_name}}</h4>
+                          </a><span *ngIf="projectfolders.folder_type_id==1">Internal</span> </p>
+                        <!--edit delete drop dow-->
+                        <div class="col-md-2 pull-right">
+                          <div class="dropdown text-left mb-20">
+                            <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">
+                              <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu task" aria-labelledby="dropdownMenuButton">
+                              <ul class="task_width">
+                                <li><a (click)="on_project_select(projectfolders.id)"
+                                    [className]="task_type=='Edit' ? 'active dropdown-item' : 'dropdown-item'"
+                                    (click)="showmodel1();">
+                                    <label> <span class="label-text"></span> </label>Edit</a></li>
+                                <li> <a (click)="on_select(projectfolders.id)"
+                                    [className]="task_type=='source' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                      <span class="label-text"></span> </label>Delete</a></li>
+
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <!--edit delete drop down-->
+                        <span class="card-text text-muted"> Create at
+                          {{projectfolders.created_at  | date:alldate}}</span>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ex-over col-md-3" *ngFor="let projectfiles of allprojectfiles"
+                    id="{{projectfiles.file_id}}" dragula="VAMPIRE">
+                    <div class="card m-b-30">
+                      <div class="card-header">
+                        <span
+                          *ngIf="projectfiles.file_type=='png' || projectfiles.file_type=='jpg'|| projectfiles.file_type=='gif'  || projectfiles.file_type=='jpeg';else other_content"><img
+                            class="card-img-top img-responsive" style="margin: 0 auto;" src="{{projectfiles.thumb_url}}"
+                            (click)="onselect(projectfiles.file_url)" alt="cap"></span>
+                        <ng-template #other_content>
+                          <ng-container
+                            *ngIf="projectfiles.file_type=='xls'|| projectfiles.file_type=='csv' || projectfiles.file_type=='doc'|| projectfiles.file_type=='docx'|| projectfiles.file_type=='txt'|| projectfiles.file_type=='zip'|| projectfiles.file_type=='XLS'|| projectfiles.file_type=='XLSX'|| projectfiles.file_type=='DOC'|| projectfiles.file_type=='DOCX'|| projectfiles.file_type=='TXT'|| projectfiles.file_type=='ZIP'|| projectfiles.file_type=='xlsx';else otherwise">
+                            <a (click)="viewfile(projectfiles.file_url)" class="icon" download> <img
+                                class="card-img-top img-responsive" style="margin: 0 auto;"
+                                src="http://itsabacus.net/sprucebox_api/public/file_type_images/{{projectfiles.file_type}}.png"
+                                alt="cap"></a>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template #otherwise>
+                          <ng-container *ngIf="projectfiles.file_type=='pdf'|| projectfiles.file_type=='PDF'">
+                            <a (click)="viewpdffile(projectfiles.file_url)" class="icon" download> <img
+                                class="card-img-top img-responsive" style="margin: 0 auto;"
+                                src="http://itsabacus.net/sprucebox_api/public/file_type_images/{{projectfiles.file_type}}.png"
+                                alt="cap"></a>
+                          </ng-container>
+                        </ng-template>
+                      </div>
+                      <div class="card-body">
+                        <h4>{{projectfiles.file_title}}</h4>
+                        <!--move dropdow-->
+                        <div class="col-md-2 pull-right">
+                          <div class="dropdown text-left mb-20">
+                            <button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false">
+                              <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu task" aria-labelledby="dropdownMenuButton">
+                              <ul class="task_width">
+
+
+                                <li> <a (click)="on_select_data(projectfiles.file_id)"
+                                    [className]="task_type=='source' ? 'active dropdown-item' : 'dropdown-item'"
+                                    (click)="showmodel2();"><label>
+                                      <span class="label-text"></span> </label>Move</a></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <!--move dropdow-->
+                        <span class="card-text text-muted">
+                          Add by {{projectfiles.firstname}} on {{projectfiles.created_at  | date:alldate}}
+                        </span>
+                        <br />
+                        <span
+                          *ngIf="projectfiles.file_type=='xls'|| projectfiles.file_type=='csv' || projectfiles.file_type=='doc'|| projectfiles.file_type=='docx'|| projectfiles.file_type=='txt'|| projectfiles.file_type=='zip'|| projectfiles.file_type=='XLS'|| projectfiles.file_type=='XLSX'|| projectfiles.file_type=='DOC'|| projectfiles.file_type=='DOCX'|| projectfiles.file_type=='TXT'|| projectfiles.file_type=='ZIP'|| projectfiles.file_type=='xlsx';else other">
+                          <a (click)="viewfile(projectfiles.file_url)" class="icon" download><i class="fa fa-eye"
+                              aria-hidden="true"></i></a>
+                          <a (click)="deletefile(projectfiles.file_id,projectfiles.file_name)" class="icon" download><i
+                              class="fa fa-trash"></i></a>
+                          <a (click)="downloadFile(projectfiles.file_url,projectfiles.file_name)" class="icon"
+                            download="test.jpg"><i class="fa fa-download"></i></a></span>
+                        <ng-template #other>
+                          <ng-container
+                            *ngIf="projectfiles.file_type=='pdf'|| projectfiles.file_type=='PDF';else third">
+                            <a (click)="viewpdffile(projectfiles.file_url)" class="icon" download><i class="fa fa-eye"
+                                aria-hidden="true"></i></a>
+                            <a (click)="deletefile(projectfiles.file_id,projectfiles.file_name)" class="icon"
+                              download><i class="fa fa-trash"></i></a>
+                            <a (click)="downloadFile(projectfiles.file_url,projectfiles.file_name)" class="icon"
+                              download="test.jpg"><i class="fa fa-download"></i></a>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template #third>
+                          <a (click)="deletefile(projectfiles.file_id,projectfiles.file_name)" class="icon" download><i
+                              class="fa fa-trash"></i></a>
+                          <a (click)="downloadFile(projectfiles.file_url,projectfiles.file_name)" class="icon"
+                            download="test.jpg"><i class="fa fa-download"></i></a>
+                        </ng-template>
+                      </div>
+                    </div>
+                  </div>
+
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="tab-2" class="list-view mt-2 content hide">
+          <div class="card-box">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <tbody>
+                    <ng-container *ngFor="let projectfolders of allprojectfolders">  
+                  <tr *ngIf="folder_id=='0'">
+                    <td><a routerLink='../../project-files/{{project_id}}/{{projectfolders.id}}'> <i
+                          class="fa fa-folder filefolder" style="font-size: 40px;" aria-hidden="true"
+                          id="{{projectfolders.id}}" dragula="VAMPIRE"></i></a></td>
+                    <td><a
+                        routerLink='../../project-files/{{project_id}}/{{projectfolders.id}}'>{{projectfolders.folder_name}}</a>
+                    </td>
+
+                    <td>Create at {{projectfolders.created_at  | date:alldate}}</td>
+                    <td *ngIf="!projectfolders.is_default"><a (click)="on_project_select(projectfolders.id)"
+                        (click)="showmodel1();" class="icon" Edit></a></td>
+                    <td *ngIf="!projectfolders.is_default"><a (click)="on_select(projectfolders.id)" class="icon"
+                        Delete></a></td>
+                    <td *ngIf="projectfolders.is_default"><a (click)="on_project_select(projectfolders.id)"
+                        (click)="showmodel1();" class="icon" Edit><i class="fa fa-edit"></i></a></td>
+                    <td *ngIf="projectfolders.is_default"><a (click)="on_select(projectfolders.id)" class="icon"
+                        Delete><i class="fa fa-trash"></i></a></td>
+                    <td></td>
+
+                  </tr>
+                  </ng-container>
+                </tbody>
+                <tbody>
+
+                  <tr *ngFor="let projectfiles of allprojectfiles" id="{{projectfiles.file_id}}" dragula="VAMPIRE">
+
+                    <td scope="row"><span
+                        *ngIf="projectfiles.file_type=='png' || projectfiles.file_type=='jpg'|| projectfiles.file_type=='gif'  || projectfiles.file_type=='jpeg';else other_content"><img
+                          width="50" src="{{projectfiles.file_url}}" alt="cap"></span>
+                      <ng-template #other_content><img width="50"
+                          src="http://itsabacus.net/sprucebox_api/public/file_type_images/{{projectfiles.file_type}}.png"
+                          alt="cap"></ng-template>
+                    </td>
+
+                    <td><a>{{projectfiles.file_title}}</a></td>
+                    <td>Add by {{projectfiles.firstname}} on {{projectfiles.created_at  | date:alldate}}</td>
+                    <td><a (click)="deletefile(projectfiles.file_id,projectfiles.file_name)" class="icon" download><i
+                          class="fa fa-trash"></i></a></td>
+                    <td><a (click)="downloadFile(projectfiles.file_url,projectfiles.file_name)" class="icon"
+                        download="test.jpg"><i class="fa fa-download"></i></a></td>
+                    <td><a (click)="on_select_data(projectfiles.file_id)" class="icon" Move (click)="showmodel2();"><i
+                          class="fa fa-share" aria-hidden="true"></i></a></td>
+
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="modal" *ngIf="modeldisplay" [style.background]="applyback?'#21212185':'red'" id="ModalAdd" tabindex="-1"
+  role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form role="form" #addfolderform="ngForm" style="background-color:#fff ">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Folder</h4>
+          <button type="button" class="close" (click)="hidemodel()" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="control-label">Folder Name</label>
+            <input type="text" class="form-control" [(ngModel)]="addFolderFormData.folder_name" #folder_name="ngModel"
+              maxlength="50" name="folder_name" placeholder="Folder Name" (change)="check_unique_folder_name($event)"
+              required>
+            <small class="text-danger" [class.d-none]="err_message">Folder Name is already taken</small>
+          </div>
+          <div class="form-group">
+            <label>Folder Type</label>
+            <select [(ngModel)]="addFolderFormData.folder_type_id" #folder_type_id="ngModel" name="folder_type_id"
+              required>
+              <option value="">Select Type</option>
+              <option *ngIf="project_company_id==company_id && project_userrole=='1'" value="1">Internal (Private)
+              </option>
+              <!-- <option *ngIf="project_company_id==company_id && project_userrole!='1'" value="1">Internal (Private)</option> -->
+              <option value="2">External (Public)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <label>
+                <input type="checkbox" name="is_private" (change)="triggerSomeEvent($event)" />
+                <span class="label-text"></span> Only me</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel()">Close</button>
+
+          <input type="submit" name="create_detail" (click)="create_new_folder();addfolderform.form.reset()"
+            [disabled]="addfolderform.form.invalid || disablebutton" class="btn btn-success" value="Save" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--update and check rename  and max 50 length-->
+
+<div class="modal" *ngIf="modeldisplay1" [style.background]="applyback?'#21212185':'red'" id="ModalAdd" tabindex="-1"
+  role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form role="form" #updatefolderform="ngForm" style="background-color:#fff ">
+        <div class="modal-header">
+          <h4 class="modal-title">Update Folder</h4>
+          <button type="button" class="close" (click)="hidemodel1()" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+
+        <div class="modal-body">
+          <!--<div class="alert alert-danger mt-3" role="alert" *ngIf="err_message!=null">
+                      {{ err_message }}
+                        </div>-->
+
+
+          <div class="form-group">
+            <label class="control-label">Folder Name</label>
+            <input type="text" class="form-control" [(ngModel)]="updateFolderFormData.folder_name"
+              #folder_name="ngModel" maxlength="50" name="folder_name" placeholder="Folder Name"
+              (change)="check_unique_folder_edit_name($event)" required>
+
+
+
+
+            <small class="text-danger" [class.d-none]="err_message">Folder Name is already taken</small>
+
+          </div>
+
+          <div class="form-group">
+            <label>Folder Type</label>
+            <select [(ngModel)]="updateFolderFormData.folder_type_id" #folder_type_id="ngModel" name="folder_type_id"
+              required>
+              <option value="">Select Type</option>
+              <option *ngIf="project_company_id==company_id && project_userrole=='1'" value="1">Internal (Private)
+              </option>
+              <option value="2">External (Public)</option>
+            </select>
+
+          </div>
+          <div class="form-group">
+
+
+            <div class="form-check">
+              <label>
+                <input type="checkbox" name="is_private" (change)="SomeEvent($event)"
+                  [checked]="updateFolderFormData.is_private" />
+                <span class="label-text"></span> Only me</label>
+            </div>
+
+
+
+
+
+          </div>
+
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel1()">Close</button>
+
+          <input type="submit" name="update_detail" (click)="update_new_folder();updatefolderform.form.reset()"
+            [disabled]="updatefolderform.form.invalid || disablebutton" class="btn btn-success" value="Save" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--update and check unique name  and max 50 length-->
+<!--move- and check unique  and max 50 lengt-->
+<div class="modal" *ngIf="modeldisplay2" [style.background]="applyback?'#21212185':'red'" id="ModalAdd" tabindex="-1"
+  role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form role="form" #movefolderform="ngForm" style="background-color:#fff ">
+        <div class="modal-header">
+          <h4 class="modal-title">Move Folder</h4>
+          <button type="button" class="close" (click)="hidemodel2()" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+
+            <label class="control-label">Folder Name</label>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th style="width: 36px; text-align: center;">
+
+                  </th>
+
+                  <th>Folder Name</th>
+                  <th>Folder Type</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    
+                      <ul>
+                        <li *ngFor="let projectfolders of allprojectfolders"> <label>
+                            <input name="check" type="radio" class="checkBoxClass1"
+                              (click)="on_move_data(projectfolders.id)">
+                            <span class="label-text"></span> </label></li>
+                      </ul>
+
+                   
+                  </td>
+                  <td>
+
+                    <ul>
+                      <li *ngFor="let projectfolders of allprojectfolders" style="font-size:18px;">
+                        {{projectfolders.folder_name}}</li> 
+                    </ul>
+
+                  </td>
+                  <td>
+                    <ul>
+
+                      <li *ngFor="let projectfolders of allprojectfolders" style="font-size:18px;"> <label>
+
+                          <span class="label-text"></span> </label><span
+                          *ngIf="projectfolders.folder_type_id==1">Internal</span><span
+                          *ngIf="projectfolders.folder_type_id==2">External</span> </li>
+                    </ul>
+
+                  </td>
+
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel2()">Close</button>
+          <button type="submit" class="btn btn-success" (click)="movefiles();movefolderform.form.reset()"
+            [disabled]="movefolderform.form.invalid">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal" *ngIf="modeldisplay4" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color:#fff;">
+      <div class="modal-header">
+        <h4 class="modal-title">Remove file</h4>
+        <button type="button" class="close" (click)="hidemodel5()" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+
+      <div class="modal-body">
+        <p> Are You Sure ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel5()">Close</button>
+        <button type="submit" class="btn btn-success" (click)="remove_user(remove_user_id,user_file_name)">Remove
+          File</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" *ngIf="modeldisplay3" [style.background]="applyback?'#21212185':'red'" id="ModalAdd" tabindex="-1"
+  role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form role="form" #addfolderform="ngForm" style="background-color:#fff ">
+        <div class="modal-header">
+          <h4 class="modal-title">Image <button type="button" class="close" style="color:#000000 "
+              (click)="hidemodel3()" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button></h4>
+
+        </div>
+        <div class="modal-body">
+
+
+          <img class='img-fluid w-100' style="margin: 0 auto;" src="{{fileurldata}}" alt="cap">
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel3()">Close</button>
+
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal" *ngIf="modeldisplay6" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color:#fff;">
+      <div class="modal-header">
+        <h4 class="modal-title">Remove folder</h4>
+        <button type="button" class="close" (click)="hidemodel7()" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+
+      <div class="modal-body">
+        <p> Are You Sure ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel7()">Close</button>
+        <button type="submit" class="btn btn-success" (click)="remove_folder(remove_folder_id)">Remove Folder</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="modal" *ngIf="modeldisplay5" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color:#fff;width:800px; height: auto; margin: 0; padding: 0; left: -88px;
+ ">
+      <div class="modal-header">
+        <h4 class="modal-title">View file</h4>
+        <button type="button" (click)="hidemodel6()" class="close" data-dismiss="modal" style="color:black;"><span
+            aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+
+      </div>
+
+      <div class="modal-body">
+
+        <iframe [src]="filedata | safe" style="width:770px; height: 500px;" frameborder="0"></iframe>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel6()">Close</button>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--move and check unique  and max 50 length-->

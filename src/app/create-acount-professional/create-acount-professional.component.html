@@ -1,0 +1,52 @@
+<header id="header"><!--header-->
+  
+  <div class="header-middle"><!--header-middle-->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="logo pull-left"> <a href="javascript:void(0);"><img src="../assets/front-assets/images/home/logo.png" class="img-responsive" alt="" /> </a> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/header-middle--> 
+</header>
+<!--/header-->
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="stepwizard mt-4">
+          <div class="stepwizard-row ">
+            <div class="stepwizard-step col-md-2"> <a href="javascript:void(0)" routerLink="account" type="button" routerLinkActive="btn-primary" class="btn btn-default btn-circle" disabled="disabled">1</a>
+              <p>Create Account</p>
+            </div>
+            <div class="stepwizard-step col-md-2"> <a href="javascript:void(0)" routerLink="profile" type="button" routerLinkActive="btn-primary" class="btn btn-default btn-circle" disabled="disabled" >2</a>
+              <p>Company Profile</p>
+            </div>
+            <div class="stepwizard-step col-md-3"> <a href="javascript:void(0)" routerLink="license" type="button" routerLinkActive="btn-primary" class="btn btn-default btn-circle" disabled="disabled">3</a>
+              <p>License Verification</p>
+            </div>
+            <div class="stepwizard-step col-md-3"> <a href="javascript:void(0)" routerLink="check" type="button" routerLinkActive="btn-primary" class="btn btn-default btn-circle" disabled="disabled">4</a>
+              <p>Background Check</p>
+            </div>
+            <div class="stepwizard-step col-md-2"> <a href="javascript:void(0)" routerLink="completed" type="button" routerLinkActive="btn-primary" class="btn btn-default btn-circle" disabled="disabled">5</a>
+              <p>Completed</p>
+            </div>
+          </div>
+        </div>
+
+        <router-outlet></router-outlet>
+     </div>
+    </div>
+  </div>
+</section>
+<footer id="footer"><!--Footer-->
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row">
+        <p class="pull-left">Copyright © 2018 SpuceBox. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>

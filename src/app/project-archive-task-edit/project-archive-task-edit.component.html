@@ -1,0 +1,387 @@
+<section class="">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <nav>
+          <ul class="nav navbar-nav">
+            <li><a routerLink="../../../project-overview/{{project_id}}">Overview</a></li>
+            <li><a routerLink="../../../project-task/{{project_id}}" class="active">Task</a></li>
+            <li><a routerLink="../../../project-calendar/{{project_id}}">Calendar</a></li>
+            <li><a routerLink="../../../project-activity/{{project_id}}">Activity</a></li>
+            <li><a routerLink="../../../project-reports/{{project_id}}">Reports</a></li>
+            <li><a routerLink="../../../project-discussion/{{project_id}}">Discussion</a></li>
+            <li><a routerLink="../../../project-files/{{project_id}}">Files</a></li>
+            <li><a routerLink="../../../project-users/{{project_id}}">Users</a></li>
+          </ul>
+
+        </nav>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="text-right mb-15 w-100">
+          <ul class="float-btn float-btn-left pull-right">
+            <div *ngIf="role.role == 'Administrator'">
+              <li> <a (click)="confirm_move_archive()" class="btn btn-default"><i class="fa fa-window-restore" aria-hidden="true"></i> Restore</a> </li>
+            </div>
+            <li>
+              <a routerLink="../../../project-task/{{project_id}}" class="btn btn-default ml-10"> <i
+                  class="fa fa-arrow-left"></i>
+                Go Back</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="col-md-9">
+              <h4> Task Name: <small *ngIf="show_task_name">{{updateTaskFromData.task_name}} <a
+                    (click)="showhidebox('task_name')" class=""> <i class="fa fa-pencil"></i></a></small></h4>
+              <span *ngIf="!show_task_name" class="col-md-5">
+                <input type="text" class="form-control " [class.is-invalid]="task_name.invalid && task_name.touched"
+                  [(ngModel)]="updateTaskFromData.task_name" #task_name="ngModel" name="task_name"
+                  placeholder="Task Name" required (blur)="showhidebox('task_name')">
+                <small class="text-danger" [class.d-none]="task_name.valid || task_name.untouched">Task Name is
+                  required</small>
+              </span>
+            </div>
+
+            <div class="clearfix"></div>
+            <hr>
+            <!--=======Start Summernote==========-->
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">
+                <h5>Description: <a (click)="showhidebox('task_description')" class=""> <i class="fa fa-pencil"></i></a>
+                </h5>
+              </label>
+              <div class="col-sm-10">
+
+                <div *ngIf="show_task_desc" [innerHtml]="updateTaskFromData.task_description">
+
+                </div>
+                <div *ngIf="!show_task_desc">
+                  <app-ngx-editor [placeholder]="'Enter text here...'" [spellcheck]="true"
+                    [(ngModel)]="updateTaskFromData.task_description"></app-ngx-editor>
+                  <div class="w-100 mb-15">
+                    <button class="btn btn-success btn-md" type="button" (click)="showhidebox('task_description')">Save
+                    </button>
+                    <button class="btn btn-default btn-md" type="button">Cancel </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--<div [froalaEditor] [(ngModel)]="htmlContent" [(ngModel)]="updateTaskFromData.task_description" 
+                            #task_description="ngModel" 
+                            name="task_description" [class.is-invalid]="task_description.invalid && task_description.touched" >Hello, Froala!</div>-->
+
+            <!--=======End Summernote==========-->
+            <div class="row pull-left w-100">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Owner</label>
+                  <div class="col-sm-8">
+                    <ng-multiselect-dropdown [placeholder]="'Task Owner'" [data]="dropdownList"
+                      [(ngModel)]="selectedItems" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                      (onSelectAll)="onSelectAll($event)">
+                    </ng-multiselect-dropdown>
+
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Work hrs.</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control "
+                      [class.is-invalid]="task_work_hours.invalid && task_work_hours.touched"
+                      [(ngModel)]="updateTaskFromData.task_work_hours" #task_work_hours="ngModel"
+                      [ngModelOptions]="{standalone: true}" name="task_work_hours" placeholder="Work hrs" required>
+                    <small class="text-danger" [class.d-none]="task_work_hours.valid || task_work_hours.untouched">Work
+                      hrs is required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Status</label>
+                  <div class="col-sm-8">
+                    <select class="custom-select" [class.is-invalid]="status.invalid && status.touched"
+                      [(ngModel)]="updateTaskFromData.status" #status="ngModel" name="status" required>
+                      <option value="">Select</option>
+                      <option value="0">Open</option>
+                      <option value="1">Pending</option>
+                      <option value="2">Close</option>
+                    </select>
+                    <small class="text-danger" [class.d-none]="status.valid || status.untouched">Status is
+                      required</small>
+
+
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Start Date</label>
+                  <div class="col-sm-8" *ngIf="!show_date_box">
+
+                    <input placeholder="Start Date" class="form-control"
+                      [(ngModel)]="updateTaskFromData.task_start_date" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+                      name="task_start_date" #task_end_date="ngModel">
+                    <owl-date-time #dt3></owl-date-time>
+                    <div class="alert alert-danger mt-3" role="alert" *ngIf="err_message!=''">{{ err_message }}</div>
+                  </div>
+                  <div class="col-sm-8" *ngIf="show_date_box">
+
+                    <input placeholder="{{testdate1}}" *ngIf="show_date_box" class="form-control"
+                      (ngModelChange)="test()" [(ngModel)]="testdate4" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3">
+                    <owl-date-time #dt3></owl-date-time>
+
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Due Date</label>
+                  <div class="col-sm-8" *ngIf="!show_date_box">
+
+                    <input placeholder="Due Date" class="form-control" [(ngModel)]="updateTaskFromData.task_end_date"
+                      [owlDateTimeTrigger]="dt" [owlDateTime]="dt" name="task_end_date" #task_end_date="ngModel">
+                    <owl-date-time #dt></owl-date-time>
+                    <div class="alert alert-danger mt-3" role="alert" *ngIf="err_message!=''">{{ err_message }}</div>
+                  </div>
+                  <div class="col-sm-8" *ngIf="show_date_box">
+                    <input placeholder="{{testdate}}" *ngIf="show_date_box" class="form-control"
+                      (ngModelChange)="test()" [(ngModel)]="testdate5" [owlDateTimeTrigger]="dt" [owlDateTime]="dt">
+                    <owl-date-time #dt></owl-date-time>
+                    <div class="alert alert-danger mt-3" role="alert" *ngIf="err_message!=''">{{ err_message }}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Duration</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control "
+                      [class.is-invalid]="task_duration.invalid && task_duration.touched"
+                      [(ngModel)]="updateTaskFromData.task_duration" #task_duration="ngModel"
+                      (change)="onChange($event)" name="task_duration" placeholder="task Duration" required min="0">
+                    <small class="text-danger" [class.d-none]="task_duration.valid || task_duration.untouched">Duration
+                      is required</small>
+                  </div>Days
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Priority</label>
+                  <div class="col-sm-8">
+                    <select class="custom-select" [class.is-invalid]="task_priority.invalid && task_priority.touched"
+                      [(ngModel)]="updateTaskFromData.task_priority" #task_priority="ngModel" name="task_priority"
+                      required>
+                      <option value="">Select</option>
+                      <option value="1">High</option>
+                      <option value="2">Medium</option>
+                      <option value="3">Low</option>
+                    </select>
+                    <small class="text-danger" [class.d-none]="task_priority.valid || task_priority.untouched">Priority
+                      is required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Completion Percentage</label>
+                  <div class="col-sm-8">
+                    <select class="custom-select"
+                      [class.is-invalid]="task_completion.invalid && task_completion.touched"
+                      [(ngModel)]="updateTaskFromData.task_completion" #task_completion="ngModel" name="task_completion"
+                      required>
+                      <option value="0">0%</option>
+                      <option value="10">10%</option>
+                      <option value="20">20%</option>
+                      <option value="30">30%</option>
+                      <option value="40">40%</option>
+                      <option value="50">50%</option>
+                      <option value="60">60%</option>
+                      <option value="70">70%</option>
+                      <option value="80">80%</option>
+                      <option value="90">90%</option>
+                      <option value="100">100%</option>
+                    </select>
+                    <small class="text-danger"
+                      [class.d-none]="task_completion.valid || task_completion.untouched">Completion is required</small>
+
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <div class="w-100 mb-15">
+              <button (click)="update_task_detail()" class="btn btn-success btn-md" type="button">Save </button>
+              <a routerLink="../../../project-task/{{project_id}}" class="btn btn-default btn-md">Cancel </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-xs-12">
+
+        <div class="card">
+          <div class="card-body">
+            <ul class="nav nav-tabs customTab" role="tablist">
+              <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Comments</a>
+              </li>
+              <li role="presentation"><a href="#document" aria-controls="document" role="tab"
+                  data-toggle="tab">Documents</a></li>
+
+              <!-- <li role="presentation" ><a href="#dependency" (click)="loadgantt();" aria-controls="dependency" role="tab" data-toggle="tab">Dependency</a></li>
+                        <li role="presentation"><a href="#issue" aria-controls="issue" role="tab" data-toggle="tab">Issue</a></li>
+                        <li role="presentation"><a href="#activity" aria-controls="activity" role="tab" data-toggle="tab">Activity</a></li> -->
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="home">
+                <!--=======Start Summernote==========-->
+                <div class="col-md-12 mb-15">
+                  <div class="media d-flex" *ngFor="let comment of allcomments">
+                    <a href="javascript:void();">
+                      <img class="rounded-circle d-flex mr-10 rounded-circle thumb-md" src="{{comment.profile_image}}"
+                        alt="">
+                    </a>
+                    <div class="media-body col-sm-12">
+                      <h5>{{comment.firstname}}</h5>
+                      <p class="text-muted mb-0" [innerHtml]="comment.comments">
+
+                      </p>
+                      <small class="text-muted mb-1">
+                        {{comment.created_at | date}} | {{comment.created_at | date:'shortTime'}}
+                      </small>
+                    </div>
+                  </div>
+
+                </div>
+
+                <h5>Add Comment</h5>
+
+                <app-ngx-editor [placeholder]="'Enter text here...'" [spellcheck]="true"
+                  [(ngModel)]="TaskCommentFormData.comment"></app-ngx-editor>
+                <div class="w-100 mb-15 text-right">
+                  <button class="btn btn-info btn-sm" type="button" (click)="addComment();">Add Comment </button>
+                  <button class="btn btn-default btn-sm" type="button">Cancel </button>
+                </div>
+
+                <!--=======End Summernote==========-->
+              </div>
+
+
+              <div class="modal" *ngIf="modeldisplay2" [style.background]="applyback?'#21212185':'red'"
+                id="Modalupdate2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content" style="background-color:#fff;">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Restore</h4>
+                      <button type="button" class="close" (click)="hidemodel2()" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <div class="modal-body">
+                      <p> Are You Sure ?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+                        (click)="hidemodel2()">Close</button>
+                      <button type="submit" class="btn btn-success"
+                        (click)="update_task_archive_data()">Restore</button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="document">
+                <div class="col-md-12">
+                  <!-- Upload  -->
+                  <div class="row mt-2">
+                    <div class="col-md-3" *ngFor="let projectfiles of alltaskfiles">
+
+                      <div class="card m-b-30">
+                        <span
+                          *ngIf="projectfiles.file_type=='png' || projectfiles.file_type=='jpg'|| projectfiles.file_type=='gif' || projectfiles.file_type=='jpeg';else other_content"><img
+                            class="card-img-top img-responsive" src="{{projectfiles.thumb_url}}" alt="cap"></span>
+                        <ng-template #other_content><img class="card-img-top img-responsive"
+                            src="../assets/images/file_type_images/{{projectfiles.file_type}}.png" alt="cap">
+                        </ng-template>
+
+                        <div class="card-body">
+                          <h4 class="link">{{projectfiles.file_title}}</h4>
+                          <span class="card-text text-muted">
+                            Add by {{projectfiles.firstname}} on {{projectfiles.created_at | date}} (20KB)
+                          </span>
+                          <span class="badge badge-pill badge-warning">2. Comment</span>
+                          <a (click)="deletefile(projectfiles.file_id,projectfiles.file_name)" class="icon" download><i
+                              class="fa fa-trash"></i></a>
+                          <a (click)="downloadFile(projectfiles.file_name)" class="icon" download="test.jpg"><i
+                              class="fa fa-download"></i></a>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+                  <div class="add-filesbox mt-2">
+                    <div style="text-align:center">
+                      <div class="text-center well">
+                        <dropzone [config]="config" #drpzone [message]="'Click or drag images here to upload'"
+                          (error)="onError()" (sending)="onSending($event)" (sendingmultiple)="onSendingmultiple()"
+                          (success)="onSuccess($event)">
+                        </dropzone>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div role="tabpanel" class="tab-pane" id="dependency">
+                <div class="contain">
+                  <gantt *ngIf="show_grantt"></gantt>
+                </div>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="issue">
+                <div class="col-md-12">
+                  <h5> Associated Issue</h5>
+                  <div class="media d-flex">
+                    TX-302
+                    <div class="media-body col-sm-12">
+                      <a href="javascript:void();" class="btn btn-info btn-sm mr-10 waves-effect waves-light">Open</a>
+                      <span class="text-muted mb-1">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                      </span>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="media d-flex">
+                    TX-302
+                    <div class="media-body col-sm-12">
+                      <a href="javascript:void();"
+                        class="btn btn-warning btn-sm mr-10 waves-effect waves-light">Re-Scheduled</a>
+                      <span class="text-muted mb-1">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

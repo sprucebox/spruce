@@ -1,0 +1,232 @@
+<section>
+  <div class="container">
+    <div class="w-100">
+      <div class="col-md-12">
+        <nav>
+          <ul class="nav navbar-nav">
+            <li *ngIf="select_permissions.indexOf(8) !== -1"><a routerLink="../user-setting">User</a></li>
+            <li *ngIf="select_permissions.indexOf(11) !== -1"><a routerLink="../role-setting">Roles & Permission</a>
+            </li>
+            <li *ngIf="select_permissions.indexOf(14) !== -1"><a routerLink="../notification-setting">Notification</a>
+            </li>
+            <li *ngIf="select_permissions.indexOf(16) !== -1"><a routerLink="../date-time-setting">Date Time Setting</a>
+            </li>
+            <li ><a routerLink="../color-setting" class="active">Project Setting</a></li>
+            <li><a routerLink="../template-setting">Template Setting</a>
+            </li>
+            <li ><a routerLink="../backup">Backup</a></li>
+
+          </ul>
+
+        </nav>
+      </div>
+    </div>
+	
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="mt-2">
+          <div class="w-100">
+            <div class="col-md-12">
+              <div class="card-box">
+                <div class="row">
+                  <div class="col-md-12">
+                    <ul class="float-btn float-btn-left">
+					<h4 class="text-uppercase">Task Status setting</h4>
+                      <li *ngIf="select_permissions.indexOf(38) !== -1"> <a class="btn btn-sm btn-primary btn-block"
+                          (click)="showmodel();"><i class="fa fa-plus"></i> Add status</a> </li>
+						  
+                    </ul>
+                  </div>
+                </div>
+                <table class="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Status</th>
+                      <th>color</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let status of All_status">
+
+                      <td>{{status.status}}</td>
+
+                      <td> <span class="col-md-6 col-xl-4" [style.background]="status.color_class"
+                          style="height:30px;"></span></td>
+
+                      <td *ngIf="select_permissions.indexOf(39) !== -1"><a class="icon" (click)="showmodel1(status.id);"
+                          (click)="get_statusname_data(status.id)" Edit><i class="fa fa-edit"></i></a></td>
+                      <td><a *ngIf="status.is_default != 0" (click)="delete_status_data(status.id)" class="icon"
+                          Delete><i class="fa fa-trash"></i></a></td>
+
+
+
+                    </tr>
+
+                  </tbody>
+                </table>
+
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+	
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="mt-2">
+          <div class="w-100">
+            <div class="col-md-12">
+              <div class="card-box">
+<h4 class="text-uppercase">Calender features color setting</h4>
+                <form>
+                  <div class="form-group">
+                    <label class="control-label">Task Color</label><br>
+                    <input [value]="color1" class="form-control" placeholder="Task Color" [style.background]="color1"
+                      [cpOutputFormat]="'hex'" [(colorPicker)]="color1" (colorPickerChange)="onChangeColor($event)">
+
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Event Color</label><br>
+                    <input [value]="color2" class="form-control" [cpOutputFormat]="'hex'" placeholder="Event Color"
+                      [style.background]="color2" [(colorPicker)]="color2"
+                      (colorPickerChange)="onChangeColor1($event)" />
+
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label">Meeting Color</label><br>
+                    <input [value]="color3" class="form-control" [cpOutputFormat]="'hex'" placeholder="Meeting Color"
+                      [style.background]="color3" [(colorPicker)]="color3"
+                      (colorPickerChange)="onChangeColor2($event)" />
+
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 mt-2 text-right">
+                      <button class="btn btn-success btn-md" type="submit" (click)="update_color_detail()">Save
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" *ngIf="modeldisplay" [style.background]="applyback?'#21212185':'red'" id="ModalAdd" tabindex="-1"
+      role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form role="form" #createstatus="ngForm" style="background-color:#fff ">
+            <div class="modal-header">
+              <h4 class="modal-title">Add status</h4>
+              <button type="button" class="close" (click)="hidemodel()" data-dismiss="modal" aria-label="Close"><span
+                  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+
+              <div class="form-group">
+                <label class="control-label">status</label>
+                <input type="text" class="form-control" [(ngModel)]="addstatus.status" #status="ngModel" name="status"
+                  (change)="check_unique_task_status($event)" placeholder="status" required>
+                <small class="text-danger" [class.d-none]="err_message">Task status is already taken</small>
+
+
+              </div>
+
+              <div class="form-group">
+                <label>color</label>
+                <input [value]="color4" class="form-control" placeholder="Color" [style.background]="color4"
+                  [(colorPicker)]="color4" (colorPickerChange)="onChangeColor4($event)" />
+
+              </div>
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+                (click)="hidemodel()">Close</button>
+
+              <input type="submit" name="create_detail" (click)="create_new_status()"
+                [disabled]="createstatus.form.invalid || disablebutton" class="btn btn-success" value="Save" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal" *ngIf="modeldisplay1" [style.background]="applyback?'#21212185':'red'" id="ModalAdd"
+      tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <form role="form" #updatestatusform="ngForm" style="background-color:#fff ">
+            <div class="modal-header">
+              <h4 class="modal-title">Update status</h4>
+              <button type="button" class="close" (click)="hidemodel1()" data-dismiss="modal" aria-label="Close"><span
+                  aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+
+              <div class="form-group" *ngIf="is_default==0">
+                <label class="control-label">status</label>
+                <input type="text" class="form-control" [(ngModel)]="updatestatus.status" #status="ngModel"
+                  (change)="check_unique_updatetask_status($event)" name="status" placeholder="status" readonly
+                  required>
+                <small class="text-danger" [class.d-none]="err_message">Task status is already taken</small>
+
+              </div>
+              <div class="form-group" *ngIf="is_default==1">
+                <label class="control-label">status</label>
+                <input type="text" class="form-control" [(ngModel)]="updatestatus.status" #status="ngModel"
+                  (change)="check_unique_updatetask_status($event)" name="status" placeholder="status" required>
+                <small class="text-danger" [class.d-none]="err_message">Task status is already taken</small>
+
+              </div>
+              <div class="form-group">
+                <label>color</label>
+                <input [value]="color4" class="form-control" placeholder="Color" [style.background]="color4"
+                  [(colorPicker)]="color4" (colorPickerChange)="onChangeColor4($event)" />
+
+              </div>
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+                (click)="hidemodel1()">Close</button>
+
+              <input type="submit" name="create_detail" (click)="update_new_statusname()"
+                [disabled]="updatestatusform.form.invalid || disablebutton" class="btn btn-success" value="update" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" *ngIf="modeldisplay2" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+      tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color:#fff;">
+          <div class="modal-header">
+            <h4 class="modal-title">Remove Status</h4>
+            <button type="button" class="close" (click)="hidemodel2()" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+          </div>
+
+          <div class="modal-body">
+            <p> Are You Sure ?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+              (click)="hidemodel2()">Close</button>
+            <button type="submit" class="btn btn-success" (click)="remove_user(remove_user_id)">Remove Status</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

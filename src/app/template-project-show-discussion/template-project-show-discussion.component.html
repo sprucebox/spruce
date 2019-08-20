@@ -1,0 +1,156 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <nav>
+          
+            <ul class="nav navbar-nav">
+                           
+                            <li><a routerLink="../../../template-project-task/{{project_id}}" >Template Task</a></li>
+                            
+                          
+                          
+                            <li><a routerLink="../../../template-project-discussion/{{project_id}}" class="active">Template Discussion</a></li>
+                            <li><a routerLink="../../../template-project-file/{{project_id}}">Template Files</a></li>
+                           
+                        </ul>
+          
+         
+        </nav>
+      </div>
+    </div>
+	
+	
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card-box">
+		
+          <div class="blog-post-area">
+		 
+            <div class="single-blog-post">
+		
+			 <div class="button-list mt-7 col-md-2 pull-right">
+            <ul class="float-btn float-btn-left pull-right">
+          <li> <a routerLink="../../../template-project-discussion/{{project_id}}" class="btn btn-default"> <i class="fa fa-arrow-left"></i> Go Back</a> </li>
+                	
+                     
+            
+		<br/>
+     
+          
+     
+        
+            </ul>
+          </div>
+              <h3>{{discussion.discussion_title}}</h3>
+              <p class="text-muted mb-1">
+                  
+                {{discussion.discussion_description}}
+                
+            </p>
+            <div *ngIf="discussion.discussion_type == '1' " style="color:#fff; background-color:green; width:60px;">internal</div>
+            <div *ngIf="discussion.discussion_type == '2' " style="color:#fff; background-color:Red; width:60px;">External</div>
+              <div class="post-meta">
+                <ul>
+                  <li><i class="fa fa-user"></i>{{discussion.firstname}} </li>
+                  <li><i class="fa fa-clock-o"></i> {{discussion.created_at | date:'shortTime'}}</li>
+                  <li><i class="fa fa-calendar"></i> {{discussion.created_at | date:alldate}}</li>
+                </ul>
+              </div>
+              <div class="col-md-5 p0">
+         <span *ngIf="discussion.discussion_extension=='pdf' || discussion.discussion_extension=='xls'|| discussion.discussion_extension=='xlsx' || discussion.discussion_extension=='docx'|| discussion.discussion_extension=='doc'|| discussion.discussion_extension=='csv'|| discussion.discussion_extension=='txt'|| discussion.discussion_extension=='zip'||discussion.discussion_extension=='PDF'||discussion.discussion_extension=='XLS'||discussion.discussion_extension=='XLSX'||discussion.discussion_extension=='DOC'||discussion.discussion_extension=='DOCX'||discussion.discussion_extension=='TXT'||discussion.discussion_extension=='ZIP';else other_content" ><img class="card-img-top img-responsive" style="margin: 0 auto;" src="http://itsabacus.net/sprucebox_api/public/file_type_images/{{discussion.discussion_extension}}.png" alt="cap"> <br/><a  (click)="downloaddiscussionFile(discussion.discussion_file_url)"  class="icon" download="test.jpg"><i  class="fa fa-download"></i></a></span>
+                  
+                  <ng-template #other_content><img class="card-img-top img-responsive" src="{{discussion.discussion_file_url}}" alt=""></ng-template>
+                <!-- <a href="javascript:void();"> -->
+                  
+                <!-- </a> -->
+              </div>
+              <div class="clearfix"></div>
+              
+            
+          </div>
+        </div>
+		<div class="response-area" >
+          <ul class="media-list" *ngFor="let comment of comments">
+            <li class="media">
+              <a class="pull-left" href="#">
+                <img class="media-object" src="{{comment.user_image}}" style="width: 100px;" alt="">
+              </a>
+              
+              <div class="media-body">
+                <ul class="sinlge-post-meta">
+                  <li><i class="fa fa-user"></i>{{comment.user_name}}</li>
+                  <li><i class="fa fa-clock-o"></i> {{comment.comment_date| date:'shortTime' }}</li>
+                  <li><i class="fa fa-calendar"></i> {{comment.comment_date | date:alldate}} </li>
+                </ul>
+                
+                <p>{{comment.comment}}</p>
+                
+                <a  class="btn btn-primary" (click)="hideshow(comment.comment_id)"> <i class="fa fa-reply"></i> Replay</a>
+                <div class="replay-box2" [hidden]="!hideme[comment.comment_id]">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <h2>Leave a Reply</h2>
+                        <div style="position: relative;">
+                          <form class="w-100" role="form" #replyCommentsForm="ngForm">
+                              
+                            <textarea  [class.is-invalid]="replycomment.invalid && replycomment.touched" 
+                            [(ngModel)]="ReplyCommentFormdata.comment" 
+                            #replycomment="ngModel" 
+                            name="replycomment" 
+                            placeholder="Comment" required rows="3" class="form-control"></textarea>
+                            <small class="text-danger" [class.d-none]="replycomment.valid || replycomment.untouched">Comment is required</small>
+                            <button type="button"  class="btn btn-primary" (click)="reply_template_comment(comment.comment_id);replyCommentsForm.reset()"  [disabled]="replyCommentsForm.form.invalid" role="button">Post comment</button>
+                            
+                          </form>
+                        </div>
+                      </div>
+                    
+                    </div>
+                  </div>
+              </div>
+            </li>
+            <li class="media second-media" *ngFor="let child_comment of comment.child_comments">
+              <a class="pull-left" href="#">
+                <img class="media-object" src="{{child_comment.profile_image}}" style="width: 100px;" alt="">
+              </a>
+              <div class="media-body" >
+                <ul class="sinlge-post-meta">
+                  <li><i class="fa fa-user"></i>{{child_comment.firstname}}</li>
+                  <li><i class="fa fa-clock-o"></i> {{child_comment.created_at| date:'shortTime' }}</li>
+                  <li><i class="fa fa-calendar"></i> {{child_comment.created_at | date:alldate}}</li>
+                </ul>
+                <p>{{child_comment.comment}}</p>
+               
+              </div>
+            </li>
+           
+          </ul>
+          </div><!--/Response-area-->
+           <div class="replay-box">
+            <div class="row">
+              <div class="col-sm-12">
+                <h2>Leave a Comment</h2>
+                <div style="position: relative;">
+                  <form class="w-100" role="form" #addCommentsForm="ngForm">
+                    <textarea  [class.is-invalid]="comment.invalid && comment.touched" 
+                    [(ngModel)]="CommentFormdata.comment" 
+                    #comment="ngModel" 
+                    name="comment" 
+                    placeholder="Comment" required rows="3" class="form-control"></textarea>
+                    <small class="text-danger" [class.d-none]="comment.valid || comment.untouched">Comment is required</small>
+                    <button type="button"   class="btn btn-primary" (click)="add_template_comment();addCommentsForm.reset()"  [disabled]="addCommentsForm.form.invalid" role="button">Post comment</button>
+                    
+                  </form>
+                </div>
+              </div>
+            </div>
+            </div><!--/Repaly Box-->
+        
+          </div>
+        </div>
+      </div>
+     
+     
+    </div>
+  </section>

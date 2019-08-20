@@ -1,0 +1,60 @@
+
+
+#external-events {
+  position: fixed;
+  z-index: 2;
+  top: 20px;
+  left: 20px;
+  width: 150px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  background: #eee;
+}
+
+#external-events .fc-event {
+  margin: 1em 0;
+  cursor: move;
+}
+
+#calendar-container {
+  position: relative;
+  z-index: 1;
+  margin-left: 200px;
+}
+
+.modal-content {
+  background-color: #FFFFFF !important ;
+}
+
+.bg-success{
+background-color: #008000 !important ;
+}
+
+.bg-info{
+background: #40E0D0 !important ;
+}
+
+.bg-warning{
+background: #FFD700 !important ;
+}
+
+.bg-danger{
+background: #FF0000 !important ;
+}
+.fc-icon-print::before{
+  font-family: 'Material Icons';
+  content: "\e8ad";
+  font-size: 24px;
+}
+.fc-printButton-button{
+  padding: 0 3px !important;
+}
+@media print {
+    body, html, #wrapper {
+     width: 100%;
+    }
+   div {
+     overflow: visible !important;      
+    }
+
+}

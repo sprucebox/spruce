@@ -1,0 +1,770 @@
+<section>
+  <div class="container">
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <div class="card-box">
+          <div class="row">
+            <div class="col-md-3">
+              <a *ngIf="select_permissions.indexOf(6) !== -1" (click)="showfullmodal();"
+                class="btn btn-primary pull-left mb-15">
+                <i class="fa fa-plus"></i> Create New
+              </a>
+            
+              <nav>
+                <ul class="nav navbar-nav" style="width: 100%; text-align: center;">
+                  <li (click)="showmodel1();" style="font-size: 20px; width: 50%;"><a
+                      [class.active]="condition1">Project</a></li>
+                  <li (click)="showmodel2();" style="font-size: 20px; width: 50%;"><a
+                      [class.active]="condition2">User</a></li>
+                </ul>
+              </nav>
+              <div *ngIf="modeldisplay8" class="w-100 scroll-height">
+                <div *ngFor="let Project of allProjects">
+                  <div *ngIf="Project.colour">
+                    <div class="external-event" [style.background]="Project.colour" data-class="bg-info">
+                      <label>
+                        <input [checked]="select_projects.indexOf(Project.id) !== -1 || mayuri_checxk == Project.id" type="checkbox"
+                          (change)="onselectproject(Project.id, $event.target.checked)" class="checkBoxClass"
+                          value="{{Project.id}}"> 
+                        <span class="label-text"> <a style="color: #fff;">{{Project.project_name}}</a></span>
+                      </label>
+                     
+                    </div>
+                  </div>
+                  <div *ngIf="!Project.colour">
+                    <div class="external-event" [style.background]="'#63a865'" data-class="bg-info">
+                      <label>
+                        <input [checked]="select_projects.indexOf(Project.id) !== -1 ||mayuri_checxk == Project.id" type="checkbox"
+                          (change)="onselectproject(Project.id, $event.target.checked)" class="checkBoxClass"
+                          value="{{Project.id}}">
+                        <span class="label-text"><a style="color: #808080;">{{Project.project_name}}</a></span>
+                      </label>
+                     
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div *ngIf="modeldisplay7" class="w-100 scroll-height">
+                <div *ngFor="let user of alluser">
+                  <div class="external-event light-blue-600" data-class="bg-info">
+                    <label>
+                      <input [checked]="select_users.indexOf(user.id) !== -1" type="checkbox"
+                        (change)="on_selectuser(user.id, $event.target.checked)" class="checkBoxClass"
+                        value="{{user.id}}">
+                      <span class="label-text"><img src="{{user.profile_image}}" class="rounded-circle" alt="" width="30"><a
+                        *ngIf="user.firstname" style="color: #fff;">{{user.firstname}} {{user.lastname}}</a>
+                      <a *ngIf="!user.firstname" style="color: #fff;">{{user.email}}</a></span>
+                    </label>
+                  </div>
+
+
+                </div>
+
+              </div>
+              <br>
+
+
+            </div>
+
+            <div class="col-md-9">
+              <div class="modal" *ngIf="modeldisplay" [style.background]="applyback?'#21212185':'red'" id="ModalAdd"
+                tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <form role="form" #updateMeetingForm="ngForm">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Update Meeting</h4>
+                        <button type="button" class="close ml-10"  (click)="hidemodel()" data-dismiss="modal" aria-label="Close" style="color: black;"><span aria-hidden="true">&times;</span></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label>Select Module</label>
+                          <select class="custom-select" [class.is-invalid]="source_type.invalid && source_type.touched"
+                            [(ngModel)]="updateMeetingFromData.source_type" (change)="get_source_list_meeting('update')"
+                            #source_type="ngModel" name="source_type" required>
+                            <option value="">Select</option>
+                            <option value="project">Projects</option>
+                            <option value="crm">CRM</option>
+                            <option value="people">People</option>
+                          </select>
+                          <small class="text-danger" [class.d-none]="source_type.valid || source_type.untouched">Module
+                            is required</small>
+                        </div>
+                        <div class="form-group">
+                          <label>Select Project</label>
+                          <select class="custom-select" [class.is-invalid]="source_id.invalid && source_id.touched"
+                            [(ngModel)]="updateMeetingFromData.source_id" #source_id="ngModel" name="source_id"
+                            required>
+                            <option value="">Select</option>
+                            <option value="{{source_list.id}}" *ngFor="let source_list of source_lists2">
+                              {{source_list.name}}</option>
+
+                          </select>
+                          <small class="text-danger" [class.d-none]="source_id.valid || source_id.untouched">Project
+                            is required</small>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Meeting Name</label>
+                          <input type="text" class="form-control"
+                            [class.is-invalid]="meeting_name.invalid && meeting_name.touched"
+                            [(ngModel)]="updateMeetingFromData.meeting_name" #meeting_name="ngModel" name="meeting_name"
+                            placeholder="Meeting Name" required>
+                          <small class="text-danger"
+                            [class.d-none]="meeting_name.valid || meeting_name.untouched">Meeting
+                            Name is required</small>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Description</label>
+                          <textarea name="" [(ngModel)]="updateMeetingFromData.meeting_description"
+                            #meeting_description="ngModel" name="meeting_description" placeholder="Description" rows="3"
+                            class="form-control"></textarea>
+
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Attendees email</label>
+                          <ng-multiselect-dropdown [placeholder]="'Attendees email'" [data]="dropdownList"
+                            [(ngModel)]="selectedItems" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                            (onDeSelect)="onItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+                            [ngModelOptions]="{standalone: true}">
+                          </ng-multiselect-dropdown>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Meeting Subject</label>
+                          <input type="text" class="form-control"
+                            [class.is-invalid]="meeting_subject.invalid && meeting_subject.touched"
+                            [(ngModel)]="updateMeetingFromData.meeting_subject" #meeting_subject="ngModel"
+                            name="meeting_subject" placeholder="Meeting Subject" required>
+                          <small class="text-danger"
+                            [class.d-none]="meeting_subject.valid || meeting_subject.untouched">Meeting
+                            Subject is required</small>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Meeting Date</label>
+                          <div *ngIf="!show_date_box
+													
+													">
+                            <input placeholder="Meeting Date" class="form-control"
+                              [(ngModel)]="updateMeetingFromData.meeting_date" [owlDateTimeTrigger]="dt3"
+                              [owlDateTime]="dt3" name="meeting_date" #meeting_date="ngModel">
+                            <owl-date-time #dt3></owl-date-time>
+                          </div>
+                          <div *ngIf="show_date_box">
+
+                            <input placeholder="{{meetingdate}}" *ngIf="show_date_box" class="form-control"
+                              [(ngModel)]="meetingdate1" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+                              [ngModelOptions]="{standalone: true}">
+                            <owl-date-time #dt3></owl-date-time>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+                          (click)="hidemodel()">Close</button>
+                        <button type="submit" *ngIf="select_permissions.indexOf(7) !== -1" class="btn btn-success"
+                          (click)="update_meeting_event();updateMeetingForm.form.reset()"
+                          [disabled]="updateMeetingForm.form.invalid">Save changes</button>
+
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="modal" *ngIf="modeldisplay2" [style.background]="applyback?'#21212185':'red'" id="Modalupdate"
+                tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Update Event</h4>
+                      <button type="button" class="close ml-10"  (click)="hidemodel2()" data-dismiss="modal" aria-label="Close" style="color: black;"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <form role="form" #updateEvenForm="ngForm">
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label>Select Module</label>
+                          <select class="custom-select" [class.is-invalid]="source_type.invalid && source_type.touched"
+                            [(ngModel)]="updateEventFromData.source_type" (change)="get_source_list_event('update')"
+                            #source_type="ngModel" name="source_type" required>
+                            <option value="">Select</option>
+                            <option value="project">Projects</option>
+                            <option value="crm">CRM</option>
+                            <option value="people">People</option>
+                          </select>
+                          <small class="text-danger" [class.d-none]="source_type.valid || source_type.untouched">Module
+                            is required</small>
+                        </div>
+                        <div class="form-group">
+                          <label>Select Project</label>
+                          <select class="custom-select" [class.is-invalid]="source_id.invalid && source_id.touched"
+                            [(ngModel)]="updateEventFromData.source_id" #source_id="ngModel" name="source_id" required>
+                            <option value="">Select</option>
+                            <option value="{{source_list.id}}" *ngFor="let source_list of source_lists2">
+                              {{source_list.name}}</option>
+
+                          </select>
+                          <small class="text-danger" [class.d-none]="source_id.valid || source_id.untouched">Project
+                            is required</small>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="control-label">Event Name</label>
+                          <input type="text" class="form-control"
+                            [class.is-invalid]="event_title.invalid && event_title.touched"
+                            [(ngModel)]="updateEventFromData.event_title" #event_title="ngModel" name="event_title"
+                            placeholder="Event Name" required>
+                          <small class="text-danger" [class.d-none]="event_title.valid || event_title.untouched">Event
+                            Name is required</small>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Description</label>
+                          <textarea name="" [(ngModel)]="updateEventFromData.event_description"
+                            #event_description="ngModel" name="event_description" placeholder="Description" rows="3"
+                            class="form-control"></textarea>
+
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Start Date</label>
+                          <div *ngIf="!show_date_box">
+                            <input placeholder="Start Date" class="form-control" 
+                              [(ngModel)]="updateEventFromData.event_start_date" [owlDateTimeTrigger]="dt3"
+                              [owlDateTime]="dt3" name="event_start_date" #event_start_date="ngModel">
+                            <owl-date-time #dt3></owl-date-time>
+                          </div>
+                          <div *ngIf="show_date_box">
+                            <input placeholder="{{eventdate}}" *ngIf="show_date_box" class="form-control"
+                              [(ngModel)]="eventdate2" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+                              [ngModelOptions]="{standalone: true}">
+                            <owl-date-time #dt3></owl-date-time>
+                          </div>
+
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">End Date</label>
+                          <div *ngIf="!show_date_box">
+                            <input placeholder="End Date" class="form-control"
+                              [(ngModel)]="updateEventFromData.event_end_date" [min]="updateEventFromData.event_start_date" [owlDateTimeTrigger]="dt"
+                              [owlDateTime]="dt" name="event_end_date" #event_end_date="ngModel">
+                            <owl-date-time #dt></owl-date-time>
+                          </div>
+                          <div *ngIf="show_date_box">
+                            <input placeholder="{{eventdate1}}" [min]="eventdate2" *ngIf="show_date_box" class="form-control"
+                              [(ngModel)]="eventdate3" [owlDateTimeTrigger]="dt" [owlDateTime]="dt"
+                              [ngModelOptions]="{standalone: true}">
+                            <owl-date-time #dt></owl-date-time>
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+                          (click)="hidemodel2()">Close</button>
+                        <button type="submit" *ngIf="select_permissions.indexOf(7) !== -1" class="btn btn-success"
+                          (click)="update_project_event();updateEvenForm.form.reset()"
+                          [disabled]="updateEvenForm.form.invalid">Save changes</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div id="print-section">
+                <div *ngIf="calendarOptions">
+                  <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventClick)="eventClick($event.detail)"
+                    (eventDrop)="updateEvent($event.detail)" (eventResize)="updateEvent($event.detail)"
+                    (dayClick)="dayClick($event.detail)" (clickButton)="clickButton($event.detail)"
+                    [(eventsModel)]="events"></ng-fullcalendar>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal Add Category -->
+  <div class="modal" *ngIf="modeldisplay3" [style.background]="applyback?'#21212185':'red'" id="Modalupdate"
+    tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content w-100">
+        <div class="modal-header">
+          <button type="button" class="close ml-10"  (click)="hidemodel3()" data-dismiss="modal" aria-label="Close" style="color: black;"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Add a Module</h4>
+        </div>
+        <div class="modal-body p-b-0 w-100">
+          <div class="w-100">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group w-100">
+                  <div class="col-md-4 p0">
+                    <div class="form-check">
+                      <label>
+                        <input name="radio" (click)="clickonradio('task')" type="radio" value="task" checked="">
+                        <span class="label-text">Task</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-4 p0">
+                    <div class="form-check">
+                      <label>
+                        <input name="radio" (click)="clickonradio('meeting')" type="radio" value="meeting">
+                        <span class="label-text">Meeting</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-4 p0">
+                    <div class="form-check">
+                      <label>
+                        <input name="radio" (click)="clickonradio('event')" type="radio" value="event">
+                        <span class="label-text">Event</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div *ngIf="modeltask" class="task moduleBox" style="display: block;">
+                  <form class="w-100" role="form" #addTaskForm="ngForm">
+                    <div class="col-md-12 ">
+                      <div class="form-group">
+                        <label>Select Module</label>
+                        <select class="custom-select" [class.is-invalid]="source_type.invalid && source_type.touched"
+                          [(ngModel)]="addTaskFromData.source_type" (change)="get_source_list('add')"
+                          #source_type="ngModel" name="source_type" required>
+                          <option value="">Select</option>
+                          <option value="project">Projects</option>
+                          <option value="crm">CRM</option>
+                          <option value="people">People</option>
+                        </select>
+                        <small class="text-danger" [class.d-none]="source_type.valid || source_type.untouched">Module
+                          is required</small>
+                      </div>
+                    </div>
+                    <div class="col-md-12 ">
+                      <div class="form-group">
+                        <label>Select Project</label>
+                        <select class="custom-select" [class.is-invalid]="source_id.invalid && source_id.touched"
+                          [(ngModel)]="addTaskFromData.source_id" (change)="on_project_select($event.target.value)"
+                          #source_id="ngModel" name="source_id" required>
+                          <option value="">Select</option>
+                          <option value="{{source_list.id}}" *ngFor="let source_list of source_lists">
+                            {{source_list.name}}
+                          </option>
+
+                        </select>
+                        <small class="text-danger" [class.d-none]="source_id.valid || source_id.untouched">Project
+                          is required</small>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Task Name</label>
+                        <input type="text" class="form-control"
+                          [class.is-invalid]="task_name.invalid && task_name.touched"
+                          [(ngModel)]="addTaskFromData.task_name" #task_name="ngModel" name="task_name"
+                          placeholder="Task Name" required>
+                        <small class="text-danger" [class.d-none]="task_name.valid || task_name.untouched">Task
+                          Name is required</small>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Description</label>
+                        <textarea name="" [(ngModel)]="addTaskFromData.task_description" #task_description="ngModel"
+                          name="task_description" placeholder="Description" rows="3" class="form-control"></textarea>
+
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Attachment</label>
+                        <input class="form-control" id="file-upload" type="file" type="file"
+                          (change)="onSelectFile($event)" name="uploaded_file" ng2FileSelect [uploader]="uploader"
+                          accept="image/*" #fileInput />
+                        <input type="hidden" [(ngModel)]="addTaskFromData.task_image_url" #task_image_url="ngModel"
+                          name="task_image_url">
+                        <input type="hidden" [(ngModel)]="addTaskFromData.task_project_id" #task_project_id="ngModel"
+                          name="task_project_id" value="{{addTaskFromData.task_project_id}}">
+                        <div class="progress" style="display: block;" *ngIf="pr_show">
+                          <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Task List</label>
+                        <select class="custom-select" [(ngModel)]="addTaskFromData.task_list_id" #task_list_id="ngModel"
+                          name="task_list_id">
+                          <optgroup *ngFor="let TasksType of TasksTypes" label="{{TasksType.task_list_type}}">
+                            <option *ngFor="let tasklist of TasksType.tasklists" value="{{tasklist.id}}">
+                              {{tasklist.task_list_name}}</option>
+                          </optgroup>
+                        </select>
+
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Task Owner</label>
+                        <ng-multiselect-dropdown [placeholder]="'Task Owner'" [data]="dropdownList"
+                          [(ngModel)]="selectedItems" [settings]="dropdownSettings"
+                          [ngModelOptions]="{standalone: true}">
+                        </ng-multiselect-dropdown>
+                      </div>
+                    </div>
+                    <div class="col-md-6 ">
+                      <label for="exampleInputPassword1">Start Date</label>
+                      <input placeholder="Start Date" class="form-control"  [(ngModel)]="addTaskFromData.task_start_date"
+                        [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" name="task_start_date"
+                        #task_start_date="ngModel">
+                      <owl-date-time #dt3></owl-date-time>
+
+                    </div>
+                    <div class="col-md-6 ">
+                      <label for="exampleInputPassword1">Due Date</label>
+                      <input placeholder="Due Date" class="form-control" [min]="addTaskFromData.task_start_date" [(ngModel)]="addTaskFromData.task_end_date"
+                        [owlDateTimeTrigger]="dt" [owlDateTime]="dt" name="task_end_date" #task_end_date="ngModel">
+                      <owl-date-time #dt></owl-date-time>
+
+                    </div>
+                    <div class="col-md-6 ">
+                      <label for="exampleInputPassword1">Reminder</label>
+                      <input placeholder="Reminder" class="form-control"
+                        [(ngModel)]="addTaskFromData.task_reminder_date" [max]="addTaskFromData.task_end_date" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"
+                        name="task_reminder_date" #task_reminder_date="ngModel">
+                      <owl-date-time #dt2></owl-date-time>
+
+                    </div>
+                    <div class="col-md-6 demo">
+                      <label for="exampleInputPassword1">Priority</label>
+                      <select class="custom-select" [(ngModel)]="addTaskFromData.task_priority" #task_priority="ngModel"
+                        name="task_priority">
+                        <option value="">Select</option>
+                        <option value="1">High</option>
+                        <option value="2">Medium</option>
+                        <option value="3">Low</option>
+                        <option value="4">None</option>
+                      </select>
+
+                    </div>
+
+                    <button type="button" style="float: right;" id="" data-dismiss="modal" class="btn btn-success"
+                      (click)="add_new_task();addTaskForm.reset()" data-action="save"
+                      [disabled]="addTaskForm.form.invalid" role="button">Add</button>
+                    <button type="button" style="float: right;" class="btn btn-secondary waves-effect"
+                      (click)="hidemodel3()">Close</button>
+                  </form>
+                </div>
+                <div *ngIf="modelmeeting" class="meeting moduleBox" style="display: block;">
+                  <form class="w-100" role="form" #addMeetingForm="ngForm">
+                    <div class="form-group">
+
+                      <label>Select Module</label>
+                      <select class="custom-select" [class.is-invalid]="source_type.invalid && source_type.touched"
+                        [(ngModel)]="addMeetingFromData.source_type" (change)="get_source_list_meeting('add')"
+                        #source_type="ngModel" name="source_type" required>
+                        <option value="">Select</option>
+                        <option value="project">Projects</option>
+                        <option value="crm">CRM</option>
+                        <option value="people">People</option>
+                      </select>
+                      <small class="text-danger" [class.d-none]="source_type.valid || source_type.untouched">Module
+                        is required</small>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Select Project</label>
+                      <select class="custom-select" [class.is-invalid]="source_id.invalid && source_id.touched"
+                        [(ngModel)]="addMeetingFromData.source_id" (change)="on_project_select($event.target.value)"
+                        #source_id="ngModel" name="source_id" required>
+                        <option value="">Select</option>
+                        <option value="{{source_list.id}}" *ngFor="let source_list of source_lists">{{source_list.name}}
+                        </option>
+
+                      </select>
+                      <small class="text-danger" [class.d-none]="source_id.valid || source_id.untouched">Project
+                        is required</small>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Meeting Name</label>
+                      <input type="text" class="form-control"
+                        [class.is-invalid]="meeting_name.invalid && meeting_name.touched"
+                        [(ngModel)]="addMeetingFromData.meeting_name" #meeting_name="ngModel" name="meeting_name"
+                        placeholder="Meeting Name" required>
+                      <small class="text-danger" [class.d-none]="meeting_name.valid || meeting_name.untouched">Meeting
+                        Name is required</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Description</label>
+                      <textarea name="" [(ngModel)]="addMeetingFromData.meeting_description"
+                        #meeting_description="ngModel" name="meeting_description" placeholder="Description" rows="3"
+                        class="form-control"></textarea>
+
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Attendees email</label>
+                      <ng-multiselect-dropdown [placeholder]="'Attendees email'" [data]="dropdownList"
+                        [(ngModel)]="selectedItems" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                        (onDeSelect)="onItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+                        [ngModelOptions]="{standalone: true}" required>
+                      </ng-multiselect-dropdown>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Meeting Subject</label>
+                      <input type="text" class="form-control"
+                        [class.is-invalid]="meeting_subject.invalid && meeting_subject.touched"
+                        [(ngModel)]="addMeetingFromData.meeting_subject" #meeting_subject="ngModel"
+                        name="meeting_subject" placeholder="Meeting Subject" required>
+                      <small class="text-danger"
+                        [class.d-none]="meeting_subject.valid || meeting_subject.untouched">Meeting
+                        Subject is required</small>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Meeting Date</label>
+                      <input placeholder="Meeting Date" class="form-control"
+                        [(ngModel)]="addMeetingFromData.meeting_date" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+                        name="meeting_date" #meeting_date="ngModel">
+                      <owl-date-time #dt3></owl-date-time>
+                    </div>
+                    <button type="button" style="float: right;" class="btn btn-success"
+                      (click)="add_new_meeting();addMeetingForm.reset()"
+                      [disabled]="addMeetingForm.form.invalid">Save</button>
+                    <button type="button" style="float: right;" class="btn btn-secondary waves-effect"
+                      (click)="hidemodel3()">Close</button>
+                  </form>
+                </div>
+                <div *ngIf="modelevent" class="event moduleBox" style="display: block;">
+                  <form role="form" #addEvenForm="ngForm">
+                    <div class="form-group">
+                      <label>Select Module</label>
+                      <select class="custom-select" [class.is-invalid]="source_type.invalid && source_type.touched"
+                        [(ngModel)]="addEventFromData.source_type" (change)="get_source_list_event('add')"
+                        #source_type="ngModel" name="source_type" required>
+                        <option value="">Select</option>
+                        <option value="project">Projects</option>
+                        <option value="crm">CRM</option>
+                        <option value="people">People</option>
+                      </select>
+                      <small class="text-danger" [class.d-none]="source_type.valid || source_type.untouched">Module
+                        is required</small>
+                    </div>
+                    <div class="form-group">
+                      <label>Select Project</label>
+                      <select class="custom-select" [class.is-invalid]="source_id.invalid && source_id.touched"
+                        [(ngModel)]="addEventFromData.source_id" (change)="on_project_select($event.target.value)"
+                        #source_id="ngModel" name="source_id" required>
+                        <option value="">Select</option>
+                        <option value="{{source_list.id}}" *ngFor="let source_list of source_lists">{{source_list.name}}
+                        </option>
+
+                      </select>
+                      <small class="text-danger" [class.d-none]="source_id.valid || source_id.untouched">Project
+                        is required</small>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Event Name</label>
+                      <input type="text" class="form-control"
+                        [class.is-invalid]="event_title.invalid && event_title.touched"
+                        [(ngModel)]="addEventFromData.event_title" #event_title="ngModel" name="event_title"
+                        placeholder="Event Name" required>
+                      <small class="text-danger" [class.d-none]="event_title.valid || event_title.untouched">Event
+                        Name is required</small>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Description</label>
+                      <textarea name="" [(ngModel)]="addEventFromData.event_description" #event_description="ngModel"
+                        name="event_description" placeholder="Description" rows="3" class="form-control"></textarea>
+
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">Start Date</label>
+                      <input placeholder="Start Date" class="form-control"
+                        [(ngModel)]="addEventFromData.event_start_date" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+                        name="event_start_date" #event_start_date="ngModel">
+                      <owl-date-time #dt3></owl-date-time>
+                    </div>
+                    <div class="form-group">
+                      <label class="control-label">End Date</label>
+                      <input placeholder="End Date" class="form-control" [min]="addEventFromData.event_start_date" [(ngModel)]="addEventFromData.event_end_date"
+                        [owlDateTimeTrigger]="dt" [owlDateTime]="dt" name="event_end_date" #event_end_date="ngModel">
+                      <owl-date-time #dt></owl-date-time>
+                    </div>
+                    <button type="button" style="float: right;" class="btn btn-success"
+                      (click)="add_new_event();addEvenForm.reset()" [disabled]="addEvenForm.form.invalid">Save</button>
+                    <button type="button" style="float: right;" class="btn btn-secondary waves-effect"
+                      (click)="hidemodel3()">Close</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END MODAL -->
+
+  <div class="modal" *ngIf="modeldisplay4" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+    tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content w-100">
+        <form class="w-100" role="form" #updateTaskForm="ngForm" style="background-color: #fff;">
+          <div class="modal-header">
+            <h4 class="modal-title">Update Task</h4>
+            <button type="button" class="close ml-10"  (click)="hidemodel4()" data-dismiss="modal" aria-label="Close" style="color: black;"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-12 ">
+              <label>Select Module</label>
+              <select class="custom-select" [class.is-invalid]="source_type.invalid && source_type.touched"
+                [(ngModel)]="updateTaskFromData.source_type" (change)="get_source_list('update')" #source_type="ngModel"
+                name="source_type" required>
+                <option value="">Select</option>
+                <option value="project">Projects</option>
+                <option value="crm">CRM</option>
+                <option value="people">People</option>
+              </select>
+              <small class="text-danger" [class.d-none]="source_type.valid || source_type.untouched">Module
+                is required</small>
+            </div>
+            <div class="col-md-12 ">
+              <label>Select Project</label>
+              <select class="custom-select" [class.is-invalid]="source_id.invalid && source_id.touched"
+                [(ngModel)]="updateTaskFromData.source_id" #source_id="ngModel" name="source_id" required>
+                <option value="">Select</option>
+                <option value="{{source_list.id}}" *ngFor="let source_list of source_lists2">{{source_list.name}}
+                </option>
+              </select>
+              <small class="text-danger" [class.d-none]="source_id.valid || source_id.untouched">Project
+                is required</small>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Task Name</label>
+                <input type="text" class="form-control" [class.is-invalid]="task_name.invalid && task_name.touched"
+                  [(ngModel)]="updateTaskFromData.task_name" #task_name="ngModel" name="task_name"
+                  placeholder="Task Name" required>
+                <small class="text-danger" [class.d-none]="task_name.valid || task_name.untouched">Task
+                  Name is required</small>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Description</label>
+                <textarea name="" [(ngModel)]="updateTaskFromData.task_description" #task_description="ngModel"
+                  name="task_description" placeholder="Description" rows="3" class="form-control"></textarea>
+
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Attachment</label>
+                <input class="form-control" id="file-upload" type="file" type="file" (change)="onSelectFile($event)"
+                  name="uploaded_file" ng2FileSelect [uploader]="uploader" accept="image/*" #fileInput />
+                <input type="hidden" [(ngModel)]="updateTaskFromData.task_image_url" #task_image_url="ngModel"
+                  name="task_image_url">
+
+                <div class="progress" style="display: block;" *ngIf="pr_show">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Task List</label>
+                <select class="custom-select" [(ngModel)]="updateTaskFromData.task_list_id" #task_list_id="ngModel"
+                  name="task_list_id">
+                  <optgroup *ngFor="let TasksType of TasksTypes" label="{{TasksType.task_list_type}}">
+                    <option *ngFor="let tasklist of TasksType.tasklists" value="{{tasklist.id}}">
+                      {{tasklist.task_list_name}}</option>
+                  </optgroup>
+                </select>
+
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Task Owner</label>
+                <ng-multiselect-dropdown [placeholder]="'Task Owner'" [data]="dropdownList" [(ngModel)]="selectedItems"
+                  [settings]="dropdownSettings" [ngModelOptions]="{standalone: true}">
+                </ng-multiselect-dropdown>
+              </div>
+            </div>
+            <div class="col-md-6 ">
+              <label for="exampleInputPassword1">Start Date</label>
+              <div *ngIf="!show_date_box">
+
+                <input placeholder="Start Date" class="form-control" [(ngModel)]="updateTaskFromData.task_start_date"
+                  [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" name="task_start_date" #task_end_date="ngModel"
+                  [ngModelOptions]="{standalone: true}">
+                <owl-date-time #dt3></owl-date-time>
+
+              </div>
+              <div *ngIf="show_date_box">
+
+                <input placeholder="{{testdate1}}" *ngIf="show_date_box" class="form-control" [(ngModel)]="testdate4"
+                  [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" [ngModelOptions]="{standalone: true}">
+                <owl-date-time #dt3></owl-date-time>
+
+              </div>
+
+            </div>
+            <div class="col-md-6 ">
+              <label for="exampleInputPassword1">Due Date</label>
+              <div *ngIf="!show_date_box">
+
+                <input placeholder="Due Date" class="form-control" [min]="updateTaskFromData.task_start_date" [(ngModel)]="updateTaskFromData.task_end_date"
+                  [owlDateTimeTrigger]="dt" [owlDateTime]="dt" name="task_end_date" #task_end_date="ngModel"
+                  [ngModelOptions]="{standalone: true}">
+                <owl-date-time #dt></owl-date-time>
+
+              </div>
+              <div *ngIf="show_date_box">
+                <input placeholder="{{testdate}}" *ngIf="show_date_box" [min]="testdate4" class="form-control" [(ngModel)]="testdate5"
+                  [owlDateTimeTrigger]="dt" [owlDateTime]="dt" [ngModelOptions]="{standalone: true}">
+                <owl-date-time #dt></owl-date-time>
+
+              </div>
+
+            </div>
+            <div class="col-md-6 ">
+              <label for="exampleInputPassword1">Reminder</label>
+              <div *ngIf="!show_date_box">
+                <input placeholder="Reminder" class="form-control"  [max]="updateTaskFromData.task_end_date" [(ngModel)]="updateTaskFromData.task_reminder_date"
+                  [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" name="task_reminder_date" #task_reminder_date="ngModel"
+                  [ngModelOptions]="{standalone: true}">
+                <owl-date-time #dt2></owl-date-time>
+              </div>
+              <div *ngIf="show_date_box">
+                <input placeholder="{{testdate2}}" *ngIf="show_date_box" [max]="testdate5" class="form-control" [(ngModel)]="testdate6"
+                  [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" [ngModelOptions]="{standalone: true}">
+                <owl-date-time #dt2></owl-date-time>
+
+              </div>
+            </div>
+            <div class="col-md-6 demo">
+              <label for="exampleInputPassword1">Priority</label>
+              <select class="custom-select" [(ngModel)]="updateTaskFromData.task_priority" #task_priority="ngModel"
+                name="task_priority">
+                <option value="">Select</option>
+                <option value="1">High</option>
+                <option value="2">Medium</option>
+                <option value="3">Low</option>
+                <option value="4">None</option>
+              </select>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+              (click)="hidemodel4()">Close</button>
+            <button type="submit" *ngIf="select_permissions.indexOf(7) !== -1" class="btn btn-success"
+              (click)="update_task_event();updateTaskForm.form.reset()" [disabled]="updateTaskForm.form.invalid">Save
+              changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

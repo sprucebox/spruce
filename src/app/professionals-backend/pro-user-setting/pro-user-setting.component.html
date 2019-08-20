@@ -1,0 +1,151 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <nav>
+          <ul class="nav navbar-nav">
+            <li *ngIf="select_permissions.indexOf(8) !== -1"><a routerLink="../user-setting" class="active">User</a>
+            </li>
+            <li *ngIf="select_permissions.indexOf(11) !== -1"><a routerLink="../role-setting">Roles & Permission</a>
+            </li>
+            <li *ngIf="select_permissions.indexOf(14) !== -1"><a routerLink="../notification-setting">Notification</a>
+            </li>
+            <li *ngIf="select_permissions.indexOf(16) !== -1"><a routerLink="../date-time-setting">Date Time Setting</a>
+            </li>
+            <li><a routerLink="../color-setting">Project Setting</a></li>
+            <li><a routerLink="../template-setting">Template Setting</a>
+            </li>
+            <li><a routerLink="../backup">Backup</a></li>
+          </ul>
+          <div class="search_box pull-right pr-10">
+            <input placeholder="Search" type="text" [(ngModel)]="searchText" class="form-control-sm m-0">
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <div class="card-box">
+              <div class="button-list pull-left">
+                <div class="nav navbar-nav">
+                  <ul class="nav nav-tabs customTab" role="tablist">
+                    <li role="presentation" [ngClass]="showinternal ? 'active' : ''"><a href="javascript:void(0)"
+                        title="Internal List" data-toggle="tab-1" (click)="openDialog()">Internal</a></li>
+                    <li role="presentation" [ngClass]="showinternal ? '' : 'active'"><a href="javascript:void(0)"
+                        data-toggle="tab-2" (click)="openDialog1()">External</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="button-list pull-right">
+             
+                  <a *ngIf="select_permissions.indexOf(9) !== -1" routerLink="../add-user"
+              class="btn btn-info waves-effect waves-light"><i class="fa fa-plus"></i> Add User</a>
+            <span *ngIf="role == 'Administrator'" class="pl-10">
+              <a class="btn btn-info waves-effect waves-light" routerLink="../project-user-archive"> Show
+                Inactive</a>
+            </span>
+               
+              </div>
+            </div>
+      
+      </div>
+    </div>
+    <div *ngIf="showinternal">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card-box white-box">
+            <div class="row">
+              <div class="col-md-3" *ngFor="let user of alluser | filter : searchText">
+                <div class="card-box">
+                  <div class="media text-center position-relative">
+                    <a class="mb-15 d-block">
+                      <img src="{{user.profile_image}}" class="rounded-circle" alt="" width="100">
+                    </a>
+                    <div class="buttonAction"><a routerLink="../edit-user/{{user.id}}" class="edit"><span
+                          class="badge badge-primary"><i class="fa fa-pencil"></i></span></a>
+                      <a *ngIf="user.status=='pending'" class="delete" (click)="confirm_remove_user(user.id)"><span
+                          class="badge badge-primary"><i class="fa fa-trash"></i></span></a> </div>
+
+                    <div class="media-body mt-15" style="min-height: 82px;">
+                      <a *ngIf="user.firstname">{{user.firstname}} {{user.lastname}}</a>
+                      <a *ngIf="!user.firstname">{{user.email}}</a>
+                      <p style="margin: 0px;">{{user.role}}</p>
+                      <span *ngIf="user.status=='pending';else status_content" style="color: #f9bc0b">Invitation
+                        Pending</span>
+                      <ng-template #status_content><span *ngIf="user.is_active==1" style="color: #92d050">Active</span>
+                      </ng-template><br>
+                      <a *ngIf="user.status=='pending'" (click)="resend_invitaion(user.id)"
+                        class="btn btn-success btn-xs">Resend</a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showexternal">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card-box white-box">
+            <div class="row">
+
+              <div class="col-md-3" *ngFor="let usernew of allusernew | filter : searchText">
+                <div class="card-box">
+                  <div class="media text-center position-relative">
+                    <a class="mb-15 d-block">
+                      <img src="{{usernew.profile_image}}" class="rounded-circle" alt="" width="100">
+                    </a>
+                    <div class="buttonAction pull-right mt-2"><a routerLink="../edit-user/{{usernew.id}}"
+                        class="edit"><span class="badge badge-primary"><i class="fa fa-pencil"></i></span></a>
+                      <a *ngIf="usernew.status=='pending'" class="delete"
+                        (click)="confirm_remove_user(usernew.id)"><span class="badge badge-primary"><i
+                            class="fa fa-trash"></i></span></a> </div>
+                    <div class="media-body mt-15" style="min-height: 82px;">
+                      <a *ngIf="usernew.firstname">{{usernew.firstname}} {{usernew.lastname}}</a>
+                      <a *ngIf="!usernew.firstname">{{usernew.email}}</a>
+                      <p style="margin: 0px;">{{usernew.role}}</p>
+                      <span *ngIf="usernew.status=='pending';else status_content" style="color: #f9bc0b">Invitation
+                        Pending</span>
+                      <ng-template #status_content><span *ngIf="usernew.is_active==1"
+                          style="color: #92d050">Active</span>
+                      </ng-template><br>
+                      <a *ngIf="usernew.status=='pending'" (click)="resend_invitaion(usernew.id)"
+                        class="btn btn-success btn-xs">Resend</a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" *ngIf="modeldisplay2" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+      tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color:#fff;">
+          <div class="modal-header">
+            <h4 class="modal-title">Remove Users</h4>
+            <button type="button" class="close" (click)="hidemodel2()" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+          </div>
+
+          <div class="modal-body">
+            <p> Are You Sure ?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+              (click)="hidemodel2()">Close</button>
+            <button type="submit" class="btn btn-success" (click)="remove_user(remove_user_id)">Remove User</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

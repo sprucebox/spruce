@@ -1,0 +1,331 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <nav class="pos-relative">
+          <ul class="nav navbar-nav">
+            <li><a routerLink="../../project-overview/{{project_id}}">Overview</a></li>
+            <li><a routerLink="../../project-task/{{project_id}}">Task</a></li>
+            <li><a routerLink="../../project-calendar/{{project_id}}">Calendar</a></li>
+            <li *ngIf="project_company_id===company_id"><a
+                routerLink="../../project-activity/{{project_id}}">Activity</a></li>
+            <li *ngIf="project_company_id===company_id"><a routerLink="../../project-reports/{{project_id}}">Reports</a>
+            </li>
+            <li><a routerLink="../../project-discussion/{{project_id}}">Discussion</a></li>
+            <li><a routerLink="../../project-files/{{project_id}}">Files</a></li>
+            <li *ngIf="select_permissions.indexOf(33) !== -1  && project_company_id===company_id "><a
+                routerLink="../../project-users/{{project_id}}" class="active">Users</a></li>
+            <li><a routerLink="../../notes/{{project_id}}">Notes</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <h4 class="text-uppercase">{{projectname}}</h4>
+    <div *ngIf="project_company_id===company_id && usertype=='1'; else externaluser">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+            <div class="button-list pull-left">
+              <div class="nav navbar-nav">
+                <ul class="nav nav-tabs customTab" role="tablist">
+                  <li role="presentation" [ngClass]="showinternal ? 'active' : ''"><a href="javascript:void(0)"
+                      title="Internal List" data-toggle="tab-1" (click)="openDialog()">Internal</a></li>
+                  <li role="presentation" [ngClass]="showinternal ? '' : 'active'"><a href="javascript:void(0)"
+                      data-toggle="tab-2" (click)="openDialog1()">External</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="button-list pull-right">
+              <!-- <h4 style="display: inline; text-transform: uppercase">{{projectname}}</h4> -->
+              <ul class="float-btn float-btn-left">
+                <li *ngIf="select_permissions.indexOf(32) !== -1  && project_company_id===company_id"> <a
+                    class="btn btn-info waves-effect waves-light"  (click)="add_user_button_click()"><i
+                      class="fa fa-plus"></i> Add User</a> </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="showinternal">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card-box">
+			   <div  *ngIf="notes?.length == 0; else other_content">
+                  <h5> No Record found </h5>
+                  </div>
+				   <ng-template #other_content>
+              <div class="grid-view content current mt-2">
+                <div class="col-md-4" *ngFor="let user of project_users">
+                  <div class="card-box" style="min-height: 116px;">
+                    <div class="media d-flex">
+                      <a href="javascript:void();">
+                        <img src="{{user.profile_image}}" class="rounded-circle d-flex mr-10 rounded-circle thumb-md"
+                          alt="">
+                      </a>
+                      <div class="media-body">
+                        <h5><a>{{user.firstname}} {{user.lastname}}</a></h5>
+                        <small class="text-muted mb-1">
+                          {{user.role}}
+                        </small>
+                        <p class="text-muted mb-1">
+                          {{user.email}}
+                        </p>
+                        <div *ngIf="project_company_id===company_id">
+                          <div class="buttonAction pull-right mt-2"><a class="delete"
+                              (click)="confirm_remove_user(user.id)"><span class="badge badge-primary"><i
+                                  class="fa fa-trash"></i></span></a> </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+			  </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="showexternal">
+        <div class="row">
+          <div class="col-sm-12">
+              <div class="card-box">
+			   <div  *ngIf="notes?.length == 0; else other_content">
+                  <h5> No Record found </h5>
+                  </div>
+				     <ng-template #other_content>
+            <div class="grid-view content current mt-2">
+              <div>
+                <div class="col-md-4" *ngFor="let users of project_users_external">
+                  <div class="card-box" style="min-height: 116px;">
+                    <div class="media d-flex">
+                      <a href="javascript:void();">
+                        <img src="{{users.profile_image}}" class="rounded-circle d-flex mr-10 rounded-circle thumb-md"
+                          alt="">
+                      </a>
+                      <div class="media-body">
+                        <h5><a>{{users.firstname}} {{users.lastname}}</a></h5>
+                        <small class="text-muted mb-1">
+                          {{users.role}}
+                        </small>
+                        <p class="text-muted mb-1">
+                          {{users.email}}
+                        </p>
+                        <div *ngIf="project_company_id===company_id">
+                          <div class="buttonAction pull-right mt-2"><a class="delete"
+                              (click)="confirm_remove_user(users.id)"><span class="badge badge-primary"><i
+                                  class="fa fa-trash"></i></span></a> </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+			 </ng-template>
+          </div>
+        </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="grid-view content current mt-2">
+              <div>
+                <div class="col-md-4" *ngFor="let usernews of project_users_external_new">
+                  <div class="card-box" style="min-height: 116px;">
+                    <div class="media d-flex">
+                      <a href="javascript:void();">
+                        <img src="{{usernews.profile_image}}"
+                          class="rounded-circle d-flex mr-10 rounded-circle thumb-md" alt="">
+                      </a>
+                      <div class="media-body">
+                        <h5><a>{{usernews.firstname}} {{usernews.lastname}}</a></h5>
+                        <small class="text-muted mb-1">
+                          {{usernews.role}}
+                        </small>
+                        <p class="text-muted mb-1">
+                          {{usernews.email}}
+                        </p>
+                        <div *ngIf="project_company_id===company_id">
+                          <div class="buttonAction pull-right mt-2"><a class="delete"
+                              (click)="confirm_remove_user(usernews.id)"><span class="badge badge-primary"><i
+                                  class="fa fa-trash"></i></span></a> </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #externaluser>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="grid-view content current mt-2">
+            <div>
+              <div class="col-md-4" *ngFor="let users of project_users_external">
+                <div class="card-box" style="min-height: 116px;">
+                  <div class="media d-flex">
+                    <a href="javascript:void();">
+                      <img src="{{users.profile_image}}" class="rounded-circle d-flex mr-10 rounded-circle thumb-md"
+                        alt="">
+                    </a>
+                    <div class="media-body">
+                      <h5><a>{{users.firstname}} {{users.lastname}}</a></h5>
+                      <small class="text-muted mb-1">
+                        {{users.role}}
+                      </small>
+                      <p class="text-muted mb-1">
+                        {{users.email}}
+                      </p>
+                      <div *ngIf="project_company_id===company_id">
+                        <div class="buttonAction pull-right mt-2"><a class="delete"
+                            (click)="confirm_remove_user(users.id)"><span class="badge badge-primary"><i
+                                class="fa fa-trash"></i></span></a> </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="grid-view content current mt-2">
+            <div>
+              <div class="col-md-4" *ngFor="let usernews of project_users_external_new">
+                <div class="card-box" style="min-height: 116px;">
+                  <div class="media d-flex">
+                    <a href="javascript:void();">
+                      <img src="{{usernews.profile_image}}" class="rounded-circle d-flex mr-10 rounded-circle thumb-md"
+                        alt="">
+                    </a>
+                    <div class="media-body">
+                      <h5><a>{{usernews.firstname}} {{usernews.lastname}}</a></h5>
+                      <small class="text-muted mb-1">
+                        {{usernews.role}}
+                      </small>
+                      <p class="text-muted mb-1">
+                        {{usernews.email}}
+                      </p>
+                      <div *ngIf="project_company_id===company_id">
+                        <div class="buttonAction pull-right mt-2"><a class="delete"
+                            (click)="confirm_remove_user(usernews.id)"><span class="badge badge-primary"><i
+                                class="fa fa-trash"></i></span></a> </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </ng-template>
+  </div>
+
+  <div class="modal" *ngIf="modeldisplay" [style.background]="applyback?'#21212185':'red'" id="Modalupdate"
+    tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="background-color:#fff;">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Users</h4>
+          <button type="button" class="close" (click)="hidemodel()" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <div id="tab-1" class="content current">
+            <div class="d-flex">
+              <div class="col-md-10 p-0">
+                <input placeholder="Search" type="text" [(ngModel)]="searchText" class="form-control">
+              </div>
+              <a routerLink="../../add-user" class="btn btn-info waves-effect waves-light pull-right"><i
+                  class="fa fa-plus"></i> Add User</a>
+            </div>
+            <!-- <div class="nav navbar-nav" style="margin-right: 15px; margin-top: 8px;">
+              <a routerLink="../../add-user" class="btn btn-info waves-effect waves-light pull-right"><i
+                  class="fa fa-plus"></i> Add User</a>
+            </div>
+            <div class="search_box">
+              <input placeholder="Search" type="text" [(ngModel)]="searchText">
+            </div> -->
+            <div class="table-responsive scroll-height">
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>User Name</th>
+                    <th>Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let npuser of not_in_project_users | filter : searchText">
+                    <td>
+                      <div class="form-check">
+                        <label>
+                          <input (change)="onChecked(npuser.id, $event.target.checked)" type="checkbox"
+                            class="checkBoxClass">
+                          <span class="label-text"></span> </label>
+                      </div>
+                    </td>
+                    <td><a> {{npuser.firstname}} {{npuser.lastname}}</a></td>
+                    <td>{{npuser.email}}</td>
+                  </tr>
+                  <tr *ngFor="let npusers of projectlist | filter : searchText">
+                    <td>
+                      <div class="form-check">
+                        <label>
+                          <input (change)="onChecked(npusers.id, $event.target.checked)" type="checkbox"
+                            class="checkBoxClass">
+                          <span class="label-text"></span> </label>
+                      </div>
+                    </td>
+                    <td><a> {{npusers.firstname}} {{npusers.lastname}}</a></td>
+                    <td>{{npusers.email}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel()">Close</button>
+          <button type="submit" class="btn btn-success" (click)="add_user_in_project()">Add User</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" *ngIf="modeldisplay2" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+    tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="background-color:#fff;">
+        <div class="modal-header">
+          <h4 class="modal-title">Remove Users</h4>
+          <button type="button" class="close" (click)="hidemodel()" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+
+        <div class="modal-body">
+          <p> Are You Sure ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel2()">Close</button>
+          <button type="submit" class="btn btn-success" (click)="remove_user(remove_user_id)">Remove User</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

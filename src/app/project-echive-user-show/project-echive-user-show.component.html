@@ -1,0 +1,152 @@
+<section class="">
+    <div class="pageheader">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4><i class="fa fa-user"></i> Update User</h4>
+                    <div class="button-list pull-right mt-7">
+                        <ul class="float-btn float-btn-left">
+                            <li>
+                                <a href="javascript:void(0)" routerLink="../../user-setting" class="btn btn-default"> <i class="fa fa-arrow-left"></i> Go Back</a>
+                            </li>
+                        </ul>
+                    </div>
+					<!-- <div class="button-list mt-7 col-md-2 pull-right"> -->
+                    <!-- <ul class="float-btn float-btn-left pull-right"> -->
+					 <!-- <div *ngIf="role == 'Administrator'"> -->
+              <!-- <li> <a (click)="update_users_archive_data()" class="btn btn-default"> Restore</a> </li> -->
+			  <!-- </div> -->
+                   <!-- </ul> -->
+          <!-- </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+      <div class="row">
+          <div class="col-sm-12">
+              <div class="wow fadeIn">
+                  
+                      <div class="card">
+                          <div class="cardbox">
+  
+                              <form  #editUserForm="ngForm">
+                                  <div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                      <div class="panel-body">
+                                          <div class="col-md-6">
+                                              <div class="form-group row">
+                                                  <label class="col-sm-4 col-form-label">Firstname</label>
+                                                  <div class="col-sm-8">    
+                                                          <input type="text"
+                                                            class="form-control"
+                                                            [class.is-invalid]="firstname.invalid && firstname.touched" 
+                                                            [(ngModel)]="editUserFormData.firstname" 
+                                                            #firstname="ngModel" 
+                                                            name="firstname" 
+                                                            placeholder="Firstname" required>
+                                                            <small class="text-danger" [class.d-none]="firstname.valid || firstname.untouched">First Name is required</small>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Lastname </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text"
+                                                    class="form-control"
+                                                    [class.is-invalid]="lastname.invalid && lastname.touched" 
+                                                    [(ngModel)]="editUserFormData.lastname" 
+                                                    #lastname="ngModel" 
+                                                    name="lastname" 
+                                                    placeholder="Last Name" required>
+                                                    <small class="text-danger" [class.d-none]="lastname.valid || lastname.untouched">Last Name is required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                          <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Email</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text"
+                                                    class="form-control"
+                                                    [class.is-invalid]="email.invalid && email.touched" 
+                                                    [(ngModel)]="editUserFormData.email" 
+                                                    #email="ngModel" 
+                                                    name="email" 
+                                                    placeholder="Email" required [readonly]="isReadOnly">
+                                                    <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
+                                                   
+                                                </div>
+                                            </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                              <div class="form-group row">
+                                                  <label class="col-sm-4 col-form-label">Select Status</label>
+                                                  <div class="col-sm-8">
+                                                      <select class="custom-select"
+                                                          [class.is-invalid]="status.invalid && status.touched" 
+                                                          [(ngModel)]="editUserFormData.status" 
+                                                          #status="ngModel" name="status" required>
+                                                          <option value="1" >Active</option>
+                                                          <option value="0" >Inactive</option>
+                                                      </select>
+                                                      <small class="text-danger" [class.d-none]="status.valid || status.untouched">Status is required</small>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">Select Status</label>
+                                                <div class="col-sm-8">
+                                                    <select class="custom-select"
+                                                        [class.is-invalid]="userrole.invalid && userrole.touched" 
+                                                        [(ngModel)]="editUserFormData.userrole" 
+                                                        #userrole="ngModel"
+                                                        name="userrole" required>
+                                                        <option value="">Select Role</option>
+                                                        <option [value]="userrole.id" *ngFor="let userrole of userrolelist">{{userrole.role}}</option>
+                                                    
+                                                        </select>
+                                                    <small class="text-danger" [class.d-none]="userrole.valid || userrole.untouched">Role is required</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                          <div class="col-md-12">
+                                           
+                                            <hr>
+                                            <div class="col-md-6 mt-2">
+                                                <div class="form-check">
+                                                    <label>
+                                                        <input name="check" type="checkbox"  [checked]="allcheck"  (change)="check_all_project($event.target.checked)">
+                                                        <span class="label-text"></span> Add to All Projects</label>
+                                                </div>
+                                                <hr>
+                                                <div class="form-check" *ngFor="let project of projects">
+                                                    <label>
+                                                        <input [checked]="select_projects.indexOf(project.id) !== -1" type="checkbox"  (change)="onselectproject(project.id, $event.target.checked)" class="checkBoxClass" value="{{project.id}}">
+                                                        <span class="label-text"></span>{{project.project_name}} </label>
+                                                </div>
+          
+                                                
+                                            </div>
+                                        </div>
+                                          <div class="clearfix"></div>
+                                          <hr>
+                                          
+                                          <div class="col-md-12 mt-2 text-right">
+                                              <button class="btn btn-success btn-md" (click)="update_user_details()"  [disabled]="editUserForm.form.invalid" type="button">Save </button>
+                                             
+                                              <button class="btn btn-default btn-md" type="button">Cancel </button>
+                                          </div>
+                                      </div>
+                                  
+                                  </div>
+                                  </form>
+                          </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>

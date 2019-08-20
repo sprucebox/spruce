@@ -1,0 +1,215 @@
+<header id="header"><!--header-->
+  
+  <div class="header-middle"><!--header-middle-->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="logo pull-left"> <a href="index.html"><img src="../assets/front-assets/images/home/logo.png" class="img-responsive" alt="" /> </a> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/header-middle--> 
+</header>
+<!--/header-->
+<!-- <div class="alert alert-danger mt-3" role="alert" *ngIf="err_message!=null"> -->
+  <!-- {{ err_message }} -->
+      <!-- </div> -->
+      <br>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        
+      <form  [formGroup]="referencesForm" (ngSubmit)="onSubmit()" >
+	  <div formGroupName="address">
+       
+          <div class="card">
+    <div class="card-body">
+      <div class="col-md-12">
+        <h4 class="header-text-color">Home Owner Detail</h4>
+      </div>
+      <div class="clearfix"></div>
+      <hr>
+	
+      <div class="col-md-4">
+        <label>Mobile Number</label>
+         <input type="text" formControlName="mobile_no"  class="form-control" maxlength="10" [ngClass]="{ 'is-invalid': submitted && f.mobile_no?.errors }" placeholder="Mobile Number" required>
+                        <div *ngIf="submitted && f.mobile_no?.errors" class="invalid-feedback">
+                            <div *ngIf="f.mobile_no.errors?.required">Mobile Number is required</div>
+                        </div>               
+       
+      </div>
+      <div class="col-md-4">
+        <label>Confirm Mobile Number</label>
+        <input placeholder="Confirm Phone Number" type="text"  formControlName="confirmmobile_no" maxlength="10" (change)="onChange($event)">
+		<div class="text-danger" *ngIf="err_message!=null">
+  {{ err_message }}
+      </div>
+      </div>
+	  
+      <div class="clearfix"></div>
+      <div class="col-md-4">
+        <input class="checkbox pull-left" type="checkbox" style="margin-right: 10px; margin-top: 0px;">
+        Able to receive text message</div>
+      <div class="clearfix"></div>
+      <div class="col-md-12">
+        <h4 class="header-text-color mt-4">Mailing Address</h4>
+      </div>
+      <div class="clearfix"></div>
+      <hr>
+      <div class="col-md-4">
+        <label>Street</label>
+        <input type="text"
+       
+       formControlName="mail_address_street" maxlength="50"
+        
+        
+        placeholder="Street Number" required>
+       
+      </div>
+      <div class="col-md-4">
+        <label>Suite</label>
+        <input type="text"
+        formControlName="mail_address_suit" maxlength="20"
+        
+       
+        placeholder="Suite (Optional)" >
+        
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-md-2">
+        <label>City</label>
+        <input type="text"
+        formControlName="mail_address_city" maxlength="20"
+        
+       
+        placeholder="City" required>
+        
+      </div>
+      <div class="col-md-2">
+        <label>State</label>
+        <select class="custom-select"
+        formControlName="mail_address_state"
+          required >
+          <option value="">Please Select State</option>
+          <option value="1">Alaska</option>
+          <option value="2">Arizona</option>
+          <option value="3">California</option>
+          <option value="4">Ohio</option>
+        </select>
+      
+      </div>
+      <div class="col-md-2">
+        <label>Zip</label>
+        <input type="number"
+        class="form-control"
+        
+       formControlName="mail_address_zip" maxlength="20"
+        placeholder="Zip" required>
+       
+      </div>
+	  
+      <div class="col-md-12">
+        <input class="checkbox pull-left" type="checkbox" style="margin-right: 10px; margin-top: 0px;">
+        Enter Later </div>
+		
+   
+    </div>
+          </div>
+		  </div>
+     
+    
+
+	
+		   <div class="card">
+    <div class="card-body">
+      <div class="col-md-12">
+       
+          <div formArrayName="references" > 
+            <div *ngFor="let item of references.controls; let pointIndex=index" [formGroupName]="pointIndex">
+              <h4 class="header-text-color">Project Address</h4>
+              <hr>
+              <div class="row" >
+                
+                <div class="clearfix"></div>
+                <a href="javascript:void(0);" *ngIf="pointIndex < 1" (click)="addReferences()" class="mt-0 btn btn-xs btn-success pull-right"> Add Projects Address <i class="fa fa-plus"></i> </a>
+                <a href="javascript:void(0);" *ngIf="pointIndex > 0"  (click)="deleteReferences(pointIndex)" class="mt-0 btn btn-xs btn-success pull-right"> remove </a>
+                
+                 <div id="DivAppend">
+          <div class="repete-box" >
+            <div class="col-md-10 p0">
+              
+                <div class="form-group w-100">
+                  <div class="col-md-4">
+                    <label>Street</label>
+                    <input placeholder="Street" type="text" formControlName="street" maxlength="50">
+                  </div>
+                  <div class="col-md-4">
+                    <label>Suite</label>
+                    <input placeholder="Suite (Optional)" type="text" formControlName="suite" maxlength="50">
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="col-md-2">
+                    <label class="d-block">City</label>
+                    <input placeholder="City" type="text" formControlName="city" maxlength="20">
+                  </div>
+                  <div class="col-md-2">
+                    <label class="d-block">State</label>
+                    <select class="custom-select" formControlName="state">
+                      <option value="">--State--</option>
+                      <option value="1">Alaska</option>
+                      <option value="2">Arizona</option>
+                      <option value="3">California</option>
+                      <option value="4">Ohio</option>
+                      <option value="5">Texas</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2">
+                    <label class="d-block">Zip</label>
+                    <input placeholder="Zip" type="number" formControlName="zip" maxlength="20">
+                  </div>
+                </div>
+             
+            </div>
+          </div>
+        </div>
+                </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+              <hr>
+            <div class="row">
+              <div class="col-md-12">
+                
+				 <button class="btn btn-primary nextBtn btn-md mt-7 pull-right" type="button" [disabled]="referencesForm.invalid" (click)="onSubmit()">Create Account </button>
+				 
+				 
+				 
+              </div>
+            </div>
+       
+      </div>
+    </div>
+  </div>
+      </form>
+	 
+ 
+		
+     
+    </div>
+	
+  </div>
+  
+  </div>
+ 
+</section>
+<footer id="footer"><!--Footer-->
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row">
+        <p class="pull-left">Copyright © 2018 SpuceBox. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>

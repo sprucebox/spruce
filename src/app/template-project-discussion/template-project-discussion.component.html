@@ -1,0 +1,111 @@
+<section>
+  <div class="container">
+   <div class="w-100">
+          <div class="col-md-12">
+              <nav>
+                  <ul class="nav navbar-nav">
+                      <li *ngIf="select_permissions.indexOf(8) !== -1"><a routerLink="../../user-setting" >User</a></li>
+                      <li *ngIf="select_permissions.indexOf(11) !== -1" ><a routerLink="../../role-setting" >Roles & Permission</a></li>
+                      <li *ngIf="select_permissions.indexOf(14) !== -1"><a  routerLink="../../notification-setting">Notification</a></li>
+                      <li *ngIf="select_permissions.indexOf(16) !== -1"><a  routerLink="../../date-time-setting">Date Time Setting</a></li>
+                      <li *ngIf="select_permissions.indexOf(37) !== -1" ><a  routerLink="../../color-setting">Project Setting</a></li>
+                      <li *ngIf="select_permissions.indexOf(40) !== -1"><a  routerLink="../../template-setting">Template Setting</a></li>
+					   <li *ngIf="select_permissions.indexOf(41) !== -1" ><a  routerLink="../../backup"  class="active">Backup</a></li>
+                      
+                  </ul>
+				   
+                
+              </nav>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-12">
+              <nav class="pos-relative">
+                       
+                <ul class="nav navbar-nav">
+                           
+                            <li><a routerLink="../../template-project-task/{{project_id}}" >Template Task</a></li>
+                            
+                          
+                          
+                            <li><a routerLink="../../template-project-discussion/{{project_id}}" class="active">Template Discussion</a></li>
+                            <li><a routerLink="../../template-project-file/{{project_id}}">Template Files</a></li>
+                           
+                        </ul>
+              </nav>
+          </div>
+      </div>
+      <div class="row">
+            
+        <div class="button-list pull-right mb-15">
+          <ul class="float-btn float-btn-left">
+              
+              <li> <a class="btn btn-info waves-effect waves-light" routerLink="../../template-project-add-discussion/{{project_id}}"><i class="fa fa-plus"></i>Add Discussion</a> </li>
+          </ul>
+        </div>
+		
+		
+      </div>
+	   <div class="row">
+          <div class="col-sm-12">
+              
+              <div class="card-box" *ngFor="let discussion of discussions">
+                  <div class="media d-flex">
+				   <span *ngIf="discussion.discussion_extension=='pdf' || discussion.discussion_extension=='xls'|| discussion.discussion_extension=='xlsx' || discussion.discussion_extension=='docx'|| discussion.discussion_extension=='doc'|| discussion.discussion_extension=='csv'|| discussion.discussion_extension=='txt'|| discussion.discussion_extension=='zip'|| discussion.discussion_extension=='PDF'|| discussion.discussion_extension=='DOC'|| discussion.discussion_extension=='DOCX'|| discussion.discussion_extension=='TXT'|| discussion.discussion_extension=='XLSX'|| discussion.discussion_extension=='XLS'|| discussion.discussion_extension=='ZIP';else other_content" >
+                         
+                              <img src="{{noImage}}" class="rounded-circle d-flex mr-10 rounded-circle thumb-md" alt="">
+                        
+                      </span>
+                      <ng-template #other_content >
+                                <img src="{{discussion.discussion_file_url}}" class="rounded-circle d-flex mr-10 rounded-circle thumb-md" alt="">
+                        </ng-template>
+                    
+                      <div class="media-body col-sm-12">
+                            <div class="buttonAction pull-right mt-2"> 
+                                <a  class="delete" (click)="confirm_remove_user(discussion.id)"><span class="badge badge-primary" ><i class="fa fa-trash"></i></span></a> 
+                                <a routerLink="../../template-project-discussion-edit/{{project_id}}/{{discussion.id}}"  class="edit"><span class="badge badge-primary"><i class="fa fa-pencil"></i></span></a>
+                            </div>
+
+                          <h5> <a routerLink="../../template-project-show-discussion/{{project_id}}/{{discussion.id}}">{{discussion.discussion_title}}</a></h5>
+                          <p class="text-muted mb-1">
+                              {{discussion.discussion_description}}
+                          </p>
+                          <div *ngIf="discussion.discussion_type == 1 " style="color:#fff; background-color:green; width:50px;">internal</div>
+                          <div *ngIf="discussion.discussion_type == 2 " style="color:#fff; background-color:Red; width:50px;">External</div>
+                          <small class="text-muted mb-0">Created by : {{discussion.created_by}}, {{discussion.created_at.date  | date:alldate}}</small>
+                          <!-- <small> | <a >{{discussion.comments}} Comments</a></small> -->
+                          <!-- <ul class="on-project-user" > -->
+                              <!-- <li *ngFor="let image of discussion.images"><img src="{{image.profile_image}}" class="img-responsive rounded-circle" alt=""></li> -->
+                        <!-- </ul> -->
+                      </div>
+                  </div>
+              </div>
+
+              
+          </div>
+      </div>
+       
+     
+      <div class="modal" *ngIf="modeldisplay2" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content" style="background-color:#fff;">
+                <div class="modal-header">
+                  <h4 class="modal-title">Remove Discussion</h4>
+                  <button type="button" class="close"  (click)="hidemodel2()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+               
+                    <div class="modal-body">
+                        <p> Are You Sure ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel2()" >Close</button>
+                        <button type="submit" class="btn btn-success" (click)="remove_user(remove_user_id)"  >Remove Discussion</button>
+                    </div>
+                
+              </div>
+            </div>
+        </div>
+
+    
+  </div>
+</section>

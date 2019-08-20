@@ -1,0 +1,376 @@
+ <section class="">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav>
+                       <ul class="nav navbar-nav">
+                          <li><a routerLink="../crmoverview" class="active">Overview</a></li>
+                            <li><a routerLink="../crmlead">Leads</a></li>
+                            <li><a routerLink="../cramdeal">Deals</a></li>
+                            <li><a routerLink="../crmcontact">Contacts</a></li>
+                            <li><a routerLink="../crmcustmors">Customers</a></li>
+                            <li><a routerLink="../crmvendors">Vendors</a></li>
+                           <li><a routerLink="../crmappointment">Appointments</a></li>
+                            <li><a routerLink="../crmreport">Report</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="card-box">
+                <div class="table-rep-plugin">
+                    <div class="">
+                        <div class="button-list pull-left mb-15">
+                            <ul class="float-btn float-btn-right">
+                                <li>
+                                    <a href="javascript:void();" class="btn btn-default btn-sm"> <i class="fa fa-envelope"></i> </a>
+                                    <a href="javascript:void();" class="btn btn-default btn-sm"> <i class="fa fa-trash-o"></i> </a>
+                                    <a routerLink="../crm-createlead" class="btn btn-default btn-sm"> <i class="fa fa-pencil"></i> </a>
+                                </li>
+								          <div class="dropdown text-left mb-10">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-tasks" aria-hidden="true"></i>
+                            </button>
+                            <div class="dropdown-menu lead" aria-labelledby="dropdownMenuButton">
+                                <ul class="task_width">
+                                    <li><a [className]="task_type=='First' ? 'active dropdown-item' : 'dropdown-item'">
+                                            <label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement1()" checked>
+                                                <span class="label-text"></span> </label>
+                                            First Name</a></li>
+                                    <li> <a [className]="task_type=='Last' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement2()" checked>
+                                                <span class="label-text"></span> </label>Last Name</a></li>
+                                    <li> <a [className]="task_type=='Company' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement3()" checked>
+                                                <span class="label-text"></span> </label>Company</a></li>
+                                    <li> <a [className]="task_type=='Phone' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement4()" checked>
+                                                <span class="label-text"></span> </label>Phone</a></li>
+                                    <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement5()" checked>
+                                                <span class="label-text"></span> </label>Lead Owner</a></li>
+                                    <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement6()" checked >
+                                                <span class="label-text"></span> </label>Lead Source</a></li>
+												  <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement7()" checked >
+                                                <span class="label-text"></span> </label>Created By</a></li>
+												  <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement8()" checked >
+                                                <span class="label-text"></span> </label>Modified By</a></li>
+												  <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement9()" checked >
+                                                <span class="label-text"></span> </label>Created Time</a></li>
+												  <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement10()" checked >
+                                                <span class="label-text"></span> </label>Full Name</a></li>  <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement11()" checked >
+                                                <span class="label-text"></span> </label>Street</a></li>
+												  <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement12()" checked >
+                                                <span class="label-text"></span> </label>City</a></li>
+												  <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement13()" checked >
+                                                <span class="label-text"></span> </label>State</a></li>
+												  <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement14()" checked >
+                                                <span class="label-text"></span> </label>Zip Code</a></li>
+												  <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement15()" checked >
+                                                <span class="label-text"></span> </label>Description</a></li>
+												  <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement16()" checked >
+                                                <span class="label-text"></span> </label>Salutation</a></li>
+												  <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement17()" checked >
+                                                <span class="label-text"></span> </label>Secondary Email</a></li>
+												  <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement18()" checked >
+                                                <span class="label-text"></span> </label>Last Activity Time</a></li>
+												 <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement19()" checked >
+                                                <span class="label-text"></span> </label>Tag</a></li>
+												 <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement20()" checked >
+                                                <span class="label-text"></span> </label>Project Number</a></li>
+												 <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement21()" checked >
+                                                <span class="label-text"></span> </label>Project Type</a></li>
+												 <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement22()" checked >
+                                                <span class="label-text"></span> </label>Job Specific</a></li>
+												 <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement23()" checked >
+                                                <span class="label-text"></span> </label>Secondary Phone</a></li>
+												 <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement24()" checked >
+                                                <span class="label-text"></span> </label>No Walk Needed</a></li>
+												 <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement25()" checked >
+                                                <span class="label-text"></span> </label>Secondary Contact</a></li>
+												<li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement26()" checked >
+                                                <span class="label-text"></span> </label>County</a></li>
+												<li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                                                <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement27()" checked >
+                                                <span class="label-text"></span> </label>Active/Inactive</a></li>
+												<!-- <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label> -->
+                                                <!-- <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement27()" checked > -->
+                                                <!-- <span class="label-text"></span> </label>Action</a></li> -->
+    
+                                </ul>
+                            </div>
+
+							
+									
+                        </div>
+                                
+                            </ul>
+                        </div>
+                        <div class="button-list pull-right mb-15">
+                            <ul class="float-btn float-btn-left">
+                                <li>
+                                    <ul class="filter-view pull-right">
+                                        <li><a data-tab="tab-1" href="#" class="activelink" title="List View"><i class="fa fa-th-list"></i></a></li>
+                                        <li><a data-tab="tab-2" href="#" title="Grid View"><i class="fa fa-th"></i></a></li>
+                                    </ul>
+                                </li>
+                                <li> <a routerLink="../crm-createlead" class="btn btn-info waves-effect waves-light" data-toggle="modal" data-target="#addTask"><i class="fa fa-plus"></i> Create Task</a> </li>
+                                <li>
+                                    <div class="btn-group">
+                                        <a routerLink="../crm-createlead" class="btn btn-default ml-5"> <i class="fa fa-plus"></i></a> <a class="btn btn-default btn-city dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Import <span class="caret caret-search"></span> </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li><a  (click)="openModal_for_import_file()" >Import Leads</a></li>
+                                            <li><a href="#">Import Notes</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="tab-1" class="content current">
+                        <div class="table-responsive" data-pattern="priority-columns">
+						  <div>
+                            <table id="tech-companies-1" class="table  table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 36px; text-align: center;">
+                                            <div class="form-check">
+                                                <label>
+                                                    <input name="check" type="checkbox" id="ckbCheckAll">
+                                                    <span class="label-text"></span> </label>
+                                            </div>
+                                        </th>
+                                        <th [hidden]="hidefirstname1" data-priority="1">First Name</th>
+                                        <th [hidden]="hidelastname1" data-priority="2">Last Name</th>
+                                        <th [hidden]="hidecompany1" data-priority="3">Company</th>
+                                        <th [hidden]="hidephone1" data-priority="4">Phone</th>
+                                        <th [hidden]="hideleadowner1" data-priority="0">Lead Owner</th>
+                                        <th [hidden]="hideleadsource1" data-priority="0">Lead Source</th>
+                                        <th [hidden]="hidecreatedby1" data-priority="0">Created By</th>
+                                        <th [hidden]="hidemodifiedby1" data-priority="0">Modified By</th>
+                                        <th [hidden]="hidecreatedtime1" data-priority="0">Created Time</th>
+                                        <th [hidden]="hidefullname1" data-priority="0">Full Name</th>
+                                        <th [hidden]="hidestreet1" data-priority="0">Street</th>
+                                        <th [hidden]="hidecity1" data-priority="0">City</th>
+                                        <th [hidden]="hidestate1" data-priority="0">State</th>
+                                        <th [hidden]="hidezipcode1" data-priority="0">Zip Code</th>
+                                        <th [hidden]="hidedescription1" data-priority="0">Description</th>
+                                        <th [hidden]="hidesalution1" data-priority="0">Salutation</th>
+                                        <th [hidden]="hidesecondaryemail1" data-priority="0">Secondary Email</th>
+                                        <th [hidden]="hidelastactivity1" data-priority="0">Last Activity Time</th>
+                                        <th [hidden]="hidetag1" data-priority="0">Tag</th>
+                                        <th [hidden]="hideprojectnumber1" data-priority="0">Project Number</th>
+                                        <th [hidden]="hideprojecttype1" data-priority="0">Project Type</th>
+                                        <th [hidden]="hidejobspecific1" data-priority="0">Job Specific</th>
+                                        <th [hidden]="hidesecondaryphone1" data-priority="0">Secondary Phone</th>
+                                        <th [hidden]="hidenowalk1" data-priority="0">No Walk Needed</th>
+                                        <th [hidden]="hidesecoundrycontact1" data-priority="0">Secondary Contact</th>
+                                        <th [hidden]="hidecountry1" data-priority="0">County</th>
+                                        <th [hidden]="hideis_active1" data-priority="0">Active/Inactive</th>
+										 <!-- <th [hidden]="hideaction1" data-priority="0">Action</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let Lead of allleads ">
+                                        <td>
+                                            <div class="form-check">
+                                                <label>
+                                                    <input name="check" type="checkbox" class="checkBoxClass">
+                                                    <span class="label-text"></span> </label>
+                                            </div>
+                                        </td>
+                                        <td [hidden]="hidefirstname1"><a routerLink="../crm-viewlead">{{Lead.firstname}}</a></td>
+                                        <td [hidden]="hidelastname1">{{Lead.lastname}}</td>
+										 <td [hidden]="hidecompany1"><a href="javascript:void();">{{Lead.company}}</a></td>
+                                        <td [hidden]="hidephone1">{{Lead.phone}}</td>
+										 <td [hidden]="hideleadowner1">{{Lead.leadowner}} </td>
+										  <td [hidden]="hideleadsource1">{{Lead.leadsource}}</td>
+										  <td [hidden]="hidecreatedby1"></td>
+										   <td [hidden]="hidemodifiedby1"></td>
+										    <td [hidden]="hidecreatedtime1">{{Lead.followupdate}}</td>
+											 <td [hidden]="hidefullname1">{{Lead.firstname}}{{Lead.lastname}}</td>
+                                        <!-- <td>{{Lead.email}}</td> -->
+                                        <td [hidden]="hidestreet1">{{Lead.street}}</td>
+										<td [hidden]="hidecity1">{{Lead.city}}</td>
+										 <td [hidden]="hidestate1">{{Lead.state}}</td> 
+										 <td [hidden]="hidezipcode1">{{Lead.zipcode}}</td>
+										  <td [hidden]="hidedescription1">{{Lead.description}}</td>
+										  <td [hidden]="hidesalution1"></td>
+										   <td [hidden]="hidesecondaryemail1">{{Lead.secondaryemail}}</td>
+										      <td [hidden]="hidelastactivity1">{{Lead.confirmwalkthrough}}</td>
+											   <td [hidden]="hidetag1">{{Lead.referralname}}</td>
+											    <td [hidden]="hideprojectnumber1">{{Lead.projectnumber}}</td>
+												<td [hidden]="hideprojecttype1">{{Lead.projecttype}}</td>
+												 <td [hidden]="hidejobspecific1">{{Lead.jobspecific}}</td>
+                                         <td [hidden]="hidesecondaryphone1">{{Lead.secondaryphone}}</td>
+										 <td [hidden]="hidenowalk1" ></td>
+                                        <td [hidden]="hidesecoundrycontact1">{{Lead.secondarycontact}}</td>
+                                       
+                                       <td [hidden]="hidecountry1">{{Lead.country}}</td>
+                                       
+                                        <td [hidden]="hideis_active1">{{Lead.is_active}}</td>
+                                       
+                      
+                                       
+                                       
+                                     <td><a title="Delete" (click)="delete_Lead_data(Lead.id);"><i class="fa fa-trash"></i></a>
+									 <a  routerLink="../editcreat-lead/{{Lead.id}}" title="Edit" ><i class="fa fa-edit"></i></a>
+									 </td>
+                                       
+                                       
+                                       
+                                       
+                                        
+                                       
+                                      
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+							   </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div id="tab-2" class="content hide d-flex">
+                        <div class="kanbanBox">
+                            <div class="dd">
+                                <ol class="kanban To-do">
+                                    <h4>Project Inquiry</h4>
+                                    <li class="dd-item" data-id="1">
+                                        <h3 class="title dd-handle">title of job</h3>
+                                        <div class="text" contenteditable="true">wwPaul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer </div>
+                                    </li>
+                                    <li class="dd-item" data-id="1">
+                                        <h3 class="title dd-handle">title of job</h3>
+                                        <div class="text" contenteditable="true">wwPaul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer </div>
+                                    </li>
+                                    <li class="dd-item" data-id="1">
+                                        <h3 class="title dd-handle">title of job</h3>
+                                        <div class="text" contenteditable="true">wwPaul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer </div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban progress">
+                                    <h4>First Followup</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">title of job</h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban  Done">
+                                    <h4>Second Followup</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">title of job</h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Third Followup</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">title of job</h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban progress">
+                                    <h4>New Project Walk Through</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">title of job</h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban  Done">
+                                    <h4>Needs Estimate</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">title of job</h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Lost Leads</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">title of job</h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+			 <div class="modal" *ngIf="modeldisplay4" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2" tabindex="-1"
+        role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color:#fff;">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete Lead</h4>
+                    <button type="button" class="close" (click)="hidemodel4()" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+    
+                <div class="modal-body">
+                    <p> Are You Sure ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel4()">Close</button>
+                    <button type="submit" class="btn btn-success" (click)="delete_lead(delete_lead_id)">Delete Lead</button>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+			 <div class="modal" *ngIf="modeldisplay1" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2" tabindex="-1"
+        role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color:#fff;">
+                <div class="modal-header">
+                    <h4 class="modal-title">Crm Lead</h4>
+                    <button type="button" class="close" (click)="hidemodel1()" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+      
+     <div class="modal-body">
+        <label for="category">Upload File<span class="red-star">*</span></label>
+          <input class="form-control" id="file-upload" type="file" type="file" (change)="onSelectFile($event)"
+                        name="uploaded_file" ng2FileSelect [uploader]="uploader" accept=".csv, application/vnd.ms-excel," #fileInput />
+      </div>
+      
+   
+ 
+ <div class="modal-footer">
+     
+      <button type="button" class="btn btn-sm btn-warning" (click)="download_csv_file();">Download Sample</button>
+    
+      <button type="button" class="btn btn-success btn-sm" (click)="upload_csv_file();">Save</button>
+   <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel1()">Close</button>
+   
+  </div>
+    
+            </div>
+        </div>
+    </div> 
+        </div>
+		
+		
+    </section>

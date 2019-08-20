@@ -1,0 +1,72 @@
+<div class="col-md-8 col-xs-12 col-sm-12 p0" >
+  <div class="card">
+    <div class="card-body">
+      <div class="col-md-12"> Industry License
+        <input class="checkbox pull-left" style="margin-right: 10px; margin-top: 0px;" type="checkbox">
+      </div>
+      <form [formGroup]="licenseForm" >
+        <div formArrayName="licenses" > 
+          <div *ngFor="let item of licenses.controls; let pointIndex=index" [formGroupName]="pointIndex">
+            <div class="clearfix"></div>
+            <hr>
+            <div class="col-md-12">
+        <div class="add-state"> <a href="javascript:void(0);"  *ngIf="pointIndex < 1" (click)="addlicenses()" class="mt-0 btn btn-xs btn-success pull-right"> Add License <i class="fa fa-plus"></i> </a>
+                                <a href="javascript:void(0);"  *ngIf="pointIndex > 0"  (click)="deletelicenses(pointIndex)" class="mt-0 btn btn-xs btn-success pull-right"> Remove License  </a>
+          <div id="DivAppend">
+            <div class="repete-box" >
+              <div class="col-md-12 p0">
+                <div class="form-inline">
+                  <div class="form-group w-100">
+                    <div class="col-md-3">
+                      <label class="d-block">State Registered</label>
+                      <select class="custom-select" formControlName="state_id">
+                        <option value="">--State--</option>
+                        <option value="1">Alaska</option>
+                        <option value="2">Arizona</option>
+                        <option value="3">California</option>
+                        <option value="4">Ohio</option>
+                        <option value="5">Texas</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <label class="d-block">License#</label>
+                      <input placeholder="License" type="text" formControlName="license_number">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="userName">Status</label>
+                        <select class="custom-select" formControlName="status">
+                          <option value="">--Status--</option>
+                          <option value="1">Active</option>
+                          <option value="0">Inactive</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 p0">
+                      <label class="v-hidden d-block">Verify</label>
+                      <!-- <a href="javascript:void();" class="btn btn-info btn-md">Verify</a> -->
+                      <!-- <div class="circle-loader">
+                        <div class="checkmark draw"></div>
+                      </div> -->
+                      <button id="toggle" type="button"  class="btn btn-info">Verify</button>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+          <hr>
+          <div class="row">
+            <div class="col-md-12">
+              <button class="btn btn-primary nextBtn btn-md mt-7 pull-right" (click)="savelicenses()" type="button" >Next </button>
+            </div>
+          </div>
+       </form> 
+      </div>
+    </div>
+  
+</div>

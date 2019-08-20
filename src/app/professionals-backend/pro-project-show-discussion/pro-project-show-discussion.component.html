@@ -1,0 +1,204 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <nav>
+
+          <ul class="nav navbar-nav">
+            <li><a routerLink="../../../project-overview/{{project_id}}">Overview</a></li>
+            <li><a routerLink="../../../project-task/{{project_id}}">Task</a></li>
+            <li><a routerLink="../../../project-calendar/{{project_id}}">Calendar</a></li>
+            <li><a routerLink="../../../project-activity/{{project_id}}">Activity</a></li>
+            <li><a routerLink="../../../project-reports/{{project_id}}">Reports</a></li>
+            <li *ngIf="select_permissions.indexOf(25) !== -1"><a routerLink="../../../project-discussion/{{project_id}}"
+                class="active">Discussion</a></li>
+            <li><a routerLink="../../../project-files/{{project_id}}">Files</a></li>
+            <li><a routerLink="../../../project-users/{{project_id}}">Users</a></li>
+            <li><a routerLink="../../notes/{{project_id}}">Notes</a></li>
+          </ul>
+
+          <div class=" col-md-12 text-right mb-15">
+              <a routerLink="../../../project-discussion/{{project_id}}" class="btn btn-default"> <i
+                class="fa fa-arrow-left"></i> Go Back</a> 
+          </div>
+        </nav>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card-box">
+          <div class="blog-post-area">
+            <div class="single-blog-post">
+              <h4>{{discussion.discussion_title}}
+                <div *ngIf="role == 'Administrator' && project_company_id===company_id">
+                  <a (click)="confirm_move_archive()" class="btn btn-default"> Move to archive</a>
+                </div>
+              </h4>
+              <hr>
+              <p class="text-muted mb-1">
+                {{discussion.discussion_description}}
+              </p>
+              <div *ngIf="discussion.discussion_type == '1' " class="mb-15 badge badge-success">
+                internal</div>
+              <div *ngIf="discussion.discussion_type == '2' " class="mb-15 badge badge-danger">
+                External</div>
+              <div class="post-meta">
+                <ul>
+                  <li><i class="fa fa-user"></i>{{discussion.firstname}} </li>
+                  <li><i class="fa fa-clock-o"></i> {{discussion.created_at | date:'shortTime'}}</li>
+                  <li><i class="fa fa-calendar"></i> {{discussion.created_at  | date:alldate}}</li>
+                </ul>
+              </div>
+              <div class="col-md-5 p0">
+                <span
+                  *ngIf="discussion.discussion_extension=='pdf' || discussion.discussion_extension=='xls'|| discussion.discussion_extension=='xlsx' || discussion.discussion_extension=='docx'|| discussion.discussion_extension=='doc'|| discussion.discussion_extension=='csv'|| discussion.discussion_extension=='txt'|| discussion.discussion_extension=='zip'||discussion.discussion_extension=='PDF'||discussion.discussion_extension=='XLS'||discussion.discussion_extension=='XLSX'||discussion.discussion_extension=='DOC'||discussion.discussion_extension=='DOCX'||discussion.discussion_extension=='TXT'||discussion.discussion_extension=='ZIP';else other_content"><img
+                    class="card-img-top img-responsive" style="margin: 0 auto;"
+                    src="http://itsabacus.net/sprucebox_api/public/file_type_images/{{discussion.discussion_extension}}.png"
+                    alt="cap"> <br /><a (click)="downloaddiscussionFile(discussion.discussion_file_url)" class="icon"
+                    download="test.jpg"><i class="fa fa-download"></i></a></span>
+
+                <ng-template #other_content><img class="card-img-top img-responsive"
+                    src="{{discussion.discussion_file_url}}" alt=""></ng-template>
+
+              </div>
+              <div class="clearfix"></div>
+
+
+            </div>
+          </div>
+          <div class="response-area">
+            <ul class="media-list" *ngFor="let comment of comments">
+              <li class="media">
+                <a class="pull-left" href="#">
+                  <img class="media-object" src="{{comment.user_image}}" style="width: 100px;" alt="">
+                </a>
+
+                <div class="media-body">
+                  <ul class="sinlge-post-meta">
+                    <li><i class="fa fa-user"></i>{{comment.user_name}}</li>
+                    <li><i class="fa fa-clock-o"></i> {{comment.comment_date| date:'shortTime' }}</li>
+                    <li><i class="fa fa-calendar"></i> {{comment.comment_date  | date:alldate}} <a class="delete"
+                        (click)="confirm_remove_user(comment.comment_id)"><i class="fa fa-trash"></i></a> </li>
+                  </ul>
+
+                  <p>{{comment.comment}}</p>
+
+                  <a *ngIf="select_permissions.indexOf(26) !== -1" class="btn btn-primary"
+                    (click)="hideshow(comment.comment_id)"> <i class="fa fa-reply"></i> Reply</a>
+                  <div class="replay-box2" [hidden]="!hideme[comment.comment_id]">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <h2 class="mb-15">Leave a Reply</h2>
+                        <div style="position: relative;">
+                          <form class="w-100" role="form" #replyCommentsForm="ngForm">
+
+                            <textarea [class.is-invalid]="replycomment.invalid && replycomment.touched"
+                              [(ngModel)]="ReplyCommentFormdata.comment" #replycomment="ngModel" name="replycomment"
+                              placeholder="Comment" required rows="3" class="form-control"></textarea>
+                              <p>
+                            <small class="text-danger"
+                              [class.d-none]="replycomment.valid || replycomment.untouched">Comment is required</small>
+                              </p>
+                            <button type="button" *ngIf="select_permissions.indexOf(26) !== -1" class="btn btn-primary"
+                              (click)="reply_comment(comment.comment_id);replyCommentsForm.reset()"
+                              [disabled]="replyCommentsForm.form.invalid" role="button">Post comment</button>
+
+                          </form>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="media second-media" *ngFor="let child_comment of comment.child_comments">
+                <a class="pull-left" href="#">
+                  <img class="media-object" src="{{child_comment.profile_image}}" style="width: 100px;" alt="">
+                </a>
+                <div class="media-body">
+                  <ul class="sinlge-post-meta">
+                    <li><i class="fa fa-user"></i>{{child_comment.firstname}}</li>
+                    <li><i class="fa fa-clock-o"></i> {{child_comment.created_at| date:'shortTime' }}</li>
+                    <li><i class="fa fa-calendar"></i> {{child_comment.created_at  | date:alldate}}<a class="delete"
+                        (click)="confirm_remove_user(child_comment.id)"><i class="fa fa-trash"></i></a></li>
+                  </ul>
+                  <p>{{child_comment.comment}}</p>
+
+                </div>
+              </li>
+
+            </ul>
+          </div>
+          <!--/Response-area-->
+          <div class="replay-box">
+            <div class="row">
+              <div class="col-sm-12">
+                <h2 class="mb-15">Leave a Comment</h2>
+                <div style="position: relative;">
+                  <form class="w-100" role="form" #addCommentsForm="ngForm">
+                    <textarea [class.is-invalid]="comment.invalid && comment.touched"
+                      [(ngModel)]="CommentFormdata.comment" #comment="ngModel" name="comment" placeholder="Comment"
+                      required rows="3" class="form-control"></textarea>
+                    <small class="text-danger" [class.d-none]="comment.valid || comment.untouched">Comment is
+                      required</small>
+                    <button type="button" *ngIf="select_permissions.indexOf(26) !== -1" class="btn btn-primary"
+                      (click)="add_new_comment();addCommentsForm.reset()" [disabled]="addCommentsForm.form.invalid"
+                      role="button">Post comment</button>
+
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--/Repaly Box-->
+        </div>
+      </div>
+    </div>
+    <div class="modal" *ngIf="modeldisplay2" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+      tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color:#fff;">
+          <div class="modal-header">
+            <h4 class="modal-title">Remove Users</h4>
+            <button type="button" class="close" (click)="hidemodel2()" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+          </div>
+
+          <div class="modal-body">
+            <p> Are You Sure ?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+              (click)="hidemodel2()">Close</button>
+            <button type="submit" class="btn btn-success" (click)="remove_user(remove_user_id)">Remove User</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="modal" *ngIf="modeldisplay3" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+      tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color:#fff;">
+          <div class="modal-header">
+            <h4 class="modal-title">Move Archive</h4>
+            <button type="button" class="close" (click)="hidemodel3()" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+          </div>
+
+          <div class="modal-body">
+            <p> Are You Sure ?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+              (click)="hidemodel3()">Close</button>
+            <button type="submit" class="btn btn-success" (click)="update_discussion_data()">Move Archive</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

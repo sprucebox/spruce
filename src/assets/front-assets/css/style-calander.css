@@ -1,0 +1,176 @@
+.bg-custom {
+     background-color: #3c86d8 !important;
+}
+ .bg-gradient {
+     background: #5d6dc3;
+     background: linear-gradient(to top, #5d6dc3, #3c86d8);
+}
+ .bg-primary {
+     background-color: #5d6dc3 !important;
+}
+ .bg-success {
+     background-color: #3ec396 !important;
+}
+ .bg-info {
+     background-color: #4fbde9 !important;
+}
+ .bg-warning {
+     background-color: #f9bc0b !important;
+}
+ .bg-danger {
+     background-color: #f36270 !important;
+}
+ .bg-muted {
+     background-color: #797979 !important;
+}
+ .bg-purple {
+     background-color: #9368f3 !important;
+}
+ .bg-pink {
+     background-color: #e061c9 !important;
+}
+ .bg-white {
+     background-color: #ffffff !important;
+}
+ .bg-dark {
+     background-color: #313a46 !important;
+}
+/* ============= Calendar ============= */
+ .calendar {
+     float: left;
+     margin-bottom: 0;
+}
+ .fc-view {
+     margin-top:10px;
+}
+ .none-border .modal-footer {
+     border-top: none;
+}
+ .fc-toolbar {
+     margin-bottom: 5px;
+     /*margin-top: 15px;*/
+}
+ .fc-toolbar h2 {
+     font-size: 18px;
+     font-weight: 600;
+     font-family: "Roboto", sans-serif;
+     line-height: 30px;
+     text-transform: uppercase;
+}
+.fc-center h2{
+  margin-bottom: 0px;
+}
+ .fc-day-grid-event .fc-time {
+     font-family: "Roboto", sans-serif;
+}
+}
+ .fc-day {
+     background: #ffffff;
+}
+ .fc-toolbar .fc-state-active, .fc-toolbar .ui-state-active, .fc-toolbar button:focus, .fc-toolbar button:hover, .fc-toolbar .ui-state-hover {
+     z-index: 0;
+}
+ .fc th.fc-widget-header {
+     background: #e2e2e2;
+     font-size: 14px;
+     line-height: 20px;
+     padding: 10px 0;
+     text-transform: uppercase;
+}
+ .fc-unthemed th, .fc-unthemed td, .fc-unthemed thead, .fc-unthemed tbody, .fc-unthemed .fc-divider, .fc-unthemed .fc-row, .fc-unthemed .fc-popover {
+     border-color: #e2e2e2;
+}
+ .fc-button {
+  background: #00b0f0;
+  border: none;
+  color: #fff;
+  text-transform: capitalize;
+  box-shadow: none !important;
+  border-radius: 3px !important;
+  margin: 0 3px !important;
+  padding: 6px 12px !important;
+  height: auto !important;
+}
+.fc-button:hover {
+  background: #00b0f0;
+  color: #fff;
+}
+
+ .fc-text-arrow {
+     font-family: inherit;
+     font-size: 16px;
+}
+ .fc-state-hover {
+     background: #f3f3f3;
+}
+ .fc-state-highlight {
+     background: #f0f0f0;
+}
+ .fc-state-down, .fc-state-active, .fc-state-disabled {
+     background-color: #009cd5  !important;
+}
+ .fc-cell-overlay {
+     background: #f0f0f0;
+}
+ .fc-unthemed .fc-today {
+     background: #ffffff;
+}
+ .fc-event {
+     border-radius: 2px;
+     border: none;
+     cursor: move;
+     font-size: 13px;
+     margin: 5px 7px;
+     padding: 5px 5px;
+     text-align: center;
+}
+ .external-event {
+     cursor: move;
+     margin: 10px 0;
+     padding: 8px 10px;
+}
+ .external-event.bg-primary {
+     background-color: rgba(93, 109, 195, 0.3) !important;
+     color: #5d6dc3;
+}
+ .external-event.bg-success {
+     background-color: rgba(62, 195, 150, 0.3) !important;
+     color: #3ec396;
+}
+ .external-event.bg-info {
+     background-color: rgba(79, 189, 233, 0.3) !important;
+     color: #4fbde9;
+}
+ .external-event.bg-warning {
+     background-color: rgba(249, 188, 11, 0.3) !important;
+     color: #f9bc0b;
+}
+ .external-event.bg-danger {
+     background-color: rgba(243, 98, 112, 0.3) !important;
+     color: #f36270;
+}
+ .external-event.bg-pink {
+     background-color: rgba(224, 97, 201, 0.3) !important;
+     color: #e061c9;
+}
+ .external-event.bg-purple {
+     background-color: rgba(147, 104, 243, 0.3) !important;
+     color: #9368f3;
+}
+ .external-event.bg-inverse {
+     background-color: rgba(49, 58, 70, 0.3) !important;
+     color: #313a46;
+}
+ .fc-basic-view td.fc-week-number span {
+     padding-right: 8px;
+     font-weight: 700;
+     font-family: "Roboto", sans-serif;
+}
+ .fc-basic-view td.fc-day-number {
+     padding-right: 8px;
+     font-weight: 700;
+     font-family: "Roboto", sans-serif;
+}
+ .fc-basic-view .fc-content {
+     color: #ffffff;
+}

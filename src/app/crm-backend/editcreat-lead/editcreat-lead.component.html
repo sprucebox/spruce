@@ -1,0 +1,389 @@
+<section class="">
+  <div class="pageheader">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12">
+                  <h4><i class="fa fa-user"></i> Create Lead</h4>
+                  <div class="button-list pull-right mt-7">
+                      <ul class="float-btn float-btn-left">
+                          <li>
+                              <a routerLink="../crmlead" class="btn btn-default"> <i class="fa fa-arrow-left"></i> Go Back</a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="container">
+      <div class="row">
+          <div class="col-sm-12">
+              <div class="wow fadeIn">
+                  <form class="w-100" #myForm="ngForm" role="form" action="" method="post">
+                      <div class="card">
+                          <div class="card-body">
+                              <h4 class="col-md-12">Lead Information</h4>
+                              <div class="clearfix"></div>
+                              <hr>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">First Name</label>
+									   <div class="col-sm-8">
+                                       <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.first_name" #first_name="ngModel" maxlength="50" name="first_name"
+                                        placeholder="First Name" required>
+										 </div>
+                                  
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Last Name</label>
+                                      <div class="col-sm-8">
+                                           <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.last_name" #last_name="ngModel" maxlength="50" name="last_name"
+                                        placeholder="Last Name" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Phone</label>
+                                      <div class="col-sm-8">
+                                            <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.phone" #phone="ngModel" maxlength="10" name="phone"
+                                        placeholder="phone" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Email</label>
+                                      <div class="col-sm-8">
+                                           <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.email" #email="ngModel" maxlength="10" name="email"
+                                        placeholder="Email" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Company</label>
+                                      <div class="col-sm-8">
+                                          <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.company" #lead_name="ngModel" maxlength="50" name="company"
+                                        placeholder="company" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Secondary Contact</label>
+                                      <div class="col-sm-8">
+                                           <input type="number" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.secondary_contact" #lead_name="ngModel" maxlength="50" name="secondary_contact"
+                                        placeholder="Secondary contact" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Project Type</label>
+                                      <div class="col-sm-8">
+                                         <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.project_type" #lead_name="ngModel" maxlength="50" name="project_type"
+                                        placeholder="Project Type" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Secondary Phone</label>
+                                      <div class="col-sm-8">
+                                         <input type="number" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.secondary_phone" #lead_name="ngModel" maxlength="50" name="secondary_phone"
+                                        placeholder="Secondary Phone" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Job Specific</label>
+                                      <div class="col-sm-8">
+                                         <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.job_specific" #lead_name="ngModel" maxlength="50" name="job_specific"
+                                        placeholder="Job Specific" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Secondary Email</label>
+                                      <div class="col-sm-8">
+                                          <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.secondary_email" #lead_name="ngModel" maxlength="50" name="secondary_email"
+                                        placeholder="Secondary Email" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Project Number</label>
+                                      <div class="col-sm-8">
+                                         <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.project_number" #lead_name="ngModel" maxlength="100" name="project_number"
+                                        placeholder="Project Number" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">FollowUP Date</label>
+                                      <div class="col-sm-4">
+                                          <input placeholder="FollowUP Date" class="form-control" [(ngModel)]="updateLeadFormData.followUP_date" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" class="form-control" name="followUP_date" #followUP_date="ngModel">
+                                    <owl-date-time #dt3></owl-date-time>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Stage</label>
+                                      <div class="col-sm-8">
+                                          <select class="custom-select"
+                                        
+                                        [(ngModel)]="updateLeadFormData.Stage" 
+                                        #Stage="ngModel"
+                                        name="Stage" >
+                                        <ng-container *ngIf = "updateLeadFormData.Stage === ''"><option  value="">Select</option></ng-container>
+                                             <option  value="">Select</option>
+                                            <option value="0">Project Enquiry</option>
+                                            <option value="1">Second FollowUP</option>
+                                            <option value="2">Third FollowUP</option>
+                                            <option value="3">Need Project Walk Through</option>
+											<option value="4">Needs Estimate</option>
+										<option value="5">Lost Lead</option>
+											
+                                        </select>
+										   
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Lead Source</label>
+                                      <div class="col-sm-8">
+                                      <select class="custom-select"
+                                        
+                                        [(ngModel)]="updateLeadFormData.lead_source" 
+                                        #lead_source="ngModel"
+                                        name="Lead Source" >
+                                        <ng-container *ngIf = "updateLeadFormData.lead_source === ''"><option  value="">Select</option></ng-container>
+                                             <option  value="">Select</option>
+                                            <option value="0">Online</option>
+                                            <option value="1">Google Ad</option>
+                                            <option value="2">Referral</option>
+                                            <option value="3">Other</option>
+											
+											
+                                        </select>
+										      
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- <div class="col-md-6"> -->
+                                  <!-- <div class="form-group row"> -->
+                                      <!-- <label class="col-sm-4 col-form-label">No Walk Needed</label> -->
+                                      <!-- <div class="col-sm-8"> -->
+                                          <!-- <div class="form-check" style="margin-top:8px;"> -->
+                                              <!-- <label> -->
+                                                  <!-- <input name="check" id="ckbCheckAll" type="checkbox"> -->
+                                                  <!-- <span class="label-text"></span> </label> -->
+                                          <!-- </div> -->
+                                      <!-- </div> -->
+                                  <!-- </div> -->
+                              <!-- </div> -->
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Referral Name</label>
+                                      <div class="col-sm-8">
+                                          <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.referral_name" #lead_name="ngModel" maxlength="50" name="referral_name"
+                                        placeholder="Referral Name" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Confrim Walk through</label>
+                                      <div class="col-sm-8">
+                                          <input placeholder="Confrim Walk through" class="form-control" [(ngModel)]="updateLeadFormData.confirm_walk_through" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" class="form-control" name="confirm_walk_through" #followUP_date="ngModel">
+                                    <owl-date-time #dt2></owl-date-time>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Lead Owner</label>
+                                      <div class="col-sm-8">
+                                            <select class="custom-select"
+                                                        
+                                                        [(ngModel)]="updateLeadFormData.lead_owner" 
+                                                        #lead_owner="ngModel"
+                                                          name="lead_owner" required>
+                                                        <option value="">Select Lead Owner</option>
+                                                        <option value="{{puser.user_id}}" *ngFor="let puser of lead_user">{{puser.user_name}}</option>
+                                                       
+                                                    </select>
+										   
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Active/Inactive</label>
+                                      <div class="col-sm-8">
+                                            <select class="custom-select"
+                                        
+                                        [(ngModel)]="updateLeadFormData.is_active" 
+                                        #is_active="ngModel"
+                                        name="Active/Inactive" >
+                                        <ng-container *ngIf = "updateLeadFormData.is_active === ''"><option  value="">Select</option></ng-container>
+                                             <option  value="">Select</option>
+                                            <option value="0">Active</option>
+                                            <option value="1">Inactive</option>
+                                          
+											
+											
+                                        </select>
+										 
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Sales Person</label>
+                                      <div class="col-sm-8">
+                                          <select class="custom-select"
+                                                        
+                                                        [(ngModel)]="updateLeadFormData.sales_person" 
+                                                        #sales_person="ngModel"
+                                                          name="sales_person" required>
+                                                        <option value="">Select Sales Person</option>
+                                                        <option value="{{puser.user_id}}" *ngFor="let puser of lead_user">{{puser.user_name}}</option>
+                                                       
+                                                    </select>
+										     
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Project Walk Notes</label>
+                                      <div class="col-sm-8">
+                                         <textarea name="" 
+                                        [(ngModel)]="updateLeadFormData.project_walk_note" #project_walk_note="ngModel"
+                                        maxlength="200" name="project_walk_note" placeholder="Project Walk Notes" rows="3" class="form-control"></textarea>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Time Window Availablity</label>
+                                      <div class="col-sm-8">
+                                         <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.time_window_availability" #time_window_availability="ngModel" maxlength="100" name="time_window_availability"
+                                        placeholder="Time Window Availablity" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="clearfix"></div>
+                              <h4>Address Information </h4>
+                              <div class="clearfix"></div>
+                              <hr>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Street</label>
+                                      <div class="col-sm-8">
+                                           <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.Street" #Street="ngModel" maxlength="50" name="Street"
+                                        placeholder="Street" required>
+                                      </div>
+                                      </div>
+                                  </div>
+                             
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">City</label>
+                                      <div class="col-sm-8">
+                                           <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.City" #City="ngModel" maxlength="50" name="City"
+                                        placeholder="City" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">State</label>
+                                      <div class="col-sm-8">
+                                          <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.State" #State="ngModel" maxlength="50" name="State"
+                                        placeholder="State" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Zip Code</label>
+                                      <div class="col-sm-8">
+                                           <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.zip_code" #zip_code="ngModel" maxlength="50" name="zip_code"
+                                        placeholder="State" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">Project Site Access</label>
+                                      <div class="col-sm-8">
+                                           <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.project_site_access" #project_site_access="ngModel" maxlength="50" name="project_site_access"
+                                        placeholder="Project Site Access" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="form-group row">
+                                      <label class="col-sm-4 col-form-label">County</label>
+                                      <div class="col-sm-8">
+                                         <input type="text" class="form-control" 
+                                        [(ngModel)]="updateLeadFormData.County" #County="ngModel" maxlength="100" name="County"
+                                        placeholder="County" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="clearfix"></div>
+                              <h4>Project Information </h4>
+                              <div class="clearfix"></div>
+                              <hr>
+                              <div class="col-md-12">
+                                  <div class="form-group row">
+                                      <div class="col-sm-12">
+                                          <textarea name="" 
+                                        [(ngModel)]="updateLeadFormData.project_information" #project_information="ngModel"
+                                        maxlength="200" name="project_information" placeholder="Project Information" rows="3" class="form-control"></textarea>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-12 mt-2 text-right">
+                                  <button class="btn btn-success btn-md" type="button" (click)="update_LeadForm_Data()">Save </button>
+                                 
+                                  <button class="btn btn-default btn-md" type="button">Cancel </button>
+                              </div>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+      </div>
+</section>

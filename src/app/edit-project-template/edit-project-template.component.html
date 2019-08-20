@@ -1,0 +1,116 @@
+<section class="">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card-box">
+          <h4>Update Project
+            <a href="javascript:void(0)" routerLink="../../template-setting" class="btn btn-default"> <i
+                class="fa fa-arrow-left"></i> Go Back</a>
+          </h4>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="button-list col-md-12 mb-15">
+        <ul class="float-btn float-btn-left pull-right">
+          <button class="btn btn-success btn-md" (click)="confirm_project_remove(project_id)" type="button">Delete
+          </button>
+        </ul>
+      </div>
+      <div class="col-sm-12">
+        <div class="wow fadeIn">
+          <div class="card">
+            <div class="cardbox">
+              <form #projecttemplateForm="ngForm">
+                <div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="panel-body">
+                    <div class="col-md-12">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Project Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control"
+                            [class.is-invalid]="project_name.invalid && project_name.touched"
+                            [(ngModel)]="projectUpdatetemplateData.project_name" maxlength = "70" #project_name="ngModel"
+                            name="project_name" placeholder="Project Name" required trim="blur">
+                          <small class="text-danger"
+                            [class.d-none]="project_name.valid || project_name.untouched">Project
+                            Name is
+                            required</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <div id="file-upload-form" class="uploader">
+                            <input style="display: none" id="file-upload" type="file" (change)="onSelectFile($event)"
+                              name="uploaded_file" ng2FileSelect [uploader]="uploader" accept="image/*" #fileInput />
+                            <label for="file-upload" id="file-drag">
+                              <img id="file-image" [src]="projectUpdatetemplateData.project_image_url" alt="Preview"
+                                width="150px">
+                              <div id="start">
+                                <div>Project Image</div>
+                                <span id="file-upload-btn" class="btn btn-default">Change</span>
+                              </div>
+                            </label>
+                            <div class="progress" style="display: block;" *ngIf="pr_show">
+                              <div class="progress-bar" role="progressbar"
+                                [ngStyle]="{ 'width': uploader.progress + '%' }">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-9">
+                          <div class="form-group row">
+                            <div class="col-sm-12">
+                              <label>Description</label>
+                              <textarea rows="2" placeholder="description"
+                                [class.is-invalid]="project_description.invalid && project_description.touched"
+                                [(ngModel)]="projectUpdatetemplateData.project_description" maxlength = "500"
+                                #project_description="ngModel" name="project_description"
+                                class="form-control" trim="blur"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <hr>
+                    <div class="col-md-12 mt-2 text-right">
+                      <button class="btn btn-success btn-md" (click)="update_project_template()"
+                        [disabled]="projecttemplateForm.form.invalid" type="button">Save </button>
+
+                      <button class="btn btn-default btn-md" type="button">Cancel </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" *ngIf="modeldisplay3" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+    tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="background-color:#fff;">
+        <div class="modal-header">
+          <h4 class="modal-title">Remove Project</h4>
+          <button type="button" class="close" (click)="hidemodel3()" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">&times;</span></button>
+        </div>
+
+        <div class="modal-body">
+          <p> Are You Sure ?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel3()">Close</button>
+          <button type="submit" class="btn btn-success" (click)="remove_user(remove_user_id)">Remove Project</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

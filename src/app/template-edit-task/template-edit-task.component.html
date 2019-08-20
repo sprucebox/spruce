@@ -1,0 +1,228 @@
+<section class="">
+  <div class="container">
+    <div class="w-100 mt-15">
+      <div class="col-md-12 col-xs-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="col-md-12">
+              <h4 style="display: inline; float: left;"> Task Name: <small *ngIf="show_task_name">{{updatetemplateTaskFromData.task_name}} <a
+                    (click)="showhidebox('task_name')" class=""> <i class="fa fa-pencil"></i></a></small></h4>
+              <span *ngIf="!show_task_name" class="col-md-5">
+                <input type="text" class="form-control " [class.is-invalid]="task_name.invalid && task_name.touched"
+                  [(ngModel)]="updatetemplateTaskFromData.task_name" #task_name="ngModel" name="task_name"
+                  placeholder="Task Name" required (blur)="showhidebox('task_name')">
+                <small class="text-danger" [class.d-none]="task_name.valid || task_name.untouched">Task Name is
+                  required</small>
+              </span>
+            </div>
+
+            <div class="clearfix"></div>
+            <hr>
+            <!--=======Start Summernote==========-->
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">
+                <h5>Description: <a (click)="showhidebox('task_description')" class=""> <i class="fa fa-pencil"></i></a>
+                </h5>
+              </label>
+              <div class="col-sm-10">
+                <div *ngIf="show_task_desc" [innerHtml]="updatetemplateTaskFromData.task_description">
+                </div>
+                <div *ngIf="!show_task_desc">
+                  <app-ngx-editor [placeholder]="'Enter text here...'" [spellcheck]="true"
+                    [(ngModel)]="updatetemplateTaskFromData.task_description"></app-ngx-editor>
+                  <div class="w-100 mt-15">
+                    <button class="btn btn-success btn-md" type="button" (click)="showhidebox('task_description')">Save
+                    </button>
+                    <button class="btn btn-default btn-md" type="button">Cancel </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--=======End Summernote==========-->
+            <div class="row pull-left w-100">
+              <div class="clearfix"></div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Work hrs.</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control "
+                      [class.is-invalid]="task_work_hours.invalid && task_work_hours.touched"
+                      [(ngModel)]="updatetemplateTaskFromData.task_work_hours" #task_work_hours="ngModel"
+                      [ngModelOptions]="{standalone: true}" name="task_work_hours" placeholder="Work hrs" required>
+                    <small class="text-danger" [class.d-none]="task_work_hours.valid || task_work_hours.untouched">Work
+                      hrs is required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Status</label>
+                  <div class="col-sm-8">
+                    <select class="custom-select" [class.is-invalid]="status.invalid && status.touched"
+                      [(ngModel)]="updatetemplateTaskFromData.status" #status="ngModel" name="status" required>
+                      <option value="">Select</option>
+                      <option value="0">Open</option>
+                      <option value="2">Pending</option>
+                      <option value="1">Close</option>
+                      <option value="3">None</option>
+                    </select>
+                    <small class="text-danger" [class.d-none]="status.valid || status.untouched">Status is
+                      required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label">Priority</label>
+                  <div class="col-sm-8">
+                    <select class="custom-select" [class.is-invalid]="task_priority.invalid && task_priority.touched"
+                      [(ngModel)]="updatetemplateTaskFromData.task_priority" #task_priority="ngModel"
+                      name="task_priority" required>
+                      <option value="">Select</option>
+                      <option value="1">High</option>
+                      <option value="2">Medium</option>
+                      <option value="3">Low</option>
+                      <option value="4">None</option>
+                    </select>
+                    <small class="text-danger" [class.d-none]="task_priority.valid || task_priority.untouched">Priority
+                      is required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="w-100 mt-15">
+              <button (click)="update_template_by_id_detail()" class="btn btn-success btn-md" type="button">Save
+              </button>
+              <a routerLink="../../../template-setting" class="btn btn-default btn-md">Cancel </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-body">
+          <ul class="nav nav-tabs customTab" role="tablist">
+            <li role="presentation"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Comments</a></li>
+            <li role="presentation"><a href="#document" aria-controls="document" role="tab"
+                data-toggle="tab">Documents</a></li>
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+              <!-- =======Start Summernote========== -->
+              <div class="col-md-12 mb-15">
+                <div class="media d-flex" *ngFor="let comment of allcomments">
+                  <a href="javascript:void();">
+                    <img class="rounded-circle d-flex mr-10 rounded-circle thumb-md" src="{{comment.profile_image}}"
+                      alt="">
+                  </a>
+                  <div class="media-body col-sm-12">
+                    <h5>{{comment.firstname}}</h5>
+                    <p class="text-muted mb-0" [innerHtml]="comment.comments">
+
+                    </p>
+                    <small class="text-muted mb-1">
+                      {{comment.created_at | date}} | {{comment.created_at | date:'shortTime'}}
+                    </small>
+                  </div>
+                </div>
+
+              </div>
+
+              <h5>Add Comment</h5>
+
+              <app-ngx-editor [placeholder]="'Enter text here...'" [spellcheck]="true"
+                [(ngModel)]="TaskCommentFormData.comment"></app-ngx-editor>
+              <div class="w-100 mt-15 text-right">
+                <button class="btn btn-info btn-sm" type="button" (click)="addtemplatetaskComment();">Add Comment
+                </button>
+                <button class="btn btn-default btn-sm" type="button">Cancel </button>
+              </div>
+
+              <!--=======End Summernote==========-->
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="document">
+              <div class="add-filesbox mt-2">
+                <div style="text-align:center">
+                  <div class="text-center well">
+                    <p-fileUpload name="file[]" url="{{upload_url}}" (onUpload)="onUpload($event)"
+                          (onError)="onError($event)" (onBeforeSend)="onBeforeSend($event)" multiple="multiple"
+                          accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/doc,application/docs,application/xls,application/xlsx,text/Microsoft Excel Worksheet,text/html,video/mpeg,audio/mpeg3,video/mp4,audio/mp3,text/plain,image/heic heic,image/heif"
+                          maxFileSize="11000000">
+                          <ng-template pTemplate="content">
+                            <!-- <ul *ngIf="uplo*ngIfadedFiles.length"> -->
+                            <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes <span
+                                style="color: #28a745">Uploaded Success</span></li>
+                            <!-- </ul> -->
+                          </ng-template>
+                        </p-fileUpload>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-12">
+                <!-- Upload  -->
+                <div class="row mt-2">
+                  <div class="col-md-3" *ngFor="let projectfiles of alltaskfiles">
+
+                    <div class="card m-b-30">
+                      <span
+                        *ngIf="projectfiles.file_type=='png' || projectfiles.file_type=='jpg'|| projectfiles.file_type=='gif' || projectfiles.file_type=='jpeg';else other_content"><img
+                          class="card-img-top img-responsive" src="{{projectfiles.thumb_url}}" alt="cap"></span>
+                      <ng-template #other_content><img class="card-img-top img-responsive"
+                          src="../assets/images/file_type_images/{{projectfiles.file_type}}.png" alt="cap">
+                      </ng-template>
+
+                      <div class="card-body">
+                        <h4 class="link">{{projectfiles.file_title}}</h4>
+                        <span class="card-text text-muted">
+                          Add by {{projectfiles.firstname}} on {{projectfiles.created_at | date}} (20KB)
+                        </span>
+                        <span class="badge badge-pill badge-warning">2. Comment</span>
+                        <a (click)="deletetasktemplatefiles(projectfiles.file_id,projectfiles.file_name)" class="icon"
+                          download><i class="fa fa-trash"></i></a>
+                        <a (click)="downloadFile(projectfiles.file_name)" class="icon" download="test.jpg"><i
+                            class="fa fa-download"></i></a>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal" *ngIf="modeldisplay4" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+      tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color:#fff;">
+          <div class="modal-header">
+            <h4 class="modal-title">Remove file</h4>
+            <button type="button" class="close" (click)="hidemodel5()" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+          </div>
+
+          <div class="modal-body">
+            <p> Are You Sure ?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+              (click)="hidemodel5()">Close</button>
+            <button type="submit" class="btn btn-success" (click)="remove_user(remove_user_id,user_file_name)">Remove
+              File</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

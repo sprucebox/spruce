@@ -1,0 +1,119 @@
+<section>
+  <div class="container">
+      <div class="w-100">
+          <div class="col-md-12">
+              <nav>
+                 <ul class="nav navbar-nav">
+                      <li *ngIf="select_permissions2.indexOf(8) !== -1"><a routerLink="../user-setting" >User</a></li>
+                      <li *ngIf="select_permissions2.indexOf(11) !== -1" ><a routerLink="../role-setting" class="active" >Roles & Permission</a></li>
+                      <li *ngIf="select_permissions2.indexOf(14) !== -1"><a  routerLink="../notification-setting">Notification</a></li>
+                      <li *ngIf="select_permissions2.indexOf(16) !== -1"><a  routerLink="../date-time-setting">Date Time Setting</a></li>
+                      <li ><a  routerLink="../color-setting">Project Setting</a></li>
+                      <li ><a  routerLink="../template-setting">Template Setting</a></li>
+					   <li ><a  routerLink="../backup">Backup</a></li>
+                      
+                  </ul>
+                  
+              </nav>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+            <div class="mt-2">
+                <div class="w-100">
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <div class="col-md-5">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Role Name</label>
+                                      <div class="col-md-4 p0">
+                                        <select class="custom-select" name="userrole" (change)="onchange_roles($event.target.value)" onchange_roles>
+                                        <option value="">Select Role</option>
+                                        <option [value]="userrole.id" *ngFor="let userrole of userrolelist">{{userrole.role}}</option>
+                                        </select>
+                                        </div>
+                                    <div class="col-sm-1 pull-right">
+                                        <a  class="btn btn-info waves-effect waves-light pull-right" title="Add Role" (click)="add_role()"><i class="fa fa-plus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <a routerLink="../manage-role"  class="pull-right">Manage Role</a>
+                            <div class="clearfix"></div>
+                            <div id="treeview-container">
+                                <ul>
+                                    <li *ngFor="let permissions of permissionsgroup"> {{permissions.group_name}}
+                                        <ul>
+                                            <li *ngFor="let permission of permissions.permissions" >
+                                              <label>
+                                              <input [checked]="select_permissions.indexOf(permission.id) !== -1" type="checkbox"  (change)="onchange_permission(permission.id, $event.target.checked)" class="checkBoxClass" value="{{permission.id}}">
+                                              <span class="label-text"></span>{{permission.name}}</label>
+                                             </li>
+                                            
+                                        </ul>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mt-2 text-right">
+                                    <button class="btn btn-success btn-md" type="button" (click)="update_permissions()">Save </button>
+                                <button class="btn btn-default btn-md" (click)="reset()" type="button">Reset </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+</section>
+<div class="modal" *ngIf="modeldisplay3"  id="Modalupdate" tabindex="-1"
+        role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+        <div class="modal-dialog" role="document" >
+            <div class="modal-content" style="background-color: white"> 
+                <form role="form" #addRoleForm="ngForm">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Add Role</h4>
+                    </div>
+                    <div class="modal-body p-b-0 w-100">
+
+                        <div class="w-100">
+                            
+                                    
+                                        <div class="form-group">
+                                            <label class="control-label">Role Name</label>
+                                            <input type="text" class="form-control" [class.is-invalid]="role_name.invalid && role_name.touched"
+                                                [(ngModel)]="addRoleFromData.role_name" (change)="check_unique_role_name($event)" #role_name="ngModel" name="role_name"
+                                                placeholder="Role Name" required>
+                                            <small class="text-danger" [class.d-none]="role_name.valid || role_name.untouched">Event
+                                                Name is required</small>
+                                        </div>
+                                     <div class="form-group">
+                <label> Role Type</label>
+                <select [class.is-invalid]="role_type.invalid && role_type.touched" [(ngModel)]="addRoleFromData.role_type"
+                    #role_type="ngModel" name="role_type" required>
+                    <option value="">Select Type</option>
+                    <option value="1">Internal (Private)</option>
+                    <option value="2">External (Public)</option>
+                </select>
+                <small class="text-danger" [class.d-none]="role_type.valid || role_type.untouched">Role
+                    Type is required</small>
+            </div>    
+                                        
+                                
+                        </div>
+
+                    </div>
+                    <div class="modal-footer m-0">
+                            <button type="button" class="btn btn-success" (click)="add_new_role();addRoleForm.form.reset()"
+                            [disabled]="addRoleForm.form.invalid || disablebutton">Save</button>
+                    
+                        <button type="button" class="btn btn-secondary waves-effect" (click)="hidemodel3();addRoleForm.reset();">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

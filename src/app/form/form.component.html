@@ -1,0 +1,13 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <label for="exampleInputPassword1">Form Name</label>
+   <input type="text" [(ngModel)]="addFormData.form_name" #form_name="ngModel"
+                                        name="form_name">
+
+</div>
+<div>
+  <div id="stage1" class="build-wrap" style="padding: 100px;">
+  <button (click)="showmjson()" type="button">Get JSON Data</button>
+<button (click)="ExternalSaveJson()" type="button">Save JSON Data</button>
+  </div>
+

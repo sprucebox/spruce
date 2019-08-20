@@ -1,0 +1,73 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+          <nav class="pos-relative">
+              <ul class="nav navbar-nav">
+                  <li><a routerLink="../../project-overview/{{project_id}}">Overview</a></li>
+                  <li><a routerLink="../../project-task/{{project_id}}" >Task</a></li>
+                  <li><a routerLink="../../project-calendar/{{project_id}}" >Calendar</a></li>
+                  <li *ngIf="select_permissions.indexOf(27) !== -1 && project_company_id===company_id"><a routerLink="../../project-activity/{{project_id}}" class="active">Activity</a></li>
+                  <li *ngIf="project_company_id===company_id"><a routerLink="../../project-reports/{{project_id}}">Reports</a></li>
+                  <li><a routerLink="../../project-discussion/{{project_id}}" >Discussion</a></li>
+                  <li><a routerLink="../../project-files/{{project_id}}"  >Files</a></li>
+                  <li><a routerLink="../../project-users/{{project_id}}"  >Users</a></li>
+				  <li><a routerLink="../../notes/{{project_id}}"  >Notes</a></li>
+              </ul>
+          </nav>
+      </div>
+    </div>
+    <div class="button-list pull-left mb-15">
+               
+        <h4 style="display: inline; text-transform: uppercase">{{projectname}}</h4>
+    </div>
+      <div class="row">
+          <div class="col-sm-12">
+              <div class="card-box">
+                  <div class="qa-message-list" id="wallmessages">
+				  <div  *ngIf="activities?.length == 0; else other_content">
+				  <h5> No Record found </h5>
+				  </div>
+				   <ng-template #other_content>
+                      <div class="message-item" *ngFor="let activity of activities">
+                          <div class="message-inner">
+                              <div class="message-head clearfix">
+                                  <div class="avatar pull-left">
+                                      <a href="javascript:void(0);">
+                                          <img src="{{activity.profile_image}}" style="width:50px;"></a>
+                                  </div>
+                                  <div class="user-detail">
+                                      <h5 class="handle">{{activity.firstname}}</h5>
+                                      <div class="post-meta">
+                                          <div class="asker-meta">
+                                              <span class="qa-message-what"></span>
+                                              <span class="qa-message-when">
+                          <span class="qa-message-when-data"> <i class="fa fa-calendar"></i> {{ activity.created_at  | date:alldate }} | <i class="fa fa-clock-o"></i> {{ activity.created_at | date:'shortTime' }}</span>
+                                              </span>
+                                              <span class="qa-message-who">
+                          <span class="qa-message-who-pad">by </span>
+                                              <span class="qa-message-who-data"><a href="javascript:void(0);">{{activity.firstname}}</a></span>
+                                              </span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="qa-message-content">
+                                {{activity.activity_details}}
+                              </div>
+                          </div>
+                      </div>
+
+                      </ng-template> 
+
+                      
+                </div>
+              </div>
+              </div>
+                              
+                          </div>
+                      </div>
+                  
+
+
+</section>

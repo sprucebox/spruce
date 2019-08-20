@@ -1,0 +1,116 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <nav class="pos-relative">
+          <ul class="nav navbar-nav">
+            <li><a routerLink="../../project-overview/{{project_id}}">Overview</a></li>
+            <li><a routerLink="../../project-task/{{project_id}}">Task</a></li>
+            <li><a routerLink="../../project-calendar/{{project_id}}">Calendar</a></li>
+            <li *ngIf="project_company_id===company_id"><a
+                routerLink="../../project-activity/{{project_id}}">Activity</a></li>
+            <li *ngIf="project_company_id===company_id"><a routerLink="../../project-reports/{{project_id}}">Reports</a>
+            </li>
+            <li><a routerLink="../../project-discussion/{{project_id}}">Discussion</a></li>
+            <li><a routerLink="../../project-files/{{project_id}}">Files</a></li>
+            <li *ngIf="project_company_id===company_id"><a routerLink="../../project-users/{{project_id}}">Users</a>
+            </li>
+            <li *ngIf="select_permissions.indexOf(36) !== -1"><a routerLink="../../notes/{{project_id}}"
+                class="active">Notes</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 mb-15 ">
+        <h4 class="text-uppercase">{{projectname}}
+          <span *ngIf="select_permissions.indexOf(34) !== -1" class="pull-right"> <a
+              class="btn btn-info waves-effect waves-light" routerLink="../../addnotes/{{project_id}}"><i
+                class="fa fa-plus"></i> Add notes</a> </span>
+        </h4>
+      </div>
+    </div>
+    <div *ngIf="project_company_id==company_id && usertype=='1'; else externaluser">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+              <div  *ngIf="notes?.length == 0; else other_content">
+                  <h5> No Record found </h5>
+                  </div>
+                  <ng-template #other_content>
+              <div class="row">
+            <div class="col-sm-3" *ngFor="let note of notes">
+
+              <div class="card custom-card-tile">
+                <div class="card-block">
+                   <h4 class="card-title"> <a routerLink="../../editnotes/{{project_id}}/{{note.id}}" class="icon" Edit>{{note.title | truncate : 15}} <span [escape]="false" tooltipPosition="bottom" pTooltip={{note.title}}>...</span></a> </h4>
+                <div class="card-text">
+<span innerHtml="{{note.Description| truncate : 20}}"></span> <span style = "cursor:pointer" routerLink="../../editnotes/{{project_id}}/{{note.id}}" >...Read more</span> 
+
+                  </div>
+                  <!-- <div *ngIf="note.is_internal == 1 ">internal</div>
+                  <div *ngIf="note.is_internal == 2 ">External</div> -->
+                </div>
+                <div class="card-footer">
+                  <a  href="javascript:void('0');" routerLink="../../editnotes/{{project_id}}/{{note.id}}" class="icon" Edit><i
+                      class="fa fa-edit"></i></a>
+                  <a (click)="delete(note.id)" class="icon" Delete><i class="fa fa-trash"></i></a>
+                  <span *ngIf="note.is_internal == 1 " class="badge badge-warning pull-right">internal</span>
+                  <span *ngIf="note.is_internal == 2 " class="badge badge-info pull-right">External</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #externaluser>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-box">
+            <div class="col-sm-3" *ngFor="let note of notes">
+              <div class="card custom-card-tile">
+                <div class="card-block">
+                 <h4 class="card-title"> <a routerLink="../../editnotes/{{project_id}}/{{note.id}}" class="icon" Edit>{{note.title | truncate : 15}} <span [escape]="false" pTooltip={{note.title}}>...</span></a> </h4>
+                <div class="card-text">
+<span innerHtml="{{note.Description| truncate : 20}}"></span> <span [escape]="false" pTooltip={{note.Description}} >...Read more</span> 
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <a routerLink="../../editnotes/{{project_id}}/{{note.id}}" class="icon" Edit><i
+                      class="fa fa-edit"></i></a>
+                  <a (click)="delete(note.id)" class="icon" Delete><i class="fa fa-trash"></i></a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <div class="modal" *ngIf="modeldisplay2" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+      tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color:#fff;">
+          <div class="modal-header">
+            <h4 class="modal-title">Remove Notes</h4>
+            <button type="button" class="close" (click)="hidemodel2()" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+          </div>
+
+          <div class="modal-body">
+            <p> Are You Sure ?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+              (click)="hidemodel2()">Close</button>
+            <button type="submit" class="btn btn-success" (click)="remove_user(remove_user_id)">Remove Notes</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

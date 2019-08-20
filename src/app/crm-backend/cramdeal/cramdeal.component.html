@@ -1,0 +1,540 @@
+ <section class="">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav>
+                       <ul class="nav navbar-nav">
+                          <li><a routerLink="../crmoverview" class="active">Overview</a></li>
+                            <li><a routerLink="../crmlead">Leads</a></li>
+                            <li><a routerLink="../cramdeal">Deals</a></li>
+                            <li><a routerLink="../crmcontact">Contacts</a></li>
+                            <li><a routerLink="../crmcustmors">Customers</a></li>
+                            <li><a routerLink="../crmvendors">Vendors</a></li>
+                           <li><a routerLink="../crmappointment">Appointments</a></li>
+                            <li><a routerLink="../crmreport">Report</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="card-box">
+                <div class="table-rep-plugin">
+                    <div class="">
+                        <div class="button-list pull-left mb-15">
+                            <ul class="float-btn float-btn-right">
+                                <li>
+                                    <a href="javascript:void();" class="btn btn-default btn-sm"> <i class="fa fa-envelope"></i> </a>
+                                    <a href="javascript:void();" class="btn btn-default btn-sm"> <i class="fa fa-trash-o"></i> </a>
+                                    <a routerLink="../crm-create-deal" class="btn btn-default btn-sm"> <i class="fa fa-pencil"></i> </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="button-list pull-right mb-15">
+                            <ul class="float-btn float-btn-left">
+                                <li>
+                                    <ul class="filter-view pull-right">
+                                        <li><a data-tab="tab-1" href="#" class="activelink" title="List View"><i class="fa fa-th-list"></i></a></li>
+                                        <li><a data-tab="tab-2" href="#" title="Grid View"><i class="fa fa-th"></i></a></li>
+                                    </ul>
+                                </li>
+                                <li> <a href="javascript:void();" class="btn btn-info waves-effect waves-light" data-toggle="modal" data-target="#addTask"><i class="fa fa-plus"></i> Create Task</a> </li>
+                                <li>
+                                    <div class="btn-group">
+                                        <a routerLink="../crm-create-deal" class="btn btn-default ml-5"> <i class="fa fa-plus"></i></a> <a class="btn btn-default btn-city dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Import <span class="caret caret-search"></span> </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li><a href="#">Import Leads</a></li>
+                                            <li><a href="#">Import Notes</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="tab-1" class="content current">
+                        <div class="table-responsive" data-pattern="priority-columns">
+                            <table id="tech-companies-1" class="table  table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 36px; text-align: center;">
+                                            <div class="form-check">
+                                                <label>
+                                                    <input name="check" type="checkbox" id="ckbCheckAll">
+                                                    <span class="label-text"></span> </label>
+                                            </div>
+                                        </th>
+                                        <th data-priority="1">Deal Name</th>
+                                        <th data-priority="2">Amount</th>
+                                        <th data-priority="3">Stage</th>
+                                        <th data-priority="4">Closing Date</th>
+                                        <th data-priority="5">Acount Name</th>
+                                        <th data-priority="6">Deal Owner</th>
+                                        <th data-priority="0">Created Time</th>
+                                        <th data-priority="0">Modified Time</th>
+                                        <th data-priority="0">Description</th>
+                                        <th data-priority="0">Expected Revenue</th>
+                                        <th data-priority="0">Last Activity Time</th>
+                                        <th data-priority="0">Lead Conversion Time</th>
+                                        <th data-priority="0">Sales Cycle Duration</th>
+                                        <th data-priority="0">Overall Sales Duration</th>
+                                        <th data-priority="0">Tag</th>
+                                        <th data-priority="0">Email</th>
+                                        <th data-priority="0">Phone</th>
+                                        <th data-priority="0">Project Number</th>
+                                        <th data-priority="0">Project Type</th>
+                                        <th data-priority="0">Job Specific</th>
+                                        <th data-priority="0">Street</th>
+                                        <th data-priority="0">State</th>
+                                        <th data-priority="0">City</th>
+                                        <th data-priority="0">Country</th>
+                                        <th data-priority="0">Zip Code</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <label>
+                                                    <input name="check" type="checkbox" class="checkBoxClass">
+                                                    <span class="label-text"></span> </label>
+                                            </div>
+                                        </td>
+                                        <td><a routerLink="../crm-viewdeal">Thomas, Rob</a></td>
+                                        <td>$ 3,300.00</td>
+                                        <td>Estimate</td>
+                                        <td></td>
+                                        <td>Thomas, Rob</td>
+                                        <td>Katy Herbert</td>
+                                        <td>Apr 27, 2018 11:20 AM</td>
+                                        <td>Apr 27, 2018 11:20 AM</td>
+                                        <td>Please note that Rob Thomas is out of the country in Japan. He is selling his house, and is having the real estate agent, Trudie Wilhelm, meeting us at the project, etc. He is wanting fencing work to be done. (Rob Thomas is the one who will be paying)</td>
+                                        <td>Apr 27, 2018 11:20 AM</td>
+                                        <td>22</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>robthomasjpn@hotmail.com </td>
+                                        <td>503-720-4144 (Trudie)</td>
+                                        <td>18-0095</td>
+                                        <td>Exterior Work</td>
+                                        <td>Decking and Fencing</td>
+                                        <td>7392 SW Arranmore Wy</td>
+                                        <td>Portland</td>
+                                        <td>OR</td>
+                                        <td>97223</td>
+                                    </tr>
+									<tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label>
+                                                <input name="check" type="checkbox" class="checkBoxClass">
+                                                <span class="label-text"></span> </label>
+                                        </div>
+                                    </td>
+                                    <td><a routerLink="../crm-viewdeal">Thomas, Rob</a></td>
+                                    <td>$ 3,300.00</td>
+                                    <td>Estimate</td>
+                                    <td></td>
+                                    <td>Thomas, Rob</td>
+                                    <td>Katy Herbert</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Please note that Rob Thomas is out of the country in Japan. He is selling his house, and is having the real estate agent, Trudie Wilhelm, meeting us at the project, etc. He is wanting fencing work to be done. (Rob Thomas is the one who will be paying)</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>22</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>robthomasjpn@hotmail.com </td>
+                                    <td>503-720-4144 (Trudie)</td>
+                                    <td>18-0095</td>
+                                    <td>Exterior Work</td>
+                                    <td>Decking and Fencing</td>
+                                    <td>7392 SW Arranmore Wy</td>
+                                    <td>Portland</td>
+                                    <td>OR</td>
+                                    <td>97223</td>
+                                    </tr>
+									<tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label>
+                                                <input name="check" type="checkbox" class="checkBoxClass">
+                                                <span class="label-text"></span> </label>
+                                        </div>
+                                    </td>
+                                    <td><a routerLink="../crm-viewdeal">Thomas, Rob</a></td>
+                                    <td>$ 3,300.00</td>
+                                    <td>Estimate</td>
+                                    <td></td>
+                                    <td>Thomas, Rob</td>
+                                    <td>Katy Herbert</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Please note that Rob Thomas is out of the country in Japan. He is selling his house, and is having the real estate agent, Trudie Wilhelm, meeting us at the project, etc. He is wanting fencing work to be done. (Rob Thomas is the one who will be paying)</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>22</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>robthomasjpn@hotmail.com </td>
+                                    <td>503-720-4144 (Trudie)</td>
+                                    <td>18-0095</td>
+                                    <td>Exterior Work</td>
+                                    <td>Decking and Fencing</td>
+                                    <td>7392 SW Arranmore Wy</td>
+                                    <td>Portland</td>
+                                    <td>OR</td>
+                                    <td>97223</td>
+                                    </tr>
+									<tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label>
+                                                <input name="check" type="checkbox" class="checkBoxClass">
+                                                <span class="label-text"></span> </label>
+                                        </div>
+                                    </td>
+                                    <td><a routerLink="../crm-viewdeal">Thomas, Rob</a></td>
+                                    <td>$ 3,300.00</td>
+                                    <td>Estimate</td>
+                                    <td></td>
+                                    <td>Thomas, Rob</td>
+                                    <td>Katy Herbert</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Please note that Rob Thomas is out of the country in Japan. He is selling his house, and is having the real estate agent, Trudie Wilhelm, meeting us at the project, etc. He is wanting fencing work to be done. (Rob Thomas is the one who will be paying)</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>22</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>robthomasjpn@hotmail.com </td>
+                                    <td>503-720-4144 (Trudie)</td>
+                                    <td>18-0095</td>
+                                    <td>Exterior Work</td>
+                                    <td>Decking and Fencing</td>
+                                    <td>7392 SW Arranmore Wy</td>
+                                    <td>Portland</td>
+                                    <td>OR</td>
+                                    <td>97223</td>
+                                    </tr>
+									<tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label>
+                                                <input name="check" type="checkbox" class="checkBoxClass">
+                                                <span class="label-text"></span> </label>
+                                        </div>
+                                    </td>
+                                    <td><a routerLink="../crm-viewdeal">Thomas, Rob</a></td>
+                                    <td>$ 3,300.00</td>
+                                    <td>Estimate</td>
+                                    <td></td>
+                                    <td>Thomas, Rob</td>
+                                    <td>Katy Herbert</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Please note that Rob Thomas is out of the country in Japan. He is selling his house, and is having the real estate agent, Trudie Wilhelm, meeting us at the project, etc. He is wanting fencing work to be done. (Rob Thomas is the one who will be paying)</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>22</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>robthomasjpn@hotmail.com </td>
+                                    <td>503-720-4144 (Trudie)</td>
+                                    <td>18-0095</td>
+                                    <td>Exterior Work</td>
+                                    <td>Decking and Fencing</td>
+                                    <td>7392 SW Arranmore Wy</td>
+                                    <td>Portland</td>
+                                    <td>OR</td>
+                                    <td>97223</td>
+                                    </tr>
+									<tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label>
+                                                <input name="check" type="checkbox" class="checkBoxClass">
+                                                <span class="label-text"></span> </label>
+                                        </div>
+                                    </td>
+                                    <td><a routerLink="../crm-viewdeal">Thomas, Rob</a></td>
+                                    <td>$ 3,300.00</td>
+                                    <td>Estimate</td>
+                                    <td></td>
+                                    <td>Thomas, Rob</td>
+                                    <td>Katy Herbert</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Please note that Rob Thomas is out of the country in Japan. He is selling his house, and is having the real estate agent, Trudie Wilhelm, meeting us at the project, etc. He is wanting fencing work to be done. (Rob Thomas is the one who will be paying)</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>22</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>robthomasjpn@hotmail.com </td>
+                                    <td>503-720-4144 (Trudie)</td>
+                                    <td>18-0095</td>
+                                    <td>Exterior Work</td>
+                                    <td>Decking and Fencing</td>
+                                    <td>7392 SW Arranmore Wy</td>
+                                    <td>Portland</td>
+                                    <td>OR</td>
+                                    <td>97223</td>
+                                    </tr>
+									<tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label>
+                                                <input name="check" type="checkbox" class="checkBoxClass">
+                                                <span class="label-text"></span> </label>
+                                        </div>
+                                    </td>
+                                    <td><a routerLink="../crm-viewdeal">Thomas, Rob</a></td>
+                                    <td>$ 3,300.00</td>
+                                    <td>Estimate</td>
+                                    <td></td>
+                                    <td>Thomas, Rob</td>
+                                    <td>Katy Herbert</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Please note that Rob Thomas is out of the country in Japan. He is selling his house, and is having the real estate agent, Trudie Wilhelm, meeting us at the project, etc. He is wanting fencing work to be done. (Rob Thomas is the one who will be paying)</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>22</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>robthomasjpn@hotmail.com </td>
+                                    <td>503-720-4144 (Trudie)</td>
+                                    <td>18-0095</td>
+                                    <td>Exterior Work</td>
+                                    <td>Decking and Fencing</td>
+                                    <td>7392 SW Arranmore Wy</td>
+                                    <td>Portland</td>
+                                    <td>OR</td>
+                                    <td>97223</td>
+                                    </tr>
+									<tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label>
+                                                <input name="check" type="checkbox" class="checkBoxClass">
+                                                <span class="label-text"></span> </label>
+                                        </div>
+                                    </td>
+                                    <td><a routerLink="../crm-viewdeal">Thomas, Rob</a></td>
+                                    <td>$ 3,300.00</td>
+                                    <td>Estimate</td>
+                                    <td></td>
+                                    <td>Thomas, Rob</td>
+                                    <td>Katy Herbert</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Please note that Rob Thomas is out of the country in Japan. He is selling his house, and is having the real estate agent, Trudie Wilhelm, meeting us at the project, etc. He is wanting fencing work to be done. (Rob Thomas is the one who will be paying)</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>22</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>robthomasjpn@hotmail.com </td>
+                                    <td>503-720-4144 (Trudie)</td>
+                                    <td>18-0095</td>
+                                    <td>Exterior Work</td>
+                                    <td>Decking and Fencing</td>
+                                    <td>7392 SW Arranmore Wy</td>
+                                    <td>Portland</td>
+                                    <td>OR</td>
+                                    <td>97223</td>
+                                   </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div id="tab-2" class="content hide d-flex">
+                        <div class="kanbanBox">
+                            <div class="dd">
+                                <ol class="kanban To-do">
+                                    <h4>Estimate</h4>
+                                    <li class="dd-item" data-id="1">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Frost, Marcia
+                                            <br> $15,408,00 </div>
+                                    </li>
+                                    <li class="dd-item" data-id="1">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">wwPaul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer </div>
+                                    </li>
+                                    <li class="dd-item" data-id="1">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">wwPaul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer </div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban progress">
+                                    <h4>First Followup</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban  Done">
+                                    <h4>Second Followup</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Third Followup</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban progress">
+                                    <h4>Estimate Revision</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban  Done">
+                                    <h4>Holds</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Approved Jobs</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Contracts</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Pre-Construction</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Construction Handyman</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Exterior</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Ground Work</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Framing</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Rough-In</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Sheetrock </h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Hard Surface</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Cabinets/Millwork</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Final Customer Walk Through </h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Finish</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Pre-Finish Walk </h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Warenty</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Closed Won </h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Closed Lost</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                                <ol class="kanban Gone">
+                                    <h4>Closed-Lost to Competition</h4>
+                                    <li class="dd-item" data-id="5">
+                                        <h3 class="title dd-handle">$ 1,102,522.29-27 <small>Deals</small></h3>
+                                        <div class="text" contenteditable="true">Paul Rand once said, “The public is more familiar with bad fucking design than good design. It is, in effect, conditioned to prefer bad design,</div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

@@ -1,0 +1,138 @@
+<section class="">
+				<div class="pageheader">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<h4><i class="fa fa-edit"></i> New Contract</h4>
+								<div class="button-list pull-right mt-7">
+									<ul class="float-btn float-btn-left">
+										<li> <a routerLink="../crm-viewdeal" class="btn btn-default">
+										<i class="fa fa-arrow-left"></i> Go Back</a> </li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="wow fadeIn">
+								<form class="w-100" role="form" action="" method="post">
+									<div class="card">
+										<div class="card-body">
+											<div class="w-100 pull-left mb-15 mt-2">
+												<div class="col-md-3">
+													<!-- Upload  -->
+													<div id="file-upload-form" class="uploader">
+														<input id="file-upload" type="file" name="fileUpload" accept="image/*" />
+														<label for="file-upload" id="file-drag">
+															<img id="file-image" src="#" alt="Preview" class="hidden">
+															<div id="start">
+																<i class="fa fa-file-o" aria-hidden="true"></i>
+																<div>Select a file or drag here</div>
+																<div id="notimage" class="hidden">Please select an image</div>
+																<span id="file-upload-btn" class="btn btn-default">Upload</span>
+																<span id="file-upload-btn" class="btn btn-default">Import</span>
+															</div>
+															<div id="response" class="hidden">
+																<div id="messages"></div>
+																<progress class="progress" id="file-progress" value="0">
+																	<span>0</span>%
+																</progress>
+															</div>
+														</label>
+													</div>
+												</div>
+											</div>
+											<div class="w-100 pull-left">
+												<div class="col-md-3">
+													<label>Document Name</label>
+													<input placeholder="" type="text" class="form-input">
+												</div>
+											</div>
+											<div class="w-100 pull-left">
+												<div class="col-md-3">
+													<label>Time of Complete Days</label>
+													<input placeholder="" type="number" class="form-input">
+												</div>
+												<div class="col-md-3">
+													<label>Agreement valid until</label>
+													<select class="custom-select">
+														<option>Forever</option>
+														<option>Select Date</option>
+													</select>
+												</div>
+											</div>
+											<div class="w-100 pull-left">
+												<div class="col-md-3">
+													<label>Document type</label>
+													<select class="custom-select">
+														<option>Other</option>
+													</select>
+												</div>
+												<div class="col-md-3">
+													<label>Folder</label>
+													<select class="custom-select">
+														<option>Path:\</option>
+													</select>
+												</div>
+											</div>
+											<div class="w-100 pull-left">
+												<div class="col-sm-6">
+													<label> Description</label>
+													<textarea placeholder="" class="form-textarea" row="4"></textarea>
+												</div>
+											</div>
+											<div class="col-sm-12 mt-4">
+												<h4>Add recipients</h4>
+												<div class="table-responsive">
+													<table class="table table-bordered order-list no-cell-space">
+														<thead>
+															<tr>
+																<th width="10%">1</th>
+																<th width="40%">Email</th>
+																<th width="40%">Name</th>
+																<th width="10%">Sign</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>
+																	<textarea rows="2"></textarea>
+																</td>
+																<td>
+																	<input style="text-align: left;" type="mail" name="mail"  placeholder="Name"/>
+																</td>
+																<td>
+																	<input style="text-align: left;" type="text" name="phone"  placeholder="Email"/>
+																</td>
+																
+																<td>
+																	<a href="javascript:" class="btn btn-md btn-danger btn-xs"> <i class="fa fa-times"></i></a>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<div class="col-sm-5">
+												<div>
+													<a href="javascript:" id="addrowEST" class="ibtnDel btn btn-md btn-success btn-xs"> <i class="fa fa-plus"></i>  Add Row</a>
+												</div>
+											</div>
+											
+											<div class="row">
+												<div class="col-md-12 mt-2 text-right">
+													<button class="btn btn-success btn-md" type="button">Save </button>
+													<button class="btn btn-default btn-md" type="button">Cancel </button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>

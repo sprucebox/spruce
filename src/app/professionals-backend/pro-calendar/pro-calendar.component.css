@@ -1,0 +1,75 @@
+#external-events {
+  position: fixed;
+  z-index: 2;
+  top: 20px;
+  left: 20px;
+  width: 150px;
+  padding: 0 10px;
+  border: 1px solid #ccc;
+  background: #eee;
+}
+
+#external-events .fc-event {
+  margin: 1em 0;
+  cursor: move;
+}
+
+#calendar-container {
+  position: relative;
+  z-index: 1;
+  margin-left: 200px;
+}
+
+.modal-content {
+  background-color: #FFFFFF !important ;
+}
+
+.bg-success{
+background-color: #008000 !important ;
+}
+
+.bg-info{
+background: #40E0D0 !important ;
+}
+
+.bg-warning{
+background: #FFD700 !important ;
+}
+
+.bg-danger{
+background: #FF0000 !important ;
+}
+
+.external-event.bg-success {
+  background-color: rgba(62, 195, 150, 0.3) !important;
+  color: #3ec396;
+}
+.external-event {
+cursor: pointer;
+margin: 5px 0;
+padding: 5px 5px;
+}
+.external-event.bg-info {
+background-color: rgba(79, 189, 233, 0.3) !important;
+color: #4fbde9;
+}
+.external-event.bg-warning {
+background-color: rgba(249, 188, 11, 0.3) !important;
+color: #f9bc0b;
+}
+.scroll-height{
+  height: calc(100vh - 170px);
+  overflow: auto;
+  position:relative
+}
+
+
+@media print {
+    body, html, #wrapper {
+     width: 100%;
+    }
+   div {
+     overflow: visible !important;      
+    }
+
+}

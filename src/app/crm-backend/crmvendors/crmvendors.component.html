@@ -1,0 +1,222 @@
+ <section class="">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav>
+                         <ul class="nav navbar-nav">
+                          <li><a routerLink="../crmoverview" class="active">Overview</a></li>
+                            <li><a routerLink="../crmlead">Leads</a></li>
+                            <li><a routerLink="../cramdeal">Deals</a></li>
+                            <li><a routerLink="../crmcontact">Contacts</a></li>
+                            <li><a routerLink="../crmcustmors">Customers</a></li>
+                            <li><a routerLink="../crmvendors">Vendors</a></li>
+                           <li><a routerLink="../crmappointment">Appointments</a></li>
+                            <li><a routerLink="../crmreport">Report</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="card-box">
+                <div class="table-rep-plugin">
+                    <div class="">
+                        <div class="button-list pull-left mb-15">
+                            <ul class="float-btn float-btn-right">
+                                <li>
+                                    <a href="javascript:void();" class="btn btn-default btn-sm"> <i class="fa fa-envelope"></i> </a>
+                                    <a href="javascript:void();" class="btn btn-default btn-sm"> <i class="fa fa-trash-o"></i> </a>
+                                    <a href="crmCreateVendor.html" class="btn btn-default btn-sm"> <i class="fa fa-pencil"></i> </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="button-list pull-right mb-15">
+                            <ul class="float-btn float-btn-left">
+                                <li>
+                                    <ul class="filter-view pull-right">
+                                        <li><a data-tab="tab-1" href="#" class="activelink" title="List View"><i class="fa fa-th-list"></i></a></li>
+                                        <li><a href="javascript:void();" data-toggle="modal" data-target="#kanban" title="Grid View"><i class="fa fa-th"></i></a></li>
+                                    </ul>
+                                </li>
+                                <li> <a href="javascript:void();" class="btn btn-info waves-effect waves-light" data-toggle="modal" data-target="#addTask"><i class="fa fa-plus"></i> Create Task</a> </li>
+                                <li>
+                                    <div class="btn-group">
+                                        <a href="crmCreateVendor.html" class="btn btn-default ml-5"> <i class="fa fa-plus"></i></a> <a class="btn btn-default btn-city dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> Import <span class="caret caret-search"></span> </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li><a href="#">Import Leads</a></li>
+                                            <li><a href="#">Import Notes</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table  table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width: 36px; text-align: center;">
+                                        <div class="form-check">
+                                            <label>
+                                                <input name="check" type="checkbox" id="ckbCheckAll">
+                                                <span class="label-text"></span> </label>
+                                        </div>
+                                    </th>
+                                    <th data-priority="1">Vendor Name</th>
+                                    <th data-priority="2">Email</th>
+                                    <th data-priority="3">Phone</th>
+                                    <th data-priority="4">Website</th>
+                                    <th data-priority="5">Vendor Owner</th>
+                                    <th data-priority="0">GL Account</th>
+                                    <th data-priority="0">Cetagory</th>
+                                    <th data-priority="0">Created By</th>
+                                    <th data-priority="0">Modified By</th>
+                                    <th data-priority="0">Created Time</th>
+                                    <th data-priority="0">Modified Time</th>
+                                    <th data-priority="0">City</th>
+                                    <th data-priority="0">State</th>
+                                    <th data-priority="0">Mailing Zip</th>
+                                    <th data-priority="0">Zip</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label>
+                                                <input name="check" type="checkbox" class="checkBoxClass">
+                                                <span class="label-text"></span> </label>
+                                        </div>
+                                    </td>
+                                    <td><a href="crmViewVendor.html">Rob Thomas</a></td>
+                                    <td>Thomas, Rob</td>
+                                    <td>robthomasjpn@hotmail.com</td>
+                                    <td>+1 1230465987</td>
+                                    <td>www.sprucebox.com</td>
+                                    <td>Thomas</td>
+                                    <td>-</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>7392 SW Arranmore Wy</td>
+                                    <td>Portland</td>
+                                    <td>OR</td>
+                                    <td>97223 </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label>
+                                                <input name="check" type="checkbox" class="checkBoxClass">
+                                                <span class="label-text"></span> </label>
+                                        </div>
+                                    </td>
+                                    <td><a href="crmViewVendor.html">Rob Thomas</a></td>
+                                    <td>Thomas, Rob</td>
+                                    <td>robthomasjpn@hotmail.com</td>
+                                    <td>+1 1230465987</td>
+                                    <td>www.sprucebox.com</td>
+                                    <td>Thomas</td>
+                                    <td>-</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>7392 SW Arranmore Wy</td>
+                                    <td>Portland</td>
+                                    <td>OR</td>
+                                    <td>97223 </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label>
+                                                <input name="check" type="checkbox" class="checkBoxClass">
+                                                <span class="label-text"></span> </label>
+                                        </div>
+                                    </td>
+                                    <td><a href="crmViewVendor.html">Rob Thomas</a></td>
+                                    <td>Thomas, Rob</td>
+                                    <td>robthomasjpn@hotmail.com</td>
+                                    <td>+1 1230465987</td>
+                                    <td>www.sprucebox.com</td>
+                                    <td>Thomas</td>
+                                    <td>-</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>7392 SW Arranmore Wy</td>
+                                    <td>Portland</td>
+                                    <td>OR</td>
+                                    <td>97223 </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label>
+                                                <input name="check" type="checkbox" class="checkBoxClass">
+                                                <span class="label-text"></span> </label>
+                                        </div>
+                                    </td>
+                                    <td><a href="crmViewVendor.html">Rob Thomas</a></td>
+                                    <td>Thomas, Rob</td>
+                                    <td>robthomasjpn@hotmail.com</td>
+                                    <td>+1 1230465987</td>
+                                    <td>www.sprucebox.com</td>
+                                    <td>Thomas</td>
+                                    <td>-</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>7392 SW Arranmore Wy</td>
+                                    <td>Portland</td>
+                                    <td>OR</td>
+                                    <td>97223 </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label>
+                                                <input name="check" type="checkbox" class="checkBoxClass">
+                                                <span class="label-text"></span> </label>
+                                        </div>
+                                    </td>
+                                    <td><a href="crmViewVendor.html">Rob Thomas</a></td>
+                                    <td>Thomas, Rob</td>
+                                    <td>robthomasjpn@hotmail.com</td>
+                                    <td>+1 1230465987</td>
+                                    <td>www.sprucebox.com</td>
+                                    <td>Thomas</td>
+                                    <td>-</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>7392 SW Arranmore Wy</td>
+                                    <td>Portland</td>
+                                    <td>OR</td>
+                                    <td>97223 </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label>
+                                                <input name="check" type="checkbox" class="checkBoxClass">
+                                                <span class="label-text"></span> </label>
+                                        </div>
+                                    </td>
+                                    <td><a href="crmViewVendor.html">Rob Thomas</a></td>
+                                    <td>Thomas, Rob</td>
+                                    <td>robthomasjpn@hotmail.com</td>
+                                    <td>+1 1230465987</td>
+                                    <td>www.sprucebox.com</td>
+                                    <td>Thomas</td>
+                                    <td>-</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>Apr 27, 2018 11:20 AM</td>
+                                    <td>7392 SW Arranmore Wy</td>
+                                    <td>Portland</td>
+                                    <td>OR</td>
+                                    <td>97223 </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </section>

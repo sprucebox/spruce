@@ -1,0 +1,252 @@
+  <section class="">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                     <nav>
+                          <ul class="nav navbar-nav">
+                          <li><a routerLink="../crmoverview" class="active">Overview</a></li>
+                            <li><a routerLink="../crmlead">Leads</a></li>
+                            <li><a routerLink="../cramdeal">Deals</a></li>
+                            <li><a routerLink="../crmcontact">Contacts</a></li>
+                            <li><a routerLink="../crmcustmors">Customers</a></li>
+                            <li><a routerLink="../crmvendors">Vendors</a></li>
+                           <li><a routerLink="../crmappointment">Appointments</a></li>
+                            <li><a routerLink="../crmreport">Report</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <div class="card-box">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <a href="#" data-toggle="modal" data-target="#add-category" class="btn btn-lg btn-primary btn-block modalclick">
+                                    <i class="fa fa-plus"></i> Create New
+                                </a>
+                                <div id="external-events" class="m-t-20">
+                                    <br>
+                                    <p class="text-muted">Drag and drop your event or click in the calendar</p>
+                                    <div class="external-event bg-success" data-class="bg-success">
+                                        <i class="mdi mdi-checkbox-blank-circle mr-2 vertical-middle"></i>New Theme Release
+                                    </div>
+                                    <div class="external-event bg-info" data-class="bg-info">
+                                        <i class="mdi mdi-checkbox-blank-circle mr-2 vertical-middle"></i>My Event
+                                    </div>
+                                    <div class="external-event bg-warning" data-class="bg-warning">
+                                        <i class="mdi mdi-checkbox-blank-circle mr-2 vertical-middle"></i>Meet manager
+                                    </div>
+                                    <div class="external-event bg-purple" data-class="bg-purple">
+                                        <i class="mdi mdi-checkbox-blank-circle mr-2 vertical-middle"></i>Create New theme
+                                    </div>
+                                </div>
+                                <!-- checkbox -->
+                                <div class="checkbox checkbox-primary mt-3 p0">
+                                    <!-- <input type="checkbox" id="drop-remove"> -->
+                                    <div class="form-check">
+                                        <label>
+                                            <input name="check" type="checkbox" id="drop-remove">
+                                            <span class="label-text"> Remove after drop</span>
+                                        </label>
+                                    </div>
+                                    <!-- <label for="drop-remove">
+                                                                    Remove after drop
+                                        </label> -->
+                                </div>
+                            </div>
+                            <!-- end col-->
+                            <div class="col-md-9">
+                                <div id="calendar"></div>
+                            </div>
+                            <!-- end col -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <!-- BEGIN MODAL -->
+                                    <div class="modal fade none-border" id="event-modal" tabindex="-1">
+                                        <div class="modal-dialog bright-modal-style">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title">Add New Event</h4>
+                                                </div>
+                                                <div class="modal-body p-b-0"></div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-success save-event waves-effect waves-light">Create event</button>
+                                                    <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Modal Add Category -->
+                                    <div class="modal fade none-border" id="add-category" tabindex="-1">
+                                        <div class="modal-dialog bright-modal-style">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                    <h4 class="modal-title">Add a Module</h4>
+                                                </div>
+                                                <div class="modal-body p-b-0 w-100">
+                                                    <form role="form w-100">
+                                                        <div class="w-100">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group w-100">
+                                                                    <div class="col-md-4 p0">
+                                                                        <div class="form-check">
+                                                                            <label>
+                                                                                <input name="radio" type="radio" value="task" checked="">
+                                                                                <span class="label-text">Task</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 p0">
+                                                                        <div class="form-check">
+                                                                            <label>
+                                                                                <input name="radio" type="radio" value="meeting">
+                                                                                <span class="label-text">Meeting</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 p0">
+                                                                        <div class="form-check">
+                                                                            <label>
+                                                                                <input name="radio" type="radio" value="event">
+                                                                                <span class="label-text">Event</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="task moduleBox" style="display: block;">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Select Module</label>
+                                                                        <select class="custom-select">
+                                                                            <option value="">Select</option>
+                                                                            <option value="project">Projects</option>
+                                                                            <option value="project">CRM</option>
+                                                                            <option value="project">People</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="modBox project moduleBox">
+                                                                        <div class="T-module sw-100">
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <label for="exampleInputEmail1">Select Project</label>
+                                                                                    <select class="custom-select">
+                                                                                        <option>Select</option>
+                                                                                        <option>Project-1</option>
+                                                                                        <option>Project-2</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="exampleInputEmail1">Task Owner</label>
+                                                                                    <input class="form-control" id="" placeholder="" type="text">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group">
+                                                                                    <label for="exampleInputPassword1">Task Name</label>
+                                                                                    <input class="form-control" id="" placeholder="" type="text">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12">
+                                                                                <div class="form-group">
+                                                                                    <label for="exampleInputPassword1">Description</label>
+                                                                                    <textarea name="" id="" rows="3" class="form-control"></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6 demo">
+                                                                                <label for="exampleInputPassword1">Start Date</label>
+                                                                                <input id="config-demo" class="form-input" type="date">
+                                                                                <i class="glyphicon glyphicon-calendar fa fa-calendar" style="top:38px;"></i> </div>
+                                                                            <div class="col-md-6 demo">
+                                                                                <label for="exampleInputPassword1">Due Date</label>
+                                                                                <input id="config-demo" class="form-input" type="date">
+                                                                                <i class="glyphicon glyphicon-calendar fa fa-calendar" style="top:38px;"></i> </div>
+                                                                            <div class="col-md-6 demo">
+                                                                                <label for="exampleInputPassword1">Reminder</label>
+                                                                                <input id="config-demo" class="form-input" type="date">
+                                                                                <i class="glyphicon glyphicon-calendar fa fa-calendar" style="top:38px;"></i> </div>
+                                                                            <div class="col-md-6 demo">
+                                                                                <label for="exampleInputPassword1">Priority</label>
+                                                                                <select class="custom-select">
+                                                                                    <option>Select</option>
+                                                                                    <option>High</option>
+                                                                                    <option>Low</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-md-6 demo">
+                                                                                <label for="exampleInputPassword1">Status</label>
+                                                                                <select class="custom-select">
+                                                                                    <option>Select</option>
+                                                                                    <option>Open</option>
+                                                                                    <option>Completed</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="col-md-6 demo">
+                                                                                <label for="exampleInputPassword1">Attachment</label>
+                                                                                <input class="form-control" id="" placeholder="" type="file">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="meeting moduleBox">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Meeting Name</label>
+                                                                        <input placeholder="" type="text" class="form-input">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Attendees email</label>
+                                                                        <input placeholder="" type="email" class="form-input">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Meeting Subject</label>
+                                                                        <input placeholder="" type="text" class="form-input">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Meeting Date</label>
+                                                                        <input placeholder="" type="date" class="form-input">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="event moduleBox">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Event Name</label>
+                                                                        <input placeholder="" type="text" class="form-input">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Description</label>
+                                                                        <textarea placeholder="" class="form-textarea" row="4"></textarea>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">Start Date</label>
+                                                                        <input placeholder="" type="date" class="form-input">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">End Date</label>
+                                                                        <input placeholder="" type="date" class="form-input">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer m-0">
+                                                    <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-success save-category" data-dismiss="modal">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- END MODAL -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

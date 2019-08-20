@@ -1,0 +1,99 @@
+<section class="">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                     <nav>
+                         <ul class="nav navbar-nav">
+                          <li><a routerLink="../crmoverview" class="active">Overview</a></li>
+                            <li><a routerLink="../crmlead">Leads</a></li>
+                            <li><a routerLink="../cramdeal">Deals</a></li>
+                            <li><a routerLink="../crmcontact">Contacts</a></li>
+                            <li><a routerLink="../crmcustmors">Customers</a></li>
+                            <li><a routerLink="../crmvendors">Vendors</a></li>
+                           <li><a routerLink="../crmappointment">Appointments</a></li>
+                            <li><a routerLink="../crmreport">Report</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="user-bar">
+                        <div class="col-md-12">
+                            <ul class="filter-box">
+                                <li> <a href="javascript:void();" class="filter btn btn-default" title="Filter" id="filter-btn"><i class="fa fa-filter"></i></a> </li>
+                            </ul>
+                        </div>
+                        <div class="filter-area">
+                            <div class="col-md-3">
+                                <label>From</label>
+                                <input type="date" class="form-input">
+                            </div>
+                            <div class="col-md-3">
+                                <label>To</label>
+                                <input type="date" class="form-input">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="v-hidden d-block">lorem</label>
+                                <button class="btn btn-success btn-md" type="button">Search </button>
+                                <button class="btn btn-default btn-md" type="button">Reset </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <div class="card-box">
+                        <div id="customer-pie"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card-box">
+                        <div id="customer-bar"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <div class="card-box">
+                        <h4>Sales Report</h4>
+                        <div class="table-responsive">
+                            <table class="table table-bordered" style="width: 100% !important" id="table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 36px; text-align: center;">
+                                            <div class="form-check">
+                                                <label>
+                                                    <input name="check" type="checkbox" id="ckbCheckAll">
+                                                    <span class="label-text"></span> </label>
+                                            </div>
+                                        </th>
+                                        <th>Date</th>
+                                        <th>Customer Name</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <label>
+                                                    <input name="check" type="checkbox" class="checkBoxClass">
+                                                    <span class="label-text"></span> </label>
+                                            </div>
+                                        </td>
+                                        <td>20/04/2018</td>
+                                        <td>John</td>
+                                        <td>$5000.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

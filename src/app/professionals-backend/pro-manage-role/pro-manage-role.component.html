@@ -1,0 +1,120 @@
+<section>
+  <div class="container">
+      <div class="w-100">
+          <div class="col-md-12">
+              <nav>
+                  <ul class="nav navbar-nav">
+                      <li><a routerLink="../user-setting" >User</a></li>
+                      <li><a routerLink="../role-setting" class="active">Roles & Permission</a></li>
+                      <li><a routerLink="../notification-setting">Notification</a></li>
+                      <li><a routerLink="../date-time-setting">Date Time Setting</a></li>
+					   <li ><a  routerLink="../color-setting">Project Setting</a></li>
+                  </ul>
+                  <div class="pull-right mt-7 pr-10">
+                    <ul class="filter-box float-btn float-btn-right">
+                        <li>
+                            <a routerLink="../role-setting" class="btn btn-default"> <i class="fa fa-arrow-left"></i> Go Back</a>
+                        </li>
+                    </ul>
+                </div>
+              </nav>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+            <div class="mt-2">
+                <div class="w-100">
+                    <div class="col-md-12">
+                      <div class="card-box">
+                        <div class="table-responsive">
+                            <table class="table" style="width: 100% !important">
+                                <thead>
+                                    <tr>
+                                        <th>Role Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let role of userrolelist">
+                                        <td>{{role.role}}</td>
+                                        <td>
+                                            <a href="javascript:void(0);" title="Edit Role" (click)="edit_role(role.id,role.role);"><i class="fa fa-pencil"></i>
+                    </a>
+                                            <a *ngIf="role.mayuri==0"  href="javascript:void(0);" title="Delete" (click)="delete_role(role.id);"  ><span class="fa fa-trash-o"></span></a></td>
+                                    </tr>
+                                    
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+</section>
+
+
+<div class="modal" *ngIf="modeldisplay2" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+<div class="modal-dialog" role="document">
+  <div class="modal-content" style="background-color:#fff;">
+    <div class="modal-header">
+      <h4 class="modal-title">Remove Role</h4>
+      <button type="button" class="close" (click)="hidemodel2()" data-dismiss="modal" aria-label="Close"><span
+          aria-hidden="true">&times;</span></button>
+    </div>
+
+    <div class="modal-body">
+      <p> Are You Sure ?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+        (click)="hidemodel2()">Close</button>
+      <button type="submit" class="btn btn-success" (click)="remove_role(remove_user_id)">Remove Role</button>
+    </div>
+
+  </div>
+</div>
+</div>
+<div class="modal" *ngIf="modeldisplay3"  id="Modalupdate" tabindex="-1"
+        role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+        <div class="modal-dialog" role="document" >
+            <div class="modal-content" style="background-color: white"> 
+                <form role="form" #addRoleForm="ngForm">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Add Role</h4>
+                    </div>
+                    <div class="modal-body p-b-0 w-100">
+
+                        <div class="w-100">
+                            
+                                    
+                                        <div class="form-group">
+                                            <label class="control-label">Role Name</label>
+                                            <input type="text" class="form-control" [class.is-invalid]="role_name.invalid && role_name.touched"
+                                                [(ngModel)]="editRoleFromData.role_name" #role_name="ngModel" name="role_name"
+                                                placeholder="Role Name" required>
+                                            <small class="text-danger" [class.d-none]="role_name.valid || role_name.untouched">Event
+                                                Name is required</small>
+                                        </div>
+                                        
+                                        
+                                
+                        </div>
+
+                    </div>
+                    <div class="modal-footer m-0">
+                            <button type="button" class="btn btn-success" (click)="update_role_name();addRoleForm.form.reset()"
+                            [disabled]="addRoleForm.form.invalid">Save</button>
+                    
+                        <button type="button" class="btn btn-secondary waves-effect" (click)="hidemodel3();addRoleForm.reset();">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,93 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <nav class="pos-relative">
+          <ul class="nav navbar-nav">
+            <li><a routerLink="../../project-overview/{{project_id}}">Overview</a></li>
+            <li *ngIf="select_permissions.indexOf(28) !== -1"><a routerLink="../../project-task/{{project_id}}">Task</a>
+            </li>
+            <li><a routerLink="../../project-calendar/{{project_id}}">Calendar</a></li>
+            <li *ngIf="company_id===project_company_id"><a
+                routerLink="../../project-activity/{{project_id}}">Activity</a></li>
+            <li *ngIf="company_id===project_company_id"><a routerLink="../../project-reports/{{project_id}}">Reports</a>
+            </li>
+            <li><a routerLink="../../project-discussion/{{project_id}}">Discussion</a></li>
+            <li><a routerLink="../../project-files/{{project_id}}">Files</a></li>
+            <li *ngIf="company_id===project_company_id"><a routerLink="../../project-users/{{project_id}}">Users</a>
+            </li>
+            <li><a routerLink="../../notes/{{project_id}}" class="active">Notes</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-right mb-15">
+        <a class="btn btn-success btn-md" routerLink="../../notes/{{project_id}}">Back</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card-box">
+          <!-- <form>
+                           <div class="form-group">
+                              <label class="control-label">Title</label>
+                              <input type="text" name="title" 
+                              [(ngModel)]="NoteData.title" 
+                              #title="ngModel" placeholder="Title" class="form-control" required>
+                           </div>
+                           <div class="form-group">
+                              <label class="control-label">Description</label>
+                              <app-ngx-editor [placeholder]="'Enter text here...'" type="text" [spellcheck]="true" name="Description" [(ngModel)]="NoteData.Description" ></app-ngx-editor>
+                           </div>
+                        </form>-->
+          <!--=======Start Summernote==========-->
+          <div class="wholeSummernote">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="control-label">Title</label>
+                <input type="text" name="title" [(ngModel)]="NoteData.title" #title="ngModel" placeholder="Title"
+                  class="form-control" required>
+              </div>
+
+              <label class="control-label">Note</label>
+
+              <div class="mb-15">
+                <app-ngx-editor [placeholder]="'Enter text here...'" type="text" [spellcheck]="true" name="Description"
+                  [(ngModel)]="NoteData.Description" class="custom-note"></app-ngx-editor>
+              </div>
+              <div class="form-check" *ngIf="project_company_id==company_id && project_userrole=='1'">
+                <label>
+                  <input name="is_internal" type="checkbox" class="checkBoxClass" [(ngModel)]="NoteData.is_internal"
+                    (change)="checkValue(NoteData.is_internal?'1':'2')">
+                  <span class="label-text"></span> </label>
+                Internal.
+              </div>
+
+
+
+              <div class="form-check">
+                <label>
+                  <input type="checkbox" name="is_private" (change)="triggerSomeEvent($event)" />
+                  <span class="label-text"></span> Only me</label>
+              </div>
+
+
+
+
+
+
+            </div>
+          </div>
+          <!--=======End Summernote==========-->
+
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 mb-15 text-right">
+        <button class="btn btn-success btn-md" type="submit" (click)="add_notes_detail()">Save </button>
+      </div>
+    </div>
+  </div>
+</section>

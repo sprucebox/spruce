@@ -1,0 +1,38 @@
+<section>
+  <div class="container">
+    <div class="w-100">
+      <div class="col-md-12">
+        <nav>
+          <ul class="nav navbar-nav">
+            <li *ngIf="select_permissions.indexOf(8) !== -1"><a routerLink="../user-setting">User</a></li>
+            <li *ngIf="select_permissions.indexOf(11) !== -1"><a routerLink="../role-setting">Roles & Permission</a>
+            </li>
+            <li *ngIf="select_permissions.indexOf(14) !== -1"><a routerLink="../notification-setting">Notification</a>
+            </li>
+            <li *ngIf="select_permissions.indexOf(16) !== -1"><a routerLink="../date-time-setting">Date Time Setting</a>
+            </li>
+            <li ><a routerLink="../color-setting">Project Setting</a></li>
+            <li><a routerLink="../template-setting">Template Setting</a>
+            </li>
+            <li ><a routerLink="../backup" class="active">Backup</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="w-100">
+      <div class="col-md-12">
+        <div class="card-box">
+          <div *ngIf="showMainContent">
+            <button type="button" id="" class="btn btn-success" data-dismiss="modal"
+              (click)="Save_data();ShowHideButton()" role="button">Create Backup</button>
+          </div>
+          <div *ngIf="!showMainContent">
+            <p>If you want to take a csv file so click the below button for download......</p>
+            <button type="button" id="" class="btn btn-success" data-dismiss="modal"
+              (click)="get_backup();ShowHideButton()" role="button">Download Backup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,301 @@
+<section class="">
+  <div class="container">
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <div class="card-box">
+          <div class="row">
+            <div class="col-md-2 pull-left">
+              <div class="dropdown text-left">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-tasks" aria-hidden="true"></i>
+                </button>
+                <div class="dropdown-menu task" aria-labelledby="dropdownMenuButton">
+                  <ul class="task_width">
+                    <li><a [className]="task_type=='task' ? 'active dropdown-item' : 'dropdown-item'">
+                        <label>
+                          <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement1()" checked>
+                          <span class="label-text"></span> </label>Task
+                      </a></li>
+                    <li> <a [className]="task_type=='source' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                          <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement2()" checked>
+                          <span class="label-text"></span> </label>Source</a></li>
+                    <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                          <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement3()" checked>
+                          <span class="label-text"></span> </label>Owner</a></li>
+                    <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                          <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement4()" checked>
+                          <span class="label-text"></span> </label>Created By</a></li>
+                    <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                          <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement5()" checked>
+                          <span class="label-text"></span> </label>Status</a></li>
+                    <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                          <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement6()" checked>
+                          <span class="label-text"></span> </label>Start Date</a></li>
+                    <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                          <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement7()" checked>
+                          <span class="label-text"></span> </label>Due Date</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 pull-right">
+              <form action="">
+                <select class="custom-select" (change)="onChange($event.target.value,All_tasks_hold)">
+                  <option [value]="'select'">--ALL--</option>
+                  <option [value]="'All'">All</option>
+                  <option [value]="2">Private</option>
+                  <option [value]="1">Public</option>
+                </select>
+              </form>
+            </div>
+          </div>
+          <!--hide code-->
+
+          <!--hide code-->
+          <div class="table-responsive scroll-height">
+		    <div  *ngIf="All_tasks?.length == 0; else other_content">
+                  <h5> No Record found </h5>
+                  </div>
+				  <ng-template #other_content>
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th style="width: 36px; text-align: center;">
+
+                  </th>
+                  <!--hide code-->
+                  <th [hidden]="hideTask1">Task</th>
+                  <th [hidden]="hideSource2">Source</th>
+                  <th [hidden]="hideOwner3">Owner</th>
+                  <th [hidden]="hideCreated4">Created By</th>
+                  <th [hidden]="hideStatus5">Status</th>
+                  <th [hidden]="hideStart6">Start Date</th>
+                  <th [hidden]="hideDue7">Due Date</th>
+                  <!--hide code-->
+                </tr>
+              </thead>
+			 
+				  
+              <tbody>
+			    
+                <tr *ngFor="let task of All_tasks">
+
+                  <td>
+                    <div class="form-check">
+                      <label>
+                        <input name="check" type="checkbox" class="checkBoxClass">
+                        <!-- (click)="confirm_Change_status(task.id)"> -->
+                        <span class="label-text"></span> </label>
+                    </div>
+                  </td>
+                  <!--hide code-->
+                  <td [hidden]="hideTask1"><a
+                      routerLink="../project-task-edit/{{task.source_id}}/{{task.id}}">{{task.task_name}}</a></td>
+
+                  <td [hidden]="hideSource2">{{task.source_type}}</td>
+                  <td [hidden]="hideOwner3" *ngIf="task.names"> <a href="javascript:void('0');"
+                      class="font-bold d-block text-wrap" (click)="enter_owner_name(task.id,task.task_owner_ids)"
+                      (click)="get_owner_name();">{{task.names}}</a>
+                    <div *ngIf="task.id==taskidchange && task.task_owner_ids==taskownerid  && give_owner_name">
+
+                      <ng-multiselect-dropdown [placeholder]="'Task Owner'" [data]="dropdownList"
+                        [(ngModel)]="selectedItems" ng-model-options="{timezone:'UTC/GMT'}"
+                        [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                        (onDeSelect)="onItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+                        [ngModelOptions]="{standalone: true}">
+                      </ng-multiselect-dropdown>
+
+
+
+                      <button type="button" (click)="update_task_owner_name();" class="btn btn-info btn-sm rounded-0">
+                        <i class="fa fa-check"></i>
+                      </button>
+                    </div>
+                  </td>
+                  <td [hidden]="hideOwner3" *ngIf="task.names == '' || task.names == null"> <a
+                      href="javascript:void('0');" class="font-bold d-block"
+                      (click)="enter_owner_name(task.id,task.task_owner_ids)"
+                      (click)="get_owner_name_company_id();">NA</a>
+                    <div *ngIf="task.id==taskidchange && task.task_owner_ids==taskownerid  && give_owner_name">
+
+                      <ng-multiselect-dropdown [placeholder]="'Task Owner'" [data]="dropdownList"
+                        [(ngModel)]="selectedItems" ng-model-options="{timezone:'UTC/GMT'}"
+                        [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                        (onDeSelect)="onItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+                        [ngModelOptions]="{standalone: true}">
+                      </ng-multiselect-dropdown>
+
+
+
+                      <button type="button" (click)="update_task_owner_name();" class="btn btn-info btn-sm rounded-0">
+                        <i class="fa fa-check"></i>
+                      </button>
+                    </div>
+                  </td>
+                  <td [hidden]="hideCreated4">{{task.creater}}</td>
+                  <td [hidden]="hideStatus5" *ngIf="task.status_name!=null">
+                    <div class="btn-group">
+                      <a class="btn btn-xs {{task.color_class}}" style="color:#fff;"
+                        [style.background]="task.color_class" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="true">
+
+                        {{task.status_name}}
+                        <span class="caret caret-search"></span>
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li *ngFor="let status of status_list"><a
+                            (click)="change_status_new(task.id,status.id)">{{status.status}}</a></li>
+
+
+                      </ul>
+                    </div>
+                  </td>
+                  <td [hidden]="hideStatus5" *ngIf="task.status_name==null">
+                    <div class="btn-group">
+                      <a class="btn btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="true">None</a>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li *ngFor="let status of status_list"><a
+                            (click)="change_status_new(task.id,status.id)">{{status.status}}</a></li>
+
+
+                      </ul>
+                    </div>
+                  </td>
+                  <td [hidden]="hideStart6" *ngIf="task.task_start_date != '0000-00-00 00:00:00'&& task.hide_time == 1">
+                    <a href="javascript:void('0');" class="font-bold d-block"
+                      (click)="enter_start_date(task.id,task.task_start_date )">
+                      {{task.task_start_date| date:alldate }}
+                      <br>
+                    </a>
+
+
+                    <div *ngIf="task.id==taskiddate && give_start_date"> <input placeholder="Start Date"
+                        [(ngModel)]="addTaskstartdate.start_date" value="{{task.task_start_date}}" class="form-control"
+                        name="start_date" #start_date="ngModel" [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4"
+                        class="form-control">
+                      <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+                      <button type="button" (click)="update_task_start_date();" class="btn btn-info btn-sm rounded-0">
+                        <i class="fa fa-check"></i>
+                      </button>
+                    </div>
+                  </td>
+                  <td [hidden]="hideStart6" *ngIf="task.task_start_date != '0000-00-00 00:00:00'&& task.hide_time == 0">
+                    <a href="javascript:void('0');" class="font-bold d-block"
+                      (click)="enter_start_date(task.id,task.task_start_date )">
+                      {{task.task_start_date| date:alldate }}
+                      <br>
+                      <small>{{task.task_start_date  | date:'shortTime'}} </small> </a>
+
+
+                    <div *ngIf="task.id==taskiddate && give_start_date"> <input placeholder="Start Date"
+                        [(ngModel)]="addTaskstartdate.start_date" value="{{task.task_start_date}}" class="form-control"
+                        name="start_date" #start_date="ngModel" [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4"
+                        class="form-control">
+                      <owl-date-time #dt4></owl-date-time>
+                      <button type="button" (click)="update_task_start_date();" class="btn btn-info btn-sm rounded-0">
+                        <i class="fa fa-check"></i>
+                      </button>
+                    </div>
+                  </td>
+
+                  <td [hidden]="hideStart6" *ngIf="task.task_start_date == '0000-00-00 00:00:00'">
+                    <a href="javascript:void('0');" class="font-bold d-block" (click)="enter_start_date(task.id)">
+                      NA
+                    </a>
+
+
+                    <div *ngIf="task.id==taskiddate && give_start_date"> <input placeholder="Start Date"
+                        [(ngModel)]="addTaskstartdate.start_date" class="form-control" name="start_date"
+                        #start_date="ngModel" [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" class="form-control">
+                      <owl-date-time #dt4></owl-date-time>
+                      <button type="button" (click)="update_task_start_date();" class="btn btn-info btn-sm rounded-0">
+                        <i class="fa fa-check"></i>
+                      </button>
+                    </div>
+                  </td>
+
+
+
+                  <td [hidden]="hideDue7" *ngIf="task.task_end_date !='0000-00-00 00:00:00'&& task.hide_time == 1" [hidden]="hideDue6"><a
+                      href="javascript:void('0');" class="font-bold d-block"
+                      (click)="enter_end_date(task.id)">{{task.task_end_date | date:alldate}}
+                      <br></a>
+
+                    <div *ngIf="task.id==taskendid && give_end_date"> <input placeholder="End Date"
+                        [(ngModel)]="addTaskstartdate.end_date" class="form-control" name="end_date" #end_date="ngModel"
+                        [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5" class="form-control">
+                      <owl-date-time [pickerType]="'calendar'" #dt5></owl-date-time>
+                      <button type="button" (click)="update_task_end_date();" class="btn btn-info btn-sm rounded-0">
+                        <i class="fa fa-check"></i>
+                      </button>
+                    </div>
+                  </td>
+                  <td [hidden]="hideDue7" *ngIf="task.task_end_date !='0000-00-00 00:00:00'&& task.hide_time == 0" [hidden]="hideDue6"><a
+                      href="javascript:void('0');" class="font-bold d-block"
+                      (click)="enter_end_date(task.id)">{{task.task_end_date | date:alldate}}
+                      <br><small> {{task.task_end_date | date:'shortTime'}}</small></a>
+
+                    <div *ngIf="task.id==taskendid && give_end_date"> <input placeholder="End Date"
+                        [(ngModel)]="addTaskstartdate.end_date" class="form-control" name="end_date" #end_date="ngModel"
+                        [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5" class="form-control">
+                      <owl-date-time #dt5></owl-date-time>
+                      <button type="button" (click)="update_task_end_date();" class="btn btn-info btn-sm rounded-0">
+                        <i class="fa fa-check"></i>
+                      </button>
+                    </div>
+                  </td>
+
+                  <td [hidden]="hideDue7" *ngIf="task.task_end_date =='0000-00-00 00:00:00'" [hidden]="hideDue6"><a
+                      href="javascript:void('0');" class="font-bold d-block" (click)="enter_end_date(task.id)">NA
+                    </a>
+
+                    <div *ngIf="task.id==taskendid && give_end_date"> <input placeholder="End Date"
+                        [(ngModel)]="addTaskstartdate.end_date" class="form-control" name="end_date" #end_date="ngModel"
+                        [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5" class="form-control">
+                      <owl-date-time #dt5></owl-date-time>
+                      <button type="button" (click)="update_task_end_date();" class="btn btn-info btn-sm rounded-0">
+                        <i class="fa fa-check"></i>
+                      </button>
+                    </div>
+                  </td>
+
+                  <!--hide code-->
+
+                </tr>
+
+               
+              </tbody>
+			  
+            </table>
+ </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ <div class="modal" *ngIf="modeldisplay2" [style.background]="applyback?'#21212185':'red'"
+                  id="Modalupdate2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="background-color:#fff;">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Status Change</h4>
+                        <button type="button" class="close" (click)="hidemodel2()" data-dismiss="modal"
+                          aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      </div>
+
+                      <div class="modal-body">
+                        <p> Are You Sure ?</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" (click)="Change_status()">Yes</button>
+                        <button type="button" class="btn btn-default bn-sm" data-dismiss="modal"
+                          (click)="hidemodel2()">No</button>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+</section>

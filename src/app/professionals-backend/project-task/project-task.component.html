@@ -1,0 +1,906 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <nav>
+          <ul class="nav navbar-nav">
+            <li><a routerLink="../../project-overview/{{project_id}}">Overview</a></li>
+            <li *ngIf="select_permissions.indexOf(28) !== -1"><a routerLink="../../project-task/{{project_id}}"
+                class="active">Task</a></li>
+            <li><a routerLink="../../project-calendar/{{project_id}}">Calendar</a></li>
+            <li *ngIf="company_id===project_company_id"><a
+                routerLink="../../project-activity/{{project_id}}">Activity</a></li>
+            <li *ngIf="company_id===project_company_id"><a routerLink="../../project-reports/{{project_id}}">Reports</a>
+            </li>
+            <li><a routerLink="../../project-discussion/{{project_id}}">Discussion</a></li>
+            <li><a routerLink="../../project-files/{{project_id}}">Files</a></li>
+            <li *ngIf="company_id===project_company_id"><a routerLink="../../project-users/{{project_id}}">Users</a>
+            </li>
+            <li><a routerLink="../../notes/{{project_id}}">Notes</a></li>
+          </ul>
+          <ul class="filter-box pull-right">
+            <li>
+              <div class="col-sm-12">
+                <div class="search_box pull-right">
+                  <input placeholder="Search" type="text" [(ngModel)]="searchText"
+                    class="form-control form-control-sm mb-0">
+                </div>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <h4 class="text-uppercase">{{Projectname}}</h4>
+    <div class="card-box">
+      <div class="table-rep-plugin">
+        <div class="button-list pull-left mb-15">
+          <ul class="float-btn float-btn-left">
+            <li>
+              <div class="dropdown text-left mb-10">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-tasks" aria-hidden="true"></i>
+                </button>
+                <div class="dropdown-menu task" aria-labelledby="dropdownMenuButton">
+                  <ul class="task_width">
+                    <li><a [className]="task_type=='task' ? 'active dropdown-item' : 'dropdown-item'">
+                        <label>
+                          <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement1()" checked>
+                          <span class="label-text"></span> </label>
+                        Task</a></li>
+                    <li><a [className]="task_type=='description' ? 'active dropdown-item' : 'dropdown-item'">
+                        <label>
+                          <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement7()" checked>
+                          <span class="label-text"></span> </label>
+                        Description</a></li>
+                    <li> <a [className]="task_type=='source' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                          <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement2()" checked>
+                          <span class="label-text"></span> </label>Owner</a></li>
+
+                    <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                          <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement3()" checked>
+                          <span class="label-text"></span> </label>Status</a></li>
+                    <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                          <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement4()" checked>
+                          <span class="label-text"></span> </label>Priority</a></li>
+                    <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                          <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement5()" checked>
+                          <span class="label-text"></span> </label>Start Date</a></li>
+                    <li> <a [className]="task_type=='owner' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                          <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement6()" checked>
+                          <span class="label-text"></span> </label>Due Date</a></li>
+                    <li> <a [className]="task_type=='action' ? 'active dropdown-item' : 'dropdown-item'"><label>
+                          <input name="check" type="checkbox" class="checkBoxClass1" (click)="toggleElement8()" checked>
+                          <span class="label-text"></span> </label>Action</a></li>
+
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="dropdown text-left mb-10">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                  Status</button>
+                <div class="dropdown-menu status" aria-labelledby="dropdownMenuButton1">
+                  <ul class="task_width">
+
+                    <h4>Status</h4>
+                    <div class="form-check" *ngFor="let status of status_list">
+                      <li><a [className]="status_type=='status' ? 'active dropdown-item' : 'dropdown-item'">
+                          <label>
+                            <input name="check" [checked]="statusfilterarray.indexOf(status.id) !== -1"
+                              class="checkBoxClass" type="checkbox"
+                              (change)="addstatusfilter(status.id, $event.target.checked)">
+                            <span class="label-text"></span>{{status.status}} </label></a></li>
+                    </div>
+
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="dropdown text-left mb-10">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                  Priority </button>
+                <div class="dropdown-menu Priority" aria-labelledby="dropdownMenuButton2">
+
+                  <ul class="task_width">
+                    <h4>Priority</h4>
+                    <div class="form-check">
+                      <li><a [className]="Priority_type=='Priority' ? 'active dropdown-item' : 'dropdown-item'">
+                          <label>
+                            <input name="check" class="checkBoxClass"
+                              [checked]="priorityfilterarray.indexOf('0') !== -1"
+                              (change)="addpriorityfilter(0, $event.target.checked)" type="checkbox">
+                            <span class="label-text"></span>None</label></a></li>
+                    </div>
+                    <div class="form-check">
+                      <li><a [className]="Priority_type=='Priority' ? 'active dropdown-item' : 'dropdown-item'">
+                          <label>
+                            <input name="check" class="checkBoxClass"
+                              [checked]="priorityfilterarray.indexOf('1') !== -1"
+                              (change)="addpriorityfilter(1, $event.target.checked)" type="checkbox">
+                            <span class="label-text"></span>High</label></a></li>
+                    </div>
+                    <div class="form-check">
+                      <li><a [className]="Priority_type=='Priority' ? 'active dropdown-item' : 'dropdown-item'">
+                          <label>
+                            <input name="check" class="checkBoxClass"
+                              [checked]="priorityfilterarray.indexOf('2') !== -1"
+                              (change)="addpriorityfilter(2, $event.target.checked)" type="checkbox">
+                            <span class="label-text"></span>Medium</label></a></li>
+                    </div>
+                    <div class="form-check">
+                      <li><a [className]="Priority_type=='Priority' ? 'active dropdown-item' : 'dropdown-item'">
+                          <label>
+                            <input name="check" class="checkBoxClass"
+                              [checked]="priorityfilterarray.indexOf('3') !== -1"
+                              (change)="addpriorityfilter(3, $event.target.checked)" type="checkbox">
+                            <span class="label-text"></span>Low</label></a></li>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+
+            </li>
+          </ul>
+        </div>
+
+        <div class="button-list pull-right mb-15">
+          <ul class="float-btn float-btn-left">
+            <li>
+              <ul class="filter-view pull-right">
+                <li><a data-tab="tab-1" href="javascript:void('0');" class="{{class_list}}" title="List View"
+                    (click)="openDialog()"><i class="fa fa-th-list"></i></a></li>
+                <li><a data-tab="tab-2" href="javascript:void('0');" class="{{class_task}}" (click)="openDialog1()"
+                    title="Grid View"><i class="fa fa-th"></i></a></li>
+              </ul>
+            </li>
+            <li> <a class="btn btn-info waves-effect waves-light" *ngIf="select_permissions.indexOf(18) !== -1"
+                (click)="test();" data-toggle="modal" data-target="#addTask"><i class="fa fa-plus"></i> Add Task</a>
+            </li>
+            <li> <a class="btn btn-info waves-effect waves-light" *ngIf="select_permissions.indexOf(19) !== -1"
+                (click)="openAddTitle();" data-toggle="modal" data-target="#addTitle"><i class="fa fa-plus"></i>
+                Add Title</a>
+            </li>
+
+            <li *ngIf="role == 'Administrator'&& project_company_id===company_id"> <a
+                class="btn btn-info waves-effect waves-light" routerLink="../../project-task-archive/{{project_id}}"><i
+                  class="fa fa-archive"></i>
+                Show Archive</a> </li>
+
+            <li><a href="javascript:void(0)" [hidden]="hideprintbutton" class="btn btn-warning waves-effect waves-light"
+                (click)="print()"> <i class="fa fa-print" aria-hidden="true"></i> Print</a></li>
+          </ul>
+        </div>
+      </div>
+      <div *ngIf="showlist" class="content current">
+        <div class="table-responsive">
+          <div *ngIf="allTasks?.length == 0; else other_content">
+            <h5> No Record found </h5>
+          </div>
+          <ng-template #other_content>
+            <div id="print-section">
+              <div *ngFor="let i=index;let Taskhead of allTasks ">
+                <div class="panel-group" id="accordion">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <div class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
+                        attr.data-target="#collapse{{i}}">
+                        <span>{{Taskhead.task_list_name}} </span>( {{Taskhead.task_list_type}}
+                        )
+
+                        <a class="pull-right wca" *ngIf="select_permissions.indexOf(18) !== -1"
+                          (click)="test(Taskhead.id);get_tasklist_id(Taskhead.id);addTaskForm.reset();"
+                          data-toggle="modal" data-target="#addTask"><i [escape]="false"
+                            pTooltip={{Taskhead.task_list_name}} class="fa fa-plus"></i> </a>
+                        <a class="pull-right wca" title="Edit" *ngIf="Taskhead.id!=1 && Taskhead.id!=2"
+                          (click)="edit_task_title(Taskhead.id,Taskhead.task_list_name,Taskhead.task_type_id,editTaskTitleForm);"
+                          data-toggle="modal" data-target="#EditTitle"><i class="fa fa-pencil"></i></a>
+
+                      </div>
+
+
+                    </div>
+                    
+                    <div id="collapse{{i}}"
+                      class="panel-collapse {{mayuritaskheadid == Taskhead.id ? mayuri_in: 'collapse'}}">
+                      <div class="panel-body">
+                        <table class="table table-hover table-fixed">
+                          <thead colspan="6" class="container ex-over" id="{{Taskhead.id}}">
+                            <tr style="border-bottom:1pt solid #D0D0D0;">
+                              <!-- <th></th> -->
+                              <th [hidden]="hideTask1" style="width:150px;" [style.min-width]="min_width1"><span
+                                  class="ui-column-resizer" (mousedown)="onMouseDown($event,1)">
+                                </span><span class="gridHeader">Task</span></th>
+                              <th [hidden]="hideDescription7" style="width:150px;" [style.min-width]="min_width2"><span
+                                  class="ui-column-resizer" (mousedown)="onMouseDown($event,2)"></span><span
+                                  class="gridHeader">Description</span></th>
+                              <th [hidden]="hideOwner2" style="width:150px;" [style.min-width]="min_width3"><span
+                                  class="ui-column-resizer" (mousedown)="onMouseDown($event,3)"></span><span
+                                  class="gridHeader">Owner</span></th>
+                              <th [hidden]="hideStatus3" style="width:150px;" [style.min-width]="min_width4"><span
+                                  class="ui-column-resizer" (mousedown)="onMouseDown($event,4)"></span><span
+                                  class="gridHeader">Status</span></th>
+                              <th [hidden]="hidePriority4" style="width:150px;" [style.min-width]="min_width5"><span
+                                  class="ui-column-resizer" (mousedown)="onMouseDown($event,5)"></span><span
+                                  class="gridHeader">Priority</span></th>
+                              <th [hidden]="hideStart5" style="width:150px;" [style.min-width]="min_width6"><span
+                                  class="ui-column-resizer" (mousedown)="onMouseDown($event,6)"></span><span
+                                  class="gridHeader">Start Date</span></th>
+                              <th [hidden]="hideDue6" style="width:150px;" [style.min-width]="min_width7"><span
+                                  class="ui-column-resizer" (mousedown)="onMouseDown($event,7)"></span><span
+                                  class="gridHeader">Due Date</span></th>
+                              <th [hidden]="hideaction8" style="width:150px;">Action</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody class="container ex-over" dragula="VAMPIRE" id="{{Taskhead.id}}"
+                            *ngFor="let Tasks of Taskhead.tasks | grdFilter: {task_name: searchText, names:searchText};"
+                            style="border-bottom:1pt solid #D0D0D0;">
+                            <tr *ngIf="Taskhead.tasks.length == 0" colspan="8">No Record Found</tr>
+                            <tr *ngIf="Taskhead.tasks.length > 0">
+                              <td id="anchorTag" class="text-wrap" [hidden]="hideTask1"><a
+                                  (click)="editPageNavigate(project_id,Tasks.id)" class="text-wrap"
+                                  id="{{Tasks.id}}">{{Tasks.task_name}} </a>
+                              </td>
+                              <td class="text-wrap" [hidden]="hideDescription7"><span
+                                  innerHtml="{{Tasks.task_description| truncate : 100}}"></span></td>
+                              <td *ngIf="Tasks.names" [hidden]="hideOwner2">
+                                <a href="javascript:void(0);" class="font-bold d-block text-wrap"
+                                  (click)="enter_owner_name(Tasks.id,Tasks.task_owner_ids,Taskhead.id);get_owner_name();"
+                                  >{{Tasks.names}}</a>
+                                <div class="d-flex"
+                                  *ngIf="Tasks.id==taskidchange && Tasks.task_owner_ids==taskownerid  && give_owner_name">
+                                  <ng-multiselect-dropdown [placeholder]="'Task Owner'" [data]="dropdownList"
+                                    [(ngModel)]="selectedItems" ng-model-options="{timezone:'UTC/GMT'}"
+                                    [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                                    (onDeSelect)="onItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+                                    [ngModelOptions]="{standalone: true}">
+                                  </ng-multiselect-dropdown>
+                                  <button type="button" (click)="update_task_owner_name(mayuritaskheadid);"
+                                    class="btn btn-info btn-sm rounded-0">
+                                    <i class="fa fa-check"></i>
+                                  </button>
+                                </div>
+                              </td>
+                              <td *ngIf="Tasks.names == '' || Tasks.names == null" [hidden]="hideOwner2"> <a
+                                  href="javascript:void(0);" class="font-bold d-block"
+                                  (click)="enter_owner_name(Tasks.id,Tasks.task_owner_ids,Taskhead.id);get_owner_name();"
+                                  >NA</a>
+                                <div class="d-flex"
+                                  *ngIf="Tasks.id==taskidchange && Tasks.task_owner_ids==taskownerid  && give_owner_name">
+                                  <ng-multiselect-dropdown [placeholder]="'Task Owner'" [data]="dropdownList"
+                                    [(ngModel)]="selectedItems" ng-model-options="{timezone:'UTC/GMT'}"
+                                    [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                                    (onDeSelect)="onItemDeSelect($event)" (onSelectAll)="onSelectAll($event)"
+                                    [ngModelOptions]="{standalone: true}">
+                                  </ng-multiselect-dropdown>
+                                  <button type="button" (click)="update_task_owner_name(mayuritaskheadid);"
+                                    class="btn btn-info btn-sm rounded-0">
+                                    <i class="fa fa-check"></i>
+                                  </button>
+                                </div>
+                              </td>
+                              <td *ngIf="Tasks.status_name!=null" [hidden]="hideStatus3">
+                                <div class="btn-group">
+                                  <a class="btn btn-xs {{Tasks.color_class}} select_status" style="color:#fff;"
+                                    [style.background]="Tasks.color_class" type="button" id="dropdownMenu1"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    {{Tasks.status_name}}
+                                    <span class="caret caret-search"></span>
+                                  </a>
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li *ngFor="let status of status_list"><a
+                                        (click)="change_status(Tasks.id,status.id,Taskhead.id)">{{status.status}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </td>
+                              <td *ngIf="Tasks.status_name==null" [hidden]="hideStatus3">
+                                <div class="btn-group">
+                                  <a class="btn btn-xs select_status" type="button" id="dropdownMenu1"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">None</a>
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li *ngFor="let status of status_list"><a
+                                        (click)="change_status(Tasks.id,status.id,Taskhead.id)">{{status.status}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </td>
+                              <td [hidden]="hidePriority4">
+                                <div class="btn-group">
+                                  <a class="btn btn-xs select_status "
+                                    [ngClass]="Tasks.task_priority == 1 ? 'btn-danger' : Tasks.task_priority == 2 ? 'btn-warning' : 'btn-success'"
+                                    type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="true">
+                                    <ng-template [ngIf]="Tasks.task_priority == 0">None</ng-template>
+                                    <ng-template [ngIf]="Tasks.task_priority == 1">High</ng-template>
+                                    <ng-template [ngIf]="Tasks.task_priority == 2">Medium</ng-template>
+                                    <ng-template [ngIf]="Tasks.task_priority == 3">Low</ng-template>
+                                    <span class="caret caret-search"></span>
+                                  </a>
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li><a (click)="change_priority(Tasks.id,0,Taskhead.id)">None</a></li>
+                                    <li><a (click)="change_priority(Tasks.id,1,Taskhead.id)">High</a></li>
+                                    <li><a (click)="change_priority(Tasks.id,2,Taskhead.id)">Medium</a></li>
+                                    <li><a (click)="change_priority(Tasks.id,3,Taskhead.id)">Low</a></li>
+                                  </ul>
+                                </div>
+                              </td>
+                              <td [hidden]="hideStart5"
+                                *ngIf="Tasks.task_start_date != '0000-00-00 00:00:00'&& Tasks.hide_time == 1">
+                                <a href="javascript:void(0);" class="font-bold d-block"
+                                  (click)="enter_start_date(Tasks.id,Tasks.task_start_date,Taskhead.id)">
+                                  {{Tasks.task_start_date| date:alldatetask }}
+                                  <br>
+                                </a>
+                                <div *ngIf="Tasks.id==taskiddate && give_start_date"> <input placeholder="Start Date"
+                                    [(ngModel)]="addTaskstartdate.start_date" value="{{Tasks.task_start_date}}"
+                                    class="form-control" (dateTimeInput)="update_task_start_date(mayuritaskheadid);"
+                                    name="start_date" #start_date="ngModel" [owlDateTimeTrigger]="dt4"
+                                    [owlDateTime]="dt4" class="form-control">
+                                  <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+                                </div>
+                              </td>
+                              <td [hidden]="hideStart5"
+                                *ngIf="Tasks.task_start_date != '0000-00-00 00:00:00'&& Tasks.hide_time == 0">
+                                <a href="javascript:void('0');" class="font-bold d-block"
+                                  (click)="enter_start_date(Tasks.id,Tasks.task_start_date,Taskhead.id)">
+                                  {{Tasks.task_start_date| date:alldatetask }}
+                                  <br>
+                                  <small>{{Tasks.task_start_date  | date:'shortTime'}} </small> </a>
+                                <div *ngIf="Tasks.id==taskiddate && give_start_date"> <input placeholder="Start Date"
+                                    [(ngModel)]="addTaskstartdate.start_date" value="{{Tasks.task_start_date}}"
+                                    class="form-control" (dateTimeInput)="update_task_start_date(mayuritaskheadid);"
+                                    name="start_date" #start_date="ngModel" [owlDateTimeTrigger]="dt4"
+                                    [owlDateTime]="dt4" class="form-control">
+                                  <owl-date-time #dt4></owl-date-time>
+                                </div>
+                              </td>
+                              <td [hidden]="hideStart5" *ngIf="Tasks.task_start_date == '0000-00-00 00:00:00'">
+                                <a href="javascript:void('0');" class="font-bold d-block"
+                                  (click)="enter_start_date(Tasks.id,Tasks.task_start_date,Taskhead.id)">
+                                  NA
+                                </a>
+                                <div *ngIf="Tasks.id==taskiddate && give_start_date"> <input placeholder="Start Date"
+                                    [(ngModel)]="addTaskstartdate.start_date" class="form-control" name="start_date"
+                                    #start_date="ngModel" (dateTimeInput)="update_task_start_date(mayuritaskheadid);"
+                                    [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" class="form-control">
+                                  <owl-date-time #dt4></owl-date-time>
+                                </div>
+                              </td>
+                              <td [hidden]="hideDue6"
+                                *ngIf="Tasks.task_end_date !='0000-00-00 00:00:00'&& Tasks.hide_time == 1">
+                                <a href="javascript:void('0');" class="font-bold d-block"
+                                  (click)="enter_end_date(Tasks.id,Taskhead.id)">{{Tasks.task_end_date | date:alldatetask}}
+                                  <br></a>
+                                <div *ngIf="Tasks.id==taskendid && give_end_date">
+                                  <input placeholder="End Date" [(ngModel)]="addTaskstartdate.end_date"
+                                    class="form-control" name="end_date" #end_date="ngModel"
+                                    (dateTimeInput)="update_task_end_date(mayuritaskheadid);"
+                                   [min]="addTaskstartdate.start_date" [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5"
+                                    class="form-control">
+                                  <owl-date-time [pickerType]="'calendar'" #dt5></owl-date-time>
+                                </div>
+                              </td>
+                              <td [hidden]="hideDue6"
+                                *ngIf="Tasks.task_end_date !='0000-00-00 00:00:00'&& Tasks.hide_time == 0">
+                                <a href="javascript:void('0');" class="font-bold d-block"
+                                  (click)="enter_end_date(Tasks.id,Taskhead.id)">{{Tasks.task_end_date | date:alldatetask}}
+                                  <br><small> {{Tasks.task_end_date | date:'shortTime'}}</small></a>
+                                <div *ngIf="Tasks.id==taskendid && give_end_date"> <input placeholder="End Date"
+                                    [(ngModel)]="addTaskstartdate.end_date" class="form-control" name="end_date"
+                                    #end_date="ngModel" (dateTimeInput)="update_task_end_date(mayuritaskheadid);"
+                                    [min]="addTaskstartdate.start_date" [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5"
+                                    class="form-control">
+                                  <owl-date-time #dt5></owl-date-time>
+                                </div>
+                              </td>
+                              <td [hidden]="hideDue6" *ngIf="Tasks.task_end_date =='0000-00-00 00:00:00'"><a
+                                  href="javascript:void('0');" class="font-bold d-block"
+                                  (click)="enter_end_date(Tasks.id,Taskhead.id)">NA
+                                </a>
+                                <div *ngIf="Tasks.id==taskendid && give_end_date"> <input placeholder="End Date"
+                                    [(ngModel)]="addTaskstartdate.end_date" class="form-control" name="end_date"
+                                    #end_date="ngModel" (dateTimeInput)="update_task_end_date(mayuritaskheadid);"
+                                    [min]="addTaskstartdate.start_date" [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5"
+                                    class="form-control">
+                                  <owl-date-time #dt5></owl-date-time>
+                                </div>
+                              </td>
+                              <td [hidden]="hideaction8"><a title="Delete"
+                                  (click)="delete_task_data(Tasks.id,Taskhead.id);"><i class="fa fa-trash"></i></a></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+
+      </div>
+      <div class="clearfix"></div>
+      <div *ngIf="showgrid" class=" w-100">
+        <div class="dd" style="overflow: auto;">
+          <div class="kanban" *ngFor="let taskstatus of task_with_status">
+
+            <h4 class="btn btn-xs {{taskstatus.status_color}}" style="color:#fff;"
+              [style.background]="taskstatus.status_color" type="button"> {{taskstatus.status_name}} </h4>
+            <div class=" ex-over col-md-12 " dragula="VAMPIRES" id="{{taskstatus.status_id}}"
+              style="min-height: 200px;">
+              <div *ngFor="let tasknames of taskstatus.task_with_status" class="dd-item">
+                <p id="{{tasknames.taskid}}" style="text-align: left;">{{tasknames.task_name}}</p>
+                <p style="text-align: right;"> Task List : {{tasknames.task_list_name}} </p>
+                <p style="text-align: right;"> Date : {{tasknames.task_start_date }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="kanban ">
+                        <h4> Pending </h4>
+                        <div class=" ex-over col-md-12" dragula="VAMPIRES" id="1" style="min-height: 200px;">
+                            <div *ngFor="let pending of pending_tasks" class="dd-item">
+                                <p id="{{pending.taskid}}">{{pending.task_name}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kanban ">
+                        <h4> Close </h4>
+                        <div class=" ex-over col-md-12 " dragula="VAMPIRES" [(dragulaModel)]="ConfirmedDate" style="min-height: 200px;"
+                            id="2">
+
+                            <div *ngFor="let close of close_tasks" class="dd-item">
+                                <p id="{{close.id}}">{{close.task_name}}</p>
+
+                            </div>
+                        </div>
+                    </div> -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" data-backdrop="static" *ngIf="modeldisplay" [style.background]="'#21212185'" id="addTask"
+    tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+    <div class="modal-dialog bright-modal-style">
+      <div class="modal-content">
+        <form class="w-100" role="form" #addTaskForm="ngForm" style="background-color: white">
+          <div class="modal-header">
+            <button type="button" #divClick class="close" (click)="addTaskForm.reset();" data-dismiss="modal"><span
+                aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h3 class="modal-title" id="lineModalLabel">New Task</h3>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Select Template Task Name</label>
+                <select class="custom-select" [(ngModel)]="addTaskFromData.template_task_id"
+                  (change)="on_task_select($event.target.value)" #template_task_id="ngModel" name="template_task_id">
+                  <option value="select">Select</option>
+                  <option *ngFor="let Tasksname of Tasksnames" value="{{Tasksname.id}}">{{Tasksname.task_name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Task Name</label>
+                <input type="text" class="form-control" [class.is-invalid]="task_name.invalid && task_name.touched"
+                  [(ngModel)]="addTaskFromData.task_name" #task_name="ngModel" maxlength="70" name="task_name"
+                  placeholder="Task Name" required trim="blur">
+                <small class="text-danger" [class.d-none]="task_name.valid || task_name.untouched">Task Name
+                  is required</small>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Description</label>
+                <textarea name="" [(ngModel)]="addTaskFromData.task_description" #task_description="ngModel"
+                  maxlength="200" name="task_description" maxlength="500" placeholder="Description" rows="3"
+                  class="form-control" trim="blur"></textarea>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Attachment</label>
+                <input #inputFile class="form-control" id="file-upload" type="file" type="file"
+                  (change)="onSelectFile($event)" name="uploaded_file" ng2FileSelect [uploader]="uploader"
+                  accept="image/*" #fileInput />
+                <input type="hidden" [(ngModel)]="addTaskFromData.task_image_url" #task_image_url="ngModel"
+                  name="task_image_url">
+                <div class="progress" style="display: block;" *ngIf="pr_show">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Task List</label>
+                <select *ngIf="get_list_id" class="custom-select" [(ngModel)]="addTaskFromData.task_list_id"
+                  #task_list_id="ngModel" name="task_list_id">
+                  <optgroup *ngFor="let TasksType of TasksTypes" label="{{TasksType.task_list_type}}">
+                    <ng-container *ngFor="let task_list_id of TasksType.tasklists">
+                      <option *ngIf="task_list_id.id == get_list_id" [selected]="task_list_id.id === get_list_id"
+                        [ngValue]="task_list_id.id">{{task_list_id.task_list_name}}</option>
+                      <option *ngIf="task_list_id.id != get_list_id" value="{{task_list_id.id}}">
+                        {{task_list_id.task_list_name}}</option>
+                    </ng-container>
+                  </optgroup>
+                </select>
+                <select *ngIf="!get_list_id" class="custom-select" placeholder="Task List"
+                  [(ngModel)]="addTaskFromData.task_list_id" #task_list_id="ngModel" name="task_list_id">
+                  <option value="">Select</option>
+                  <optgroup *ngFor="let TasksType of TasksTypes" label="{{TasksType.task_list_type}}">
+                    <option *ngFor="let task_list_id of TasksType.tasklists" value="{{task_list_id.id}}">
+                      {{task_list_id.task_list_name}}</option>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="form-check">
+                  <label>
+                    <input type="checkbox" name="is_private" (change)="triggerSomeEvent($event)" />
+                    <span class="label-text"></span> Only me</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="exampleInputPassword1">Task Owner</label>
+                <ng-multiselect-dropdown [disabled]="isDisabled" [placeholder]="'Task Owner'" [data]="dropdownList"
+                  [(ngModel)]="selectedItems" ng-model-options="{timezone:'UTC/GMT'}" [settings]="dropdownSettings"
+                  (onSelect)="onItemSelect($event)" (onDeSelect)="onItemDeSelect($event)"
+                  (onSelectAll)="onSelectAll($event)" [ngModelOptions]="{standalone: true}">
+                </ng-multiselect-dropdown>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="form-check">
+                  <label>
+                    <input type="checkbox" name="checkbox"
+                      (change)="datetriggerEvent($event);checkValue(addTaskFromData.hide_time?'1':'0')"
+                      [(ngModel)]="addTaskFromData.hide_time">
+                    <span class="label-text"></span> Hide Time</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 ">
+              <div class="form-group" *ngIf="dateEditable">
+                <label for="exampleInputPassword1">Start Date</label>
+                <input placeholder="Start Date" class="form-control" [(ngModel)]="addTaskFromData.task_start_date"
+                  [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" class="form-control" name="task_start_date"
+                  #task_start_date="ngModel">
+                <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+              </div>
+              <div class="form-group" *ngIf="!dateEditable">
+                <label for="exampleInputPassword1">Start Date</label>
+                <input placeholder="Start Date" class="form-control" [(ngModel)]="addTaskFromData.task_start_date"
+                  [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" class="form-control" name="task_start_date"
+                  #task_start_date="ngModel">
+                <owl-date-time #dt3></owl-date-time>
+              </div>
+            </div>
+            <div class="col-md-6 ">
+              <div class="form-group" *ngIf="dateEditable">
+                <label for="exampleInputPassword1">Due Date</label>
+               <input placeholder="Due Date" class="form-control" [min]="addTaskFromData.task_start_date" [(ngModel)]="addTaskFromData.task_end_date" [owlDateTimeTrigger]="dt" [owlDateTime]="dt" name="task_end_date" #task_end_date="ngModel">
+				  
+				 
+                <owl-date-time [pickerType]="'calendar'" #dt></owl-date-time>
+              </div>
+              <div class="form-group" *ngIf="!dateEditable">
+                <label for="exampleInputPassword1">Due Date</label>
+                <input placeholder="Due Date" class="form-control" [min]="addTaskFromData.task_start_date" [(ngModel)]="addTaskFromData.task_end_date" [owlDateTimeTrigger]="dt" [owlDateTime]="dt" name="task_end_date" #task_end_date="ngModel">
+                <owl-date-time #dt></owl-date-time>
+              </div>
+
+            </div>
+            <div class="col-md-6 ">
+              <div class="form-group" *ngIf="dateEditable">
+                <label for="exampleInputPassword1">Reminder</label>
+                <input placeholder="Reminder Date" class="form-control" [(ngModel)]="addTaskFromData.task_reminder_date"
+                  [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" name="task_reminder_date" [max]="addTaskFromData.task_end_date"
+                  #task_reminder_date="ngModel">
+                <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+              </div>
+              <div class="form-group" *ngIf="!dateEditable">
+                <label for="exampleInputPassword1">Reminder</label>
+                <input placeholder="Reminder Date" class="form-control" [(ngModel)]="addTaskFromData.task_reminder_date" [max]="addTaskFromData.task_end_date"
+                  [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" name="task_reminder_date"
+                  #task_reminder_date="ngModel">
+                <owl-date-time #dt2></owl-date-time>
+              </div>
+            </div>
+            <div class="col-md-6 demo">
+              <label for="exampleInputPassword1">Priority</label>
+              <select class="custom-select" [(ngModel)]="addTaskFromData.task_priority" #task_priority="ngModel"
+                name="task_priority">
+                <option value="">Select</option>
+                <option value="1">High</option>
+                <option value="2">Medium</option>
+                <option value="3">Low</option>
+                <option value="0">None</option>
+              </select>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="btn-group" role="group" aria-label="group button">
+              <div class="btn-group" role="group">
+                <button type="button" id="" class="btn btn-success" data-dismiss="modal"
+                  (click)="add_new_task(addTaskForm);addTaskForm.reset();" [disabled]="addTaskForm.form.invalid"
+                  data-action="save" role="button">Add</button>
+              </div>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="addTaskForm.reset();"
+                  role="button">Close</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="modal" data-backdrop="static" *ngIf="modeldisplaytitle" id="addTitle" tabindex="-1" role="dialog"
+  aria-labelledby="modalLabel" style="display:block;">
+  <div class="modal-dialog bright-modal-style">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" #divClickT class="close" (click)="addTaskTypeForm.reset();" data-dismiss="modal"><span
+            aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        <h3 class="modal-title" id="lineModalLabel">Manage Task List Title</h3>
+        <button type="button" (click)="open_sorting_popup();">Title Sorting Setting</button>
+      </div>
+      <div class="modal-body">
+        <form class="w-100" role="form" #addTaskTypeForm="ngForm">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Title Name</label>
+              <input type="text" class="form-control"
+                [class.is-invalid]="task_list_name.invalid && task_list_name.touched"
+                [(ngModel)]="addTaskTypeFromData.task_list_name" #task_list_name="ngModel" name="task_list_name"
+                placeholder="Title Name" maxlength="100" required trim="blur">
+              <small class="text-danger" [class.d-none]="task_list_name.valid || task_list_name.untouched">Title
+                Name is required</small>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Title Type</label>
+              <select [class.is-invalid]="task_type_id.invalid && task_type_id.touched"
+                [(ngModel)]="addTaskTypeFromData.task_type_id" #task_type_id="ngModel" name="task_type_id" required>
+                <option value="">Select</option>
+                <option *ngIf="project_company_id==company_id && project_userrole==1" value="2">Internal (Private)
+                </option>
+                <option value="1">External (Public)</option>
+              </select>
+              <small class="text-danger" [class.d-none]="task_type_id.valid || task_type_id.untouched">Title
+                Type is required</small>
+            </div>
+          </div>
+        </form>
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table  table-striped">
+              <thead>
+                <tr>
+                  <th>Task</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let task_title of task_title_list">
+                  <td>{{task_title.task_list_name}} ({{task_title.task_type_name}})</td>
+                  <td>
+                    <a title="Edit"
+                      (click)="edit_task_title(task_title.id,task_title.task_list_name,task_title.task_type_id);"
+                      data-toggle="modal" data-target="#EditTitle"><i class="fa fa-pencil"></i></a>
+                    <a title="Delete" style="margin-left:4px;" (click)="delete_task_title(task_title.id);"><i
+                        class="fa fa-trash"></i></a>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="btn-group" role="group" aria-label="group button">
+          <div class="btn-group" role="group">
+            <button type="button" id="" class="btn btn-success" data-dismiss="modal"
+              (click)="add_new_task_type();addTaskTypeForm.reset();" [disabled]="addTaskTypeForm.form.invalid"
+              data-action="save" role="button">Add</button>
+          </div>
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default" (click)="addTaskTypeForm.reset();" data-dismiss="modal"
+              role="button">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" data-backdrop="static" *ngIf="project_title_sorting_popup" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" style="display:block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color:#fff;">
+      <div class="modal-header">
+
+        <h4 class="modal-title">List</h4>
+        <button type="button" class="close" (click)="hidemodel7()" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+
+
+      <!-- <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" dragula="VAMPIRE">
+                    <div class="example-box" *ngFor="let movie of movies" cdkDrag>{{movie}}</div>
+                  </div> -->
+
+      <div class="col-md-12" onclick="drop()">
+        <div class="table-responsive">
+          <table class="table  table-striped" id="tableId ">
+            <thead>
+
+            </thead>
+            <tbody id="tableId" *ngFor="let task_title of task_title_list ; let i=index" [attr.data-index]="i"
+              class="container ex-over" dragula="VAMPIRESS">
+              <tr>
+                <td class="alignC even tddrop" data-id="{{task_title.id}}" data-position="1" class="container ex-over"
+                  id="{{task_title.id}}">{{task_title.task_list_name}} ({{task_title.task_type_name}})</td>
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="btn-group" role="group">
+        <button type="button" [disabled]="buttonDisabled" id="" class="btn btn-success" data-dismiss="modal"
+          (click)="create_task_title_new(task_update_id);hidemodel7();" data-action="save" role="button">Save</button>
+      </div>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel7()">Close</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="modal" data-backdrop="static" id="EditTitle" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog bright-modal-style">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+            class="sr-only">Close</span></button>
+        <h3 class="modal-title">Edit Title</h3>
+      </div>
+      <div class="modal-body">
+        <form class="w-100" role="form" #editTaskTitleForm="ngForm">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Title Name</label>
+              <input type="text" class="form-control"
+                [class.is-invalid]="task_list_name.invalid && task_list_name.touched"
+                [(ngModel)]="editTaskTitleFormData.task_list_name" #task_list_name="ngModel" maxlength="100"
+                name="task_list_name" maxlength="100" placeholder="Title Name" required>
+              <small class="text-danger" [class.d-none]="task_list_name.valid || task_list_name.untouched">Title
+                Name is required</small>
+
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Title Type</label>
+              <select [class.is-invalid]="task_type_id.invalid && task_type_id.touched"
+                [(ngModel)]="editTaskTitleFormData.task_type_id" #task_type_id="ngModel" name="task_type_id" required>
+                <option value="">Select</option>
+                <option *ngIf="project_company_id==company_id && project_userrole==1" value="2">Internal (Private)
+                </option>
+                <option value="1">External (Public)</option>
+              </select>
+              <small class="text-danger" [class.d-none]="task_type_id.valid || task_type_id.untouched">Title
+                Type is required</small>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <div class="btn-group" role="group" aria-label="group button">
+          <div class="btn-group" role="group">
+            <button type="button" id="" class="btn btn-success" data-dismiss="modal" (click)="update_task_title()"
+              [disabled]="editTaskTitleForm.form.invalid" data-action="save" role="button">Save</button>
+          </div>
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" *ngIf="modeldisplay2" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color:#fff;">
+      <div class="modal-header">
+        <h4 class="modal-title">Delete Title</h4>
+        <button type="button" class="close" (click)="hidemodel2()" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+
+      <div class="modal-body">
+        <p> Are You Sure ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel2()">Close</button>
+        <button type="submit" class="btn btn-success" (click)="delete_title(delete_title_id)">Delete Title</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="modal" *ngIf="modeldisplay4" [style.background]="applyback?'#21212185':'red'" id="Modalupdate2"
+  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color:#fff;">
+      <div class="modal-header">
+        <h4 class="modal-title">Delete Task</h4>
+        <button type="button" class="close" (click)="hidemodel4()" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+
+      <div class="modal-body">
+        <p> Are You Sure ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default bn-sm" data-dismiss="modal" (click)="hidemodel4()">Close</button>
+        <button type="submit" class="btn btn-success" (click)="delete_task(delete_task_id,mayuritaskheadid)">Delete
+          Task</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="modal" *ngIf="modeldisplay3" [style.background]="applyback?'#21212185':'red'" id="Modalupdate3"
+  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display:block;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color:#fff;">
+      <div class="modal-header">
+        <h4 class="modal-title">Delete Title</h4>
+        <button type="button" class="close" (click)="hidemodel3()" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+      </div>
+
+      <div class="modal-body">
+        <p> You can not Delete this title, this title used in Task</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default bn-sm" (click)="hidemodel3()">OK</button>
+
+      </div>
+
+    </div>
+  </div>
+</div>

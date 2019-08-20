@@ -1,0 +1,101 @@
+<div class="overlay-bg"></div>
+	<section id="form" class="wow fadeIn"><!--form-->
+		<div class="container">
+			<div class="row">
+				<div class="box-auto col-md-4">
+						<div class="alert alert-danger mt-3" role="alert" *ngIf="err_message!=null">
+								{{ err_message }}
+								  </div>
+					<div class="w-100">
+						<div class="box-header">
+							<img src="../assets/front-assets/images/home/logo.png" alt="">
+						</div>	
+						<div class="box-body" *ngIf="show_form">
+							<form class="form" #userRegister="ngForm">
+									
+										<div class="row">
+												<div class="col-md-6">
+													<label>First Name</label>
+													<input type="text"
+													class="form-control"
+													[class.is-invalid]="firstname.invalid && firstname.touched" 
+													[(ngModel)]="inviteUserData.firstname" 
+													#firstname="ngModel" 
+													name="firstname" maxlength="70"
+													placeholder="First Name" trim="blur" required>
+													<small class="text-danger" [class.d-none]="firstname.valid || firstname.untouched">Firstname is required</small>
+												</div>
+												<div class="col-md-6">
+													<label>Last Name</label>
+													<input type="text"
+													class="form-control"
+													[class.is-invalid]="lastname.invalid && lastname.touched" 
+													[(ngModel)]="inviteUserData.lastname" 
+													#lastname="ngModel" 
+													name="lastname" maxlength="70"
+													placeholder="Last Name" trim="blur" required>
+													<small class="text-danger" [class.d-none]="lastname.valid || lastname.untouched">Lastname is required</small>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<label>Email</label>
+													<input type="email" maxlength="250" readonly value="{{email}}" 	class="form-control">
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<label>Password</label>
+													<input type="password" 
+													class="form-control"
+													[class.is-invalid]="password.invalid && password.touched" 
+													[(ngModel)]="inviteUserData.password" 
+													#password="ngModel" 
+													name="password" maxlength="15"  minlength="4"
+													placeholder="Password" trim required>
+													<small class="text-danger" [class.d-none]="password.valid || password.untouched">Password is required</small>	
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<label>Confirm Password</label>
+													<input type="password"
+													class="form-control"
+													[ngModelOptions]="{standalone: true}"
+													[class.is-invalid]="confirmpassword.invalid && confirmpassword.touched" 
+													[(ngModel)]="check.confirmpassword" 
+													#confirmpassword="ngModel" maxlength="15"  minlength="4"
+													(ngModelChange)="check_confirm_password()"
+													name="confirmpassword" 
+													placeholder="Confirm Password" trim required>
+													<small class="text-danger" [class.d-none]="confirmpassword.valid || confirmpassword.untouched">Confirm Password is required</small>	
+													<small class="text-danger" *ngIf="err_message2 !=''">{{err_message2}}</small>	
+												</div>
+											</div>
+										<small>By Signing up you agree with our <a routerLink="../privacy-policy">Terms of Use</a></small>
+										
+										<input type="submit" name="signup_submit" (click)="update_invite_user()" [disabled]="userRegister.form.invalid" class="mt-7 btn btn-primary btn-block btn-md d-block" value="Save" />
+										
+							</form>
+            </div>
+            <div class="box-body" *ngIf="!show_form">
+              <h3>Already Registered, please login, or if you have forgot your information please click below </h3>
+            </div>		
+            <div class="box-footer">
+					<a routerLink="../../forgot-password" class="pull-right">Forgot Password</a>
+              <p>Already have an account ? <a routerLink="../../login"> Log In</a></p>
+			  <small><a routerLink="../privacy-policy">Terms of Use</a></small>
+            </div>			
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+

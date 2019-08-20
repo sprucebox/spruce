@@ -1,0 +1,48 @@
+<section>
+  <div class="container">
+      <div class="row">
+          <div class="col-md-12">
+              <nav>
+                <ul class="nav navbar-nav">
+                  <li><a routerLink="../../project-overview/{{project_id}}">Overview</a></li>
+                  <li><a routerLink="../../project-task/{{project_id}}" >Task</a></li>
+                  <li><a routerLink="../../project-calendar/{{project_id}}" >Calendar</a></li>
+                  <li><a routerLink="../../project-activity/{{project_id}}">Activity</a></li>
+                  <li><a routerLink="../../project-reports/{{project_id}}">Reports</a></li>
+                  <li><a routerLink="../../project-discussion/{{project_id}}" class="active">Discussion</a></li>
+                  <li><a routerLink="../../project-files/{{project_id}}"  >Files</a></li>
+                  <li><a routerLink="../../project-users/{{project_id}}"  >Users</a></li>
+				  <li><a routerLink="../../notes/{{project_id}}"  >Notes</a></li>
+                </ul>
+              </nav>
+          </div>
+      </div>
+      <div class="row">
+		   <div class="col-md-12 text-right">
+                <a routerLink="../../project-discussion/{{project_id}}" class="btn btn-default mb-15"> <i class="fa fa-arrow-left"></i> Go Back</a> 
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-12">
+              <div class="card-box" *ngFor="let discussion of discussions">
+                  <div class="media d-flex">
+                      <a href="javascript:void();">
+                          <img src="{{discussion.discussion_file_url}}" class="rounded-circle d-flex mr-10 rounded-circle thumb-md" alt="">
+                      </a>
+                      <div class="media-body col-sm-12">
+                          <h5> <a routerLink="../../project-show-archive-discussion/{{project_id}}/{{discussion.id}}">{{discussion.discussion_title}}</a></h5>
+                          <p class="text-muted mb-1">
+                              {{discussion.discussion_description}}
+                          </p>
+                          <small class="text-muted mb-0">Created by : {{discussion.created_by}}, {{discussion.created_at.date | date}}</small>
+                          <small> | <a >{{discussion.comments}} Comments</a></small>
+                          <ul class="on-project-user" >
+                              <li *ngFor="let image of discussion.images"><img src="{{image.profile_image}}" class="img-responsive rounded-circle" alt=""></li>
+                        </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
